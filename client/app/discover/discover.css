@@ -1,0 +1,19 @@
+.discover-barber-container{
+    width: 200px;
+    height: 300px;
+    background-color: rgb(211, 211, 211);
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end;
+    border-radius: 16px;
+    padding: 8px;
+    transition: all 0.3s ease-in-out;
+}
+.discover-barber-container:hover{
+    background-color: rgb(180, 180, 180);
+
+}
+.discover-carousel{
+    display: flex;
+    gap: 8px;
+}
