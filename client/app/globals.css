@@ -20,8 +20,22 @@ a{
 }
 
 body{
-  margin: 16px;
+  @apply text-primary m-4
 }
+
+h1, h2{
+  @apply text-primary font-semibold
+}
+
+h3{
+  @apply text-secondary
+}
+
+p > a {
+  @apply text-light underline
+}
+
+
 /* Globals */
 .global-title{
   font-size: var(--main-text-card-heading);
@@ -36,6 +50,7 @@ body{
 nav{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .nav-search{
@@ -56,7 +71,6 @@ nav{
 .nav-search > div:last-child{
   border-right:unset
 }
-
 .nav-links{
   display: flex;
   gap: 8px;
@@ -70,8 +84,14 @@ nav{
 }
 
 .nav-logo{
+  display: flex;
+  gap: 16px;
   font-size: var(--main-text-card-title);
   font-weight: 600;
+  align-items: center;
+}
+.nav-logo-svg{
+  width: 48px;
 }
 .nav-svg-profile{
   stroke-width: 3;

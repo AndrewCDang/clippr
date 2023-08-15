@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 
 export default function discover(){
-    const exampleID = '021231241421323'
-    const exampleID2 = '69696969696969'
+    const exampleID = '1'
+    const exampleID2 = '2'
 
 
 

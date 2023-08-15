@@ -18,3 +18,24 @@
 .home-carousel > a:hover{
     background-color: rgb(180, 180, 180);
 }
+
+.home-barber{
+    position: relative;
+    overflow: hidden;
+}
+
+.home-b-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: all 2s ease-in-out;
+}
+
+.home-b-image:hover{
+    transform: scale(1.1);
+  
+}
