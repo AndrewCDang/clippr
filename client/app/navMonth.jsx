@@ -23,9 +23,6 @@ export  default function NavMonth(){
         return numbersArray;
     };
 
-
-
-
         const [daysMonth, setDaysMonth] = useState();
     
         useEffect(() => {
@@ -37,6 +34,13 @@ export  default function NavMonth(){
         return (
             <section className="flex-col text-center">
                 <h2>{month}</h2>
+                <div className="flex flex-row nav-cal-row">
+                {
+                    daysArray.map((day)=>{
+                        return <div className='w-8 h-8 border-primary '><a>{day}</a></div>
+                    })
+                }
+                </div>
                 {[...Array(5)].map((_, weekIndex) => (
                     <div key={weekIndex} className="flex flex-row nav-cal-row">
                         {daysMonth.slice(weekIndex * 7, (weekIndex + 1) * 7).map((day, dayIndex) => (

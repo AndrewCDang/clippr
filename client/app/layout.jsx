@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import './globals.css'
 import { Poppins } from 'next/font/google'
-import NavMonth from './navMonth'
 import NavSearch from './navSearch'
 
 
