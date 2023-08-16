@@ -23,7 +23,7 @@
         "address": {"street":"18 Cedar Place", "city":"London", "post_code": "NW1 9JY"},
         "user_email": "nico-t@gmail.com",
         "service":[
-            {"name":"Style ancut", "price":23, "time":42},
+            {"name":"Style and Gents cut", "price":23, "time":42},
             {"name":"Fade Skin", "price":26, "time":43},
             {"name":"Beard trim and haircut", "price":29, "time":47}
         ]
