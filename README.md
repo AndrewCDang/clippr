@@ -1,5 +1,5 @@
 <!-- -------------- -->
-Required Installation
+<Required Installation>
 
 Install Git and Node onto your pc/mac
 
@@ -10,7 +10,7 @@ Node.js (Allows you to execute JavaScript code outside a web browser/ npm comman
 https://nodejs.org/en/download
 
 <!-- ------------- -->
-Clone repository
+<Clone repository>
 
 1.Navigate to the Directory (where you will save the repo)
 Run: 
@@ -29,7 +29,8 @@ run:
     git pull 
 
 <!--  -->
-Run dummy database
+<Run dummy database>
+
 1.Install (globally) this package. You only need to do this once.
 run:
     npm install json-server -g
@@ -39,8 +40,9 @@ run:
 (replace path location as required)
 
 <!-- --------- -->
-Running App
-'cd' into client folder, make sure your terminal is inside the client folder which contains package.json file. This file has all the dependencies listed, these are libraries found on https://www.npmjs.com/.
+<Running App>
+
+'cd' into client folder, make sure your terminal is inside the client folder which contains the package.json file. This file has all the dependencies listed, these are libraries found on https://www.npmjs.com/.
 
 1. Install dependencies
 run:
