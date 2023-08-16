@@ -17,6 +17,10 @@ a{
   --main-text-card-heading: 20px;
   --main-text-card-heading: 20px;
 
+  --main-col-primary: #162b34;
+  --main-col-secondary: rgb(70, 70, 70);
+  --main-col-light:rgb(173, 173, 173);
+  --main-col-light-2:rgb(211, 211, 211)
 }
 
 body{
@@ -54,10 +58,12 @@ nav{
 }
 
 .nav-search{
+  z-index: 10;
   display: flex;
   gap: 8px;
   padding: 4px 16px 4px 16px;
   font-size: var(--main-text-card-text);
+  background-color: white;
   border: 1px solid darkgray;
   border-radius: 16px;
   height: fit-content;
@@ -96,6 +102,38 @@ nav{
 .nav-svg-profile{
   stroke-width: 3;
   stroke: darkgray;
+}
+.nav-menu-toggle{
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+}
+.nav-cal-btn{
+  background-color: white;
+  border-radius: 2rem;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+.nav-cal-btn a {
+  user-select: none;
+}
+.nav-cal-row{
+  gap: 1rem;
+}
+.nav-cal-row > div{
+  display: flex;
+  align-items: center;
+}
+.nav-cal-row > div > a{
+  margin: auto;
+}
+.nav-cal-btn:hover{
+  background-color: var(--main-col-light-2);
+}
+.nav-active{
+  background-color: var(--main-col-light);
+  border-radius: 1rem;
+}
+.nav-active-container h3{
+  padding: 0 1rem 0 1rem;
 }
 
 .button{
