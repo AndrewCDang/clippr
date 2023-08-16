@@ -15,7 +15,7 @@
       },
       {
         "id": "2",
-        "first_name": "Nico",
+        "first_name": "Alex",
         "surname": "Trimmer",
         "bio": "I'm a proud third-generation barber from London's vibrant Soho district. I love blending time-tested techniques with today's hottest trends, and I've become quite known for my distinctive fades. But barbering isn't my only passion; give me a salsa track, and I'll dance the night away",
         "gallery": ["https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1686&q=80", "https://images.unsplash.com/photo-1623082574085-157d955f1d35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80", "https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
@@ -23,7 +23,7 @@
         "address": {"street":"18 Cedar Place", "city":"London", "post_code": "NW1 9JY"},
         "user_email": "nico-t@gmail.com",
         "service":[
-            {"name":"Style and Gents cut", "price":23, "time":42},
+            {"name":"Style ancut", "price":23, "time":42},
             {"name":"Fade Skin", "price":26, "time":43},
             {"name":"Beard trim and haircut", "price":29, "time":47}
         ]
