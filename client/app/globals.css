@@ -86,7 +86,6 @@ nav{
   border-radius: 8px;
   margin: 0;
   place-self: center;
-  
 }
 
 .nav-logo{
@@ -107,7 +106,6 @@ nav{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
 }
 .nav-cal-btn{
-  background-color: white;
   border-radius: 2rem;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -136,6 +134,11 @@ nav{
   padding: 0 1rem 0 1rem;
 }
 
+.nav-cal-select{
+  color: white;
+  background-color: var(--main-col-primary)!important
+}
+
 .button{
   padding: 4px 16px 4px 16px;
   border-radius: 16px;
@@ -143,3 +146,8 @@ nav{
   width: fit-content;
 }
 
+
+.none-select{
+  user-select: none;
+  cursor:unset;
+}

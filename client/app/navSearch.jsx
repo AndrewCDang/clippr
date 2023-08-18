@@ -46,7 +46,7 @@ export default function NavSearch(){
               c24-23,55-36,88-36s64,13,88,36c48,49,48,127,0,176c-23,23-55,36-88,36C133,291,102,278,78,254z"/>
           </svg>
         </section>
-        <section ref={menuRef} style={{display: displayMenu ? 'block' : 'none' }} className='nav-menu-toggle border-primary rounded-2xl p-4 bg-white z-10 absolute left-[-50%] m-2 flex flex-col'>
+        <section ref={menuRef} style={{display: displayMenu ? 'block' : 'none', zIndex: 10000 }} className='nav-menu-toggle border-primary rounded-2xl p-4 bg-white absolute left-[-50%] m-2 flex flex-col'>
           <span className='nav-active-container flex flex-row gap-4 justify-evenly mb-4'>
             <h3>Location</h3>
             <h3 className='nav-active'>Day</h3>
