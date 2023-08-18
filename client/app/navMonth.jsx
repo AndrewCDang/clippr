@@ -1,9 +1,10 @@
 "use client"
 
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react'
 
 
-export  default function NavMonth(){
+export  default function NavMonth({navHeightToggle}){
     const daysArray =['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     const [ calPage, setCalPage ] = useState(0)
 
@@ -50,16 +51,17 @@ export  default function NavMonth(){
         },[selectedDate])
     
         if (!daysMonth) return null;
+        
     
         return (
-            <section className='overflow-hidden' style={{marginBottom: daysMonth[calPage].calendar.length > 35 ? '0px' : '-2rem', transition: 'all 0.1s ease-in-out' }}>
+            <section onTransitionEnd={()=>navHeightToggle('day')}  className='overflow-hidden' style={{marginBottom: daysMonth[calPage].calendar.length > 35 ? '0px' : '-2rem', transition: 'all 0.1s ease-in-out' }}>
                 <section className="relative bg-whiteflex-col text-center overflow-hidden">
                     <div className='flex-row flex justify-between items-center'>
-                        <svg  onClick={calPage >= 1 ? () => setCalPage(calPage-1) : null}  className={`stroke-primary w-12 cursor-pointer ${calPage < 1 ? 'none-select' : null}`}   style={{zIndex:100, transition: '0.2s ease-in-out' ,transform: 'rotate(90deg) scaleY(-1)', strokeWidth:'0.2rem', opacity: calPage <1 ? 0 : 1}}  viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg  onClick={calPage >= 1 ? () => {setCalPage(calPage-1)}: null }  className={`stroke-primary w-12 cursor-pointer ${calPage < 1 ? 'none-select' : null}`}   style={{zIndex:100, transition: '0.2s ease-in-out' ,transform: 'rotate(90deg) scaleY(-1)', strokeWidth:'0.2rem', opacity: calPage <1 ? 0 : 1}}  viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path className='' d="M15.9629 52.1839L36.7809 31.3659C38.5383 29.6085 41.3875 29.6085 43.1449 31.3659L63.9629 52.1839"  stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <h2 className='w-min m-0-auto'></h2>
-                        <svg onClick={calPage < daysMonth.length-1 ? () => setCalPage(calPage+1) : null} className={`stroke-primary w-12 cursor-pointer ${calPage < daysMonth.length-1 ? null : 'none-select'}`} style={{zIndex:100, transition: '0.2s ease-in-out' , transform: 'rotate(90deg)', strokeWidth:'0.2rem', opacity: calPage < daysMonth.length-1 ? 1 : 0}} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={calPage < daysMonth.length-1 ? () => {setCalPage(calPage+1)}: null} className={`stroke-primary w-12 cursor-pointer ${calPage < daysMonth.length-1 ? null : 'none-select'}`} style={{zIndex:100, transition: '0.2s ease-in-out' , transform: 'rotate(90deg)', strokeWidth:'0.2rem', opacity: calPage < daysMonth.length-1 ? 1 : 0}} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.9629 52.1839L36.7809 31.3659C38.5383 29.6085 41.3875 29.6085 43.1449 31.3659L63.9629 52.1839" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
