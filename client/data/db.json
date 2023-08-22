@@ -7,7 +7,7 @@
         "bio": " I have a deep love for retro styles and an even deeper love for jazz – in fact, you might say I turn haircuts into rhythmic art forms. When I'm not crafting the perfect trim, you can catch me perfecting my Irish coffee blend.",
         "gallery":["https://images.unsplash.com/photo-1526382551041-3c817fc3d478?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80","https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1365&q=80", "https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 123456",
-        "address": {"street":"32 Rosewood Lane", "city":"London", "post_code": "W8 6LE"},
+        "address": {"street":"251 Southwark Bridge Rd", "city":"London", "post_code": "SE1 6FJ"},
         "user_email": "simon.finch@googlemail.com",
         "service":[
             {"name":"Gents cut and style", "price":22,"time":40},{"name":"Skin Fade", "price":25,"time":40},{"name":"Haircut and beard trim", "price":30,"time":45}
@@ -20,7 +20,7 @@
         "bio": "I'm a proud third-generation barber from London's vibrant Soho district. I love blending time-tested techniques with today's hottest trends, and I've become quite known for my distinctive fades. But barbering isn't my only passion; give me a salsa track, and I'll dance the night away",
         "gallery": ["https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1686&q=80", "https://images.unsplash.com/photo-1623082574085-157d955f1d35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80", "https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 654321",
-        "address": {"street":"18 Cedar Place", "city":"London", "post_code": "NW1 9JY"},
+        "address": {"street":"7 Pepys St", "city":"London", "post_code": "EC3N 4AF"},
         "user_email": "nico-t@gmail.com",
         "service":[
             {"name":"Style and Gents cut", "price":23, "time":42},
@@ -35,7 +35,7 @@
         "bio": "My childhood in Milan was filled with dreams inspired by classic Italian films, and I always aspired to sculpt hair like the maestros. Now in London, I offer a touch of Mediterranean elegance with every haircut. When I'm not in the shop, I'm out on my Vespa, seeking the city's best espresso.",
         "gallery": ["https://images.unsplash.com/photo-1580518337843-f959e992563b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80", "https://images.unsplash.com/photo-1572708609331-ca2b30f2d9bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", "https://images.unsplash.com/photo-1536231450280-744420a90f55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 789012",
-        "address": {"street":"54 Birch Terrace", "city":"London", "post_code": "SE10 8FR"},
+        "address": {"street":"20 Upper Ground", "city":"London", "post_code": "SE1 9PD"},
         "user_email": "giorno.giovanna@googlemail.com",
         "service":[
             {"name":"Cut with style for Gents", "price":24, "time":41},
