@@ -83,8 +83,8 @@ export default function NavSearch(){
               </svg>
             </Link>
           </span>
-          <section style={{height:`${navHeight}px`, transition:'0.2s ease-in-out', width:'calc(320px'}} className='flex flex-row relative '>
-            <div ref={monthRef} style={{left:`${0 - (navPage)*100}%`, transition: 'all 0.2s ease-in-out'}} className='absolute'> 
+          <section style={{height:`${navHeight}px`, transition:'0.2s ease-in-out', width:'calc(400px'}} className='flex flex-row relative '>
+            <div ref={monthRef} style={{left:`${0 - (navPage)*100}%`, transition: 'all 0.2s ease-in-out'}} className='absolute w-[100%]'> 
               < NavMonth navHeightToggle={navHeightToggle} />
             </div>
             <div  ref={timeRef} style={{left:`${100 - (navPage)*100}%`, width:'100%', transition: 'all 0.2s ease-in-out', margin: '0 auto'}} className="absolute m">
