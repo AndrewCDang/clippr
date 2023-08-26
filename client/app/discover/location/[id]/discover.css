@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+h1{
+    @apply text-primary font-semibold text-3xl
+  }
+  
 .discover-barber-container{
     width: 200px;
     height: 300px;

@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppContextProvider>
-      <body className={`${poppins.className} custom-shadow relative`}>
+      <body className={`${poppins.className} relative`}>
         <nav  className='nav-container'>
           <Link className='nav-logo' href="/">
             <svg className='nav-logo-svg' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
@@ -42,15 +42,15 @@ export default function RootLayout({ children }) {
         <main  className='main-children'>
             {children}
         </main>
-      </body>
-        </AppContextProvider>
-      <footer className='bg-primary h-80 w-full flex p-4 items-end'>
+        <footer className='bg-primary h-80 w-full flex p-4 items-end'>
         <div>
           <h3 className='text-light'>BuildSpace</h3>
           <h3 className='text-light'>Clippr. ©</h3>
         </div>
-
       </footer>
+      </body>
+        </AppContextProvider>
+  
     </html>
   )
 }

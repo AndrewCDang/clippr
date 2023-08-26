@@ -28,7 +28,7 @@ export default function NavSearch({bookingTime, setBookingTime}){
                             evt.preventDefault()
                         }
                        }} type="number"></input>
-                        <label cl form="hour" className="text-xs text-light absolute left-[50%] top-[-30%] translate-x-[-50%] ">hr</label>
+                        <label form="hour" className="text-xs text-light absolute left-[50%] top-[-30%] translate-x-[-50%] ">hr</label>
                     </div>
                     <span>
                         :

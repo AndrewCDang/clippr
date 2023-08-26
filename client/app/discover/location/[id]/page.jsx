@@ -67,7 +67,6 @@ export async function getBarbers() {
       const [barber, setBarber] = useState(null);
 
       useEffect(() => {
-        // console.log(userData)
           const fetchBarbers = async () => {
               const data = await getBarbers();
               setBarber(data);
@@ -101,22 +100,11 @@ export async function getBarbers() {
 
       //     // fetchDistance();
       // }, [barber]); // Depend on barber. This useEffect will run whenever barber changes.
-
-
-      useEffect(()=>{
-
-          console.log(state.navData.booking.bookingTime.time.hr)
-  
-      },[state])
-
-
-
-
       
     return (
         <main>
             <h1 className="mb-2">Discover your perfect barber</h1>
-            <section className='flex flex-col gap-1 mb-8'>
+            <section className='flex flex-col gap-1 mb-24'>
               <h3>Barbers near: <a className='personalise-tags'>{address} </a>  </h3>
               {state.navData.booking.bookingDate.length>0 ?
                 <div className='flex gap-2 items-center'>
@@ -144,8 +132,8 @@ export async function getBarbers() {
           {
             barber ? barber.map((item, index)=>{
               return (
-                <section className='flex-row flex gap-2'>
-                <Link key={index} className='width-fit' href={`/barber/${item.id}`}>
+                <section key={index} className='flex-row flex gap-2'>
+                <Link  className='width-fit' href={`/barber/${item.id}`}>
                   <div className='overflow-hidden rounded-2xl width-fit relative '>
                       <div className='flex flex-col items-center absolute right-2 top-2'>
                         <h3 className='drop-shadow-2xl z-10 text-white custom-text-shadow text-xs leading-tight'><strong className='text-lg leading-tight'>{item.reviews.rating}</strong>{`/5`}</h3>
