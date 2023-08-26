@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'; // Use next/navigation instead of next/router
 
 
-
 export async function getBarbers() {
     const res = await fetch('http://localhost:4000/barbers/', {
         next: {
@@ -19,9 +18,6 @@ export async function getBarbers() {
 export default async function discover(){
   const {location} = useParams();
   // const { location } = router.query; // Access the "location" parameter
-
-  console.log(location);
-
     const barber = await getBarbers()
 
 

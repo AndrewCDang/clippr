@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
 
-export default function NavLocation({focusLocation, setFocusLocation, setLocation, formatUri}) {
+export default function NavLocation({focusLocation, setFocusLocation, setLocation, formatUri, setSearchLocation}) {
 
     const [selected, setSelected] = useState(null)
 
@@ -24,7 +24,7 @@ export default function NavLocation({focusLocation, setFocusLocation, setLocatio
 
   return (
     <div className="p-2 w-[90%] mx-auto">
-        <input ref={inputRef} onChange={(e)=>{focusHandle();setLocation(formatUri(e.target.value))}}  className="w-[100%] border border-light-2 p-1 rounded-xl  " id="minute" placeholder="Enter Location" type="text"></input>
+        <input ref={inputRef} onChange={(e)=>{focusHandle();setLocation(formatUri(e.target.value));setSearchLocation(e.target.value)}}  className="w-[100%] border border-light-2 p-1 rounded-xl  " id="minute" placeholder="Enter Location" type="text"></input>
     </div>
   )
 }

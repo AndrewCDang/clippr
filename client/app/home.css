@@ -1,12 +1,18 @@
 .home-carousel{
     display: flex;
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); */
+    /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
     gap: 8px;
+    width: 120vw;
+    padding-bottom: 4rem;
 }
 
 .home-carousel > a{
     background-color: lightgray;
     height: 240px;
-    width: 240px;
+    flex-grow: 1;
+    min-width: 240px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;

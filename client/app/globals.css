@@ -22,22 +22,40 @@ a{
   --main-col-light:rgb(173, 173, 173);
   --main-col-light-2:rgb(211, 211, 211)
 }
-
-body{
-  @apply text-primary m-4
+html{
+  overflow: hidden;
+  overflow-y: scroll;
+  margin: 0;
 }
+body{
+  overflow-x: hidden;
+  @apply text-primary
+
+}
+
 
 h1, h2{
   @apply text-primary font-semibold
+}
+h1{
+  @apply text-3xl
 }
 
 h3{
   @apply text-secondary
 }
 
+h5{
+  @apply text-secondary text-sm
+}
+
 p > a {
   @apply text-light underline
 }
+
+/* main{
+  margin-top: 4rem;
+} */
 
 
 /* Globals */
@@ -52,10 +70,35 @@ p > a {
 /* Nav */
 
 nav{
+  @apply p-4
+}
+
+main{
+  padding: 2rem;
+  padding-bottom: 8rem;
+
+  /* background-color: aqua; */
+}
+.main-children{
+  margin-left: calc(12.5% - 2rem);
+  margin-right: calc(12.5% - 2rem);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.nav-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  background-color: white;
+  z-index: 10000000;
+  position: relative;
+
+}
+/* nav{
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
 .nav-search{
   z-index: 10;
@@ -80,6 +123,7 @@ nav{
 .nav-links{
   display: flex;
   gap: 8px;
+  justify-content: flex-end;
 }
 .nav-links a{
   padding: 4px 8px 4px 8px;
@@ -146,10 +190,28 @@ nav{
   width: fit-content;
 }
 
+.nav-personalise-btn{
+  box-shadow: 0px 0px 0px 0px rgb(256,256,256);
+  transition: all 0.12s ease-in-out;
+}
+input[type="checkbox"]:checked + label {
+  /* Your styles for the selected label here */
+  box-shadow: 0px 0px 8px 1px grey;
+}
 
 .none-select{
   user-select: none;
   cursor:unset;
+}
+.nav-menu::-webkit-scrollbar{
+  background-color: none;
+  width: 8px;
+
+}
+
+.nav-menu::-webkit-scrollbar-thumb{
+  background-color: var(--main-col-light);
+  border-radius: 8px;
 }
 
 
@@ -196,4 +258,20 @@ input[type='text']:focus{
 }
 .custom-text-shadow{
   text-shadow: 2px 2px 10px var(--main-col-primary)
+}
+
+.custom-text-shadow{
+  text-shadow: 2px 2px 15px 5px rgba(0,0,0,1)
+}
+
+.book-btn{
+  color: white;
+  padding:0.5rem 1rem;
+  border-radius: 0.8rem;
+  transition: all 0.12s ease-in-out;
+@apply bg-primary 
+}
+
+.book-btn:hover{
+  transform: scale(0.96);
 }

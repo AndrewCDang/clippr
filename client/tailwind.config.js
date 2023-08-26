@@ -12,6 +12,7 @@ module.exports = {
         'secondary' : 'rgb(70, 70, 70)',
         'light': 'rgb(173, 173, 173)',
         'light-2': 'rgb(211, 211, 211)',
+        'light-3': 'rgb(240, 240, 240)',
         'red': '#FF5678'
       }
  

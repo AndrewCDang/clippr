@@ -5,19 +5,26 @@
         "first_name": "Simon",
         "surname": "Finch",
         "bio": " I have a deep love for retro styles and an even deeper love for jazz – in fact, you might say I turn haircuts into rhythmic art forms. When I'm not crafting the perfect trim, you can catch me perfecting my Irish coffee blend.",
+        "profile":"https://images.unsplash.com/photo-1663743629961-c6134ef1afc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1586&q=80",
         "gallery":["https://images.unsplash.com/photo-1526382551041-3c817fc3d478?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80","https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1365&q=80", "https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 123456",
         "address": {"street":"251 Southwark Bridge Rd", "city":"London", "post_code": "SE1 6FJ"},
         "user_email": "simon.finch@googlemail.com",
         "service":[
             {"name":"Gents cut and style", "price":22,"time":40},{"name":"Skin Fade", "price":25,"time":40},{"name":"Haircut and beard trim", "price":30,"time":45}
-        ]
+        ],
+        "reviews":{"rating":4.84, "amount":92},
+        "deals":["20% NHS workers"],
+        "subscription":[{"cost":16, "deal": "1 cut per month during selected times"}],
+        "mentalCare":true,
+        "webPage":{"bgMain":"#FDFCDC","h2":"#004256", "h3":"#1C7C54" ,"bgCol":"#00AFB9", "bgImage": "https://images.unsplash.com/photo-1692862582645-3b6fd47b7513?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3132&q=80"}
       },
       {
         "id": "2",
         "first_name": "Nico",
         "surname": "Trimmer",
         "bio": "I'm a proud third-generation barber from London's vibrant Soho district. I love blending time-tested techniques with today's hottest trends, and I've become quite known for my distinctive fades. But barbering isn't my only passion; give me a salsa track, and I'll dance the night away",
+        "profile": "https://images.unsplash.com/photo-1619169312864-c81168058d7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
         "gallery": ["https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1686&q=80", "https://images.unsplash.com/photo-1623082574085-157d955f1d35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80", "https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 654321",
         "address": {"street":"7 Pepys St", "city":"London", "post_code": "EC3N 4AF"},
@@ -26,13 +33,20 @@
             {"name":"Style and Gents cut", "price":23, "time":42},
             {"name":"Fade Skin", "price":26, "time":43},
             {"name":"Beard trim and haircut", "price":29, "time":47}
-        ]
+        ],
+        "reviews":{"rating":4.84, "amount":201},
+        "deals":["20% Tuesdays"],
+        "subscription":[],
+        "mentalCare":false,
+        "webPage":{"bgMain":"#FFFFFA","h2":"#004256", "h3":"#1C7C54" ,"bgCol":"#00AFB9", "bgImage": "https://images.unsplash.com/photo-1576168056582-0a851a87ab8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2204&q=80"}
+
       },
       {
         "id": "3",
         "first_name": "Giorno",
         "surname": "Giovanna",
         "bio": "My childhood in Milan was filled with dreams inspired by classic Italian films, and I always aspired to sculpt hair like the maestros. Now in London, I offer a touch of Mediterranean elegance with every haircut. When I'm not in the shop, I'm out on my Vespa, seeking the city's best espresso.",
+        "profile":"https://images.unsplash.com/photo-1551153771-1a67a570d583?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
         "gallery": ["https://images.unsplash.com/photo-1580518337843-f959e992563b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80", "https://images.unsplash.com/photo-1572708609331-ca2b30f2d9bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", "https://images.unsplash.com/photo-1536231450280-744420a90f55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"],
         "mobile_number": "07700 789012",
         "address": {"street":"20 Upper Ground", "city":"London", "post_code": "SE1 9PD"},
@@ -41,7 +55,58 @@
             {"name":"Cut with style for Gents", "price":24, "time":41},
             {"name":"Full Skin Fade", "price":27, "time":42},
             {"name":"Hair trim with beard", "price":31, "time":46}
-        ]
+        ],
+        "reviews":{"rating":4.91, "amount":16},
+        "deals":["25% off cut at Home Address (Saturday and Mondays)"],
+        "subscription":[],
+        "mentalCare":false,
+        "webPage":{"bgMain":"#fefae0","h2":"#fb5607", "h3":"#1b263b" ,"bgCol":"#00AFB9", "bgImage": "https://images.unsplash.com/photo-1583855282680-6dbdc69b0932?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2187&q=80"}
+
+      },
+      {
+        "id": "4",
+        "first_name": "Toby",
+        "surname": "Green",
+        "bio": "When I'm not giving hair the perfect respawn or crafting the ultimate combover, you'll find me battling bosses, raiding realms, or scoring that epic loot in my favorite games. Looking for a trim that'll have you looking as epic as your in-game avatar?",
+        "profile":"https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
+        "gallery": ["https://images.unsplash.com/photo-1583195763986-0231686dcd43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2952&q=80", "https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80", "https://images.unsplash.com/photo-1550947176-6d157c7936e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"],
+        "mobile_number": "07700 789012",
+        "address": {"street":"62 Wapping High Street", "city":"London", "post_code": "E1W 2PN"},
+        "user_email": "giorno.giovanna@googlemail.com",
+        "service":[
+            {"name":"Cut with style for Gents", "price":24, "time":41},
+            {"name":"Full Skin Fade", "price":27, "time":42},
+            {"name":"Hair trim with beard", "price":31, "time":46}
+        ],
+        "reviews":{"rating":4.85, "amount":59},
+        "deals":[],
+        "subscription":[{"cost":18, "deal": "1 cut per month all times"}],
+        "mentalCare":true,
+        "webPage":{"bgMain":"#ffd166","h2":"#073b4c", "h3":"#403d39" ,"bgCol":"#403d39", "bgImage": "https://images.unsplash.com/photo-1532799044142-bace80c88320?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"}
+
+      },
+      {
+        "id": "5",
+        "first_name": "Alex",
+        "surname": "Wong",
+        "bio": "Growing up in Hong Kong, I was immersed in a culture that values precision, style, and a strong sense of community. These values deeply influenced my approach to barbering. After relocating to London, I brought this unique blend of Asian heritage and Western influences into my work.",
+        "profile":"https://images.unsplash.com/photo-1611403119860-57c4937ef987?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
+        "gallery": ["https://images.unsplash.com/photo-1564564321361-5694c96475ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2952&q=80", "https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2360&q=80", "https://images.unsplash.com/photo-1552358155-515e264cb8b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"],
+        "mobile_number": "07700 789012",
+        "address": {"street":"110 Bishopsgate", "city":"London", "post_code": "EC2N 4AY"},
+        "user_email": "giorno.giovanna@googlemail.com",
+        "service":[
+            {"name":"Cut with style for Gents", "price":24, "time":41},
+            {"name":"Full Skin Fade", "price":27, "time":42},
+            {"name":"Hair trim with beard", "price":31, "time":46}
+        ],
+        "reviews":{"rating":4.86, "amount":162},
+        "deals":["20% off weekdays 10-11am and 2-3:30pm"],
+        "subscription":[],
+        "mentalCare":false,
+        "webPage":{"bgMain":"#eaf4f4","h2":"#073b4c", "h3":"#403d39" ,"bgCol":"#403d39", "bgImage": "https://images.unsplash.com/photo-1518599807935-37015b9cefcb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"}
+
       }
+      
     ]
   }

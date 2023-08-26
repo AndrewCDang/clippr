@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .discover-barber-container{
     width: 200px;
     height: 300px;
@@ -60,5 +64,47 @@
 
 .home-b-image:hover{
     transform: scale(1.1);
-  
+}
+
+.personalise-tags{
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    background-color: lightgray;
+}
+
+.deal-tag{
+    padding: 0rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: #FF5678;
+    width: fit-content;
+    color: white;
+}
+
+.subscribe-tag{
+    padding: 0rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: #FFD056;
+    width: fit-content;
+    color: white;
+}
+
+.mentalCare-tag{
+    padding: 0rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: hsl(183, 95%, 43%);
+    width: fit-content;
+    color: white;
+
+}
+
+.book-btn{
+    color: white;
+    padding:0.5rem 1rem;
+    border-radius: 0.8rem;
+    transition: all 0.12s ease-in-out;
+@apply bg-primary 
+}
+
+.book-btn:hover{
+    transform: scale(0.96);
 }
