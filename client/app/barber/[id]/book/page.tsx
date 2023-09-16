@@ -1,8 +1,7 @@
 import Link from 'next/link'
 
-function book({params}) {
+function Book({params}:any) {
     const id = params.id
-
 
   return (
     <main>
@@ -20,4 +19,4 @@ function book({params}) {
   );
 }
 
-export default book;
+export default Book;

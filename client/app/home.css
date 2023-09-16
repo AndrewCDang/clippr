@@ -30,18 +30,14 @@
     overflow: hidden;
 }
 
-.home-b-image{
+.home-a-image{
     position: absolute;
-    top: 0;
+    top: -50%;
     left: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
     z-index: 0;
     transition: all 2s ease-in-out;
 }
 
-.home-b-image:hover{
+.home-a-image:hover{
     transform: scale(1.1);
-  
 }

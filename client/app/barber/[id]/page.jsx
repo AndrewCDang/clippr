@@ -14,11 +14,10 @@ export async function generateStaticParams(){
 }
 
 
-
 async function getBarbers(id){
   const res = await fetch('http://localhost:4000/barbers/'+id, {
     next: {
-      revalidate: 0
+      revalidate: 0 
     }
   })
 
@@ -28,7 +27,7 @@ async function getBarbers(id){
   return res.json()
 }
 
-async function book({params}) {
+async function BarberPage({params}) {
     const barber = await getBarbers(params.id)
 
   return (
@@ -99,5 +98,5 @@ async function book({params}) {
   );
 }
 
-export default book;
+export default BarberPage;
 

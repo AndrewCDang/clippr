@@ -1,0 +1,52 @@
+:root{
+    --main-text-card-title: 28px;
+    --main-text-card-text: 16px;
+    --main-text-card-subText: 10px;
+    --main-text-card-heading: 20px;
+    --main-text-card-heading: 20px;
+    --main-col-primary: #162b34;
+    --main-col-secondary: rgb(70, 70, 70);
+    --main-col-light:rgb(173, 173, 173);
+    --main-col-light-2:rgb(211, 211, 211)
+}
+
+.time-toggle{
+    display: flex;
+    flex-flow:nowrap;
+    padding: 1rem 0.5rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.time-toggle input {
+    width: 0;
+    height: 0;
+}
+.time-toggle label{
+    background-color:white;
+    box-shadow: none;
+    transition: all 0.3s ease-in-out;
+    color: var(--main-col-light);
+    padding: 0.5rem 1rem ;
+    border: 1px solid var(--main-col-light-2);
+    cursor:pointer;
+    user-select: none;
+    width: 50%;
+}
+
+.time-toggle input:checked + label {
+    background-color: var(--main-col-light-2) ;
+    box-shadow: 0  0 10px var(--main-col-light-2);
+    color:var(--main-col-primary);
+    border: 1px solid var(--main-col-light-2);
+    z-index:1
+
+}
+
+.time-toggle label:first-of-type{
+    border-radius: 1rem 0rem 0rem 1rem ;
+}
+
+.time-toggle label:last-child{
+    border-radius: 0rem 1rem 1rem 0rem ;
+}
