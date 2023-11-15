@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState, useMemo } from "react"
-import {useAppContext} from './Context/store'
+import {useAppContext} from '../Context/store'
 import { StandaloneSearchBox, LoadScript, useLoadScript } from '@react-google-maps/api';
 import  usePlacesAutocomplete, {
     getGeocode,

@@ -1,0 +1,14 @@
+.barberScroll::-webkit-scrollbar-track {
+    
+    padding: 2px 0;
+    background-color: none;
+}
+
+.barberScroll::-webkit-scrollbar {
+width: 0.5rem;
+}
+
+.barberScroll::-webkit-scrollbar-thumb {
+border-radius: 0.5rem;
+background-color: rgb(173, 173, 173);
+}

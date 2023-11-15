@@ -6,9 +6,9 @@ import NavTime from './navTime'
 import NavLocation from './navLocation'
 import NavPersonalise from './navPersonalise'
 import {useState, useEffect, useCallback, useRef, useContext } from 'react'
-import { useAppContext } from './Context/store'
-import { BookingTime } from './types/barberTypes'
-import LoadGoogleMaps from './loadGoogle'
+import { useAppContext } from '../Context/store'
+import { BookingTime } from '../types/barberTypes'
+import LoadGoogleMaps from '../loadGoogle'
 
 
 export default function NavSearch(){
@@ -70,15 +70,6 @@ export default function NavSearch(){
         }
     },[personaliseRef, monthRef, timeRef])
 
-    // useEffect(() => {
-    //   if (personaliseRef.current) {
-    //     setTimeout(() => {
-    //       console.log(personaliseRef.current?.offsetHeight)
-    //       navHeightToggle('personalise')
-    //     }, 0);
-    //   }
-    // }, [personaliseRef.current, navPage]);
-
     const formatUri = (uri : string) => {
       const formatted = uri.replace(/ /g, '-')
       return formatted
@@ -128,7 +119,7 @@ export default function NavSearch(){
 
     return(
         <section className='relative mx-auto width-fit'>
-        <section  ref={navRef} style={{transition: 'all 0.2s ease-in-out', opacity: !displayMenu ? 1 : 0, transform: displayMenu ? 'translateY(4rem) scale(1.5)' : 'translateY(0px) scale(1)'}} className='nav-search width-fit mx-auto' onClick={()=>{setDisplayMenu(!displayMenu);setTimeout(()=>{navHeightToggle('personalise')},0)}}>
+        <section  ref={navRef} style={{transition: 'all 0.2s ease-in-out', opacity: !displayMenu ? 1 : 0, transform: displayMenu ? 'translateY(4rem) scale(1.5)' : 'translateY(0px) scale(1)'}} className='nav-search width-fit mx-auto hover:drop-shadow-xl' onClick={()=>{setDisplayMenu(!displayMenu);setTimeout(()=>{navHeightToggle('personalise')},0)}}>
           <div>
             Personalise
           </div>
