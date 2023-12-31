@@ -6,14 +6,13 @@ import NavTime from './navTime'
 import NavLocation from './navLocation'
 import NavPersonalise from './navPersonalise'
 import {useState, useEffect, useCallback, useRef, useContext } from 'react'
-import { useAppContext } from '../Context/store'
 import { BookingTime } from '../types/barberTypes'
 import LoadGoogleMaps from '../loadGoogle'
+import { useGoogleLoaded } from '../(hooks)/googleLoaded'
 
 
 export default function NavSearch(){
-  const { state, dispatch } = useAppContext()
-
+  const {googleLoaded} = useGoogleLoaded()
 
     const [ displayMenu, setDisplayMenu ] = useState(false)
     const [ location, setLocation ] =useState('')
@@ -92,7 +91,7 @@ export default function NavSearch(){
 
     const updatePreferences = () => {
       const updatedData = {personalise:{ethnicity:ethnicity, experience:experience, barberLocation:barberLocation}, booking: {bookingLocation:searchLocation,bookingDate:bookingDate,bookingTime:bookingTime}}
-      dispatch({type:'navData', payload:updatedData})
+      // dispatch({type:'navData', payload:updatedData})
     }
 
     const interactRef = useRef<HTMLElement | null>(null)
@@ -118,7 +117,7 @@ export default function NavSearch(){
     
 
     return(
-        <section className='relative mx-auto width-fit'>
+        <section className='relative mx-auto width-fit z-50'>
         <section  ref={navRef} style={{transition: 'all 0.2s ease-in-out', opacity: !displayMenu ? 1 : 0, transform: displayMenu ? 'translateY(4rem) scale(1.5)' : 'translateY(0px) scale(1)'}} className='nav-search width-fit mx-auto hover:drop-shadow-xl' onClick={()=>{setDisplayMenu(!displayMenu);setTimeout(()=>{navHeightToggle('personalise')},0)}}>
           <div>
             Personalise
@@ -158,7 +157,7 @@ export default function NavSearch(){
               <NavPersonalise ethnicity={ethnicity} setEthnicity={setEthnicity} experience={experience} setExperience={setExperience} barberLocation={barberLocation} setBarberLocation={setBarberLocation}/>
             </div>
             <div ref={locationRef} style={{left:`${100 - (navPage)*100}%`, width:'100%', transition: 'all 0.2s ease-in-out', margin: '0 auto', opacity: navPage === 1 ? 1 :0 }} className="absolute m">
-              < NavLocation locationOptionsRef={locationOptionsRef} interactRef={interactRef} setSearchLocation={setSearchLocation} searchLocation={searchLocation} formatUri={formatUri} setLocation={setLocation} inputRef={inputRef} navHeightToggle={navHeightToggle}  />
+              < NavLocation locationOptionsRef={locationOptionsRef} interactRef={interactRef} navPage={navPage} setSearchLocation={setSearchLocation} searchLocation={searchLocation} setLocation={setLocation} inputRef={inputRef}/>
             </div>
             <div ref={monthRef} style={{left:`${200 - (navPage)*100}%`, transition: 'all 0.2s ease-in-out', opacity: navPage === 2 ? 1 :0 }} className='absolute w-[100%]'> 
               < NavMonth bookingDate={bookingDate} setBookingDate={setBookingDate} navHeightToggle={navHeightToggle} />

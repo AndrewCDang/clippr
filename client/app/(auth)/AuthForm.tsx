@@ -6,11 +6,16 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useLogIn } from '@/app/(hooks)/useUserLogin'
 import { useLogInModal} from '@/app/(hooks)/useLogInModal'
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 
 export function AuthForm(){
+    const router = useRouter()
+    const supabase = createClientComponentClient()
+
+    
     const {logUserIn, isUserLoggedIn} = useLogIn()
     const {logInClose} = useLogInModal()
 
@@ -23,17 +28,34 @@ export function AuthForm(){
     })
     const { register, handleSubmit, formState, reset } = form;
     const { errors } = formState;
-
+    
     type FormValues = {
         userEmail: string;
         userPassword: string;
     }
 
+    const checkAppointments = async() => {
+        try{
+            const res = await fetch('/api/checkAppointments')
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const json = await res.json()
+            if(!json.error){
+                console.log(json)
+            }else{
+                console.log(json.error)
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    
+
     const onSubmit = async(data: FormValues) =>{
-        console.log(`Form Submitted`,data)
 
         setSubmitLoading(true)
-        const supabase = createClientComponentClient()
         const { error } = await supabase.auth.signInWithPassword({
             email:data.userEmail,
             password:data.userPassword
@@ -42,7 +64,10 @@ export function AuthForm(){
         if(!error){
             logUserIn()
             logInClose()
+            checkAppointments()
+            router.refresh()
             reset()
+
             if(errLogin){
                 setErrLogin('')
             }
@@ -50,9 +75,9 @@ export function AuthForm(){
         else{
             setErrLogin(error.message)
         }
-
-    
     }
+
+
     return(
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col">

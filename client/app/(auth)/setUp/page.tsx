@@ -12,11 +12,21 @@ import BarberCuts from "./barberCuts";
 import Address from "./address";
 import autoAnimate from '@formkit/auto-animate'
 import Confirm from "./confirm";
-
+import { error } from "console";
+import { UserDetails } from "./setUpTypes";
+import Images from "./images";
+import ProfilePicture from "./profilePicture"
+import { useProfilePicture } from "@/app/(hooks)/useProfilePicture";
 
 export default function SetUp(){
+    const router = useRouter()
+
     const [accountType, setAccountType] = useState('user')
     const [ page, setPage ] = useState<number>(0)
+    const [loadingState, setLoadingState] = useState<boolean>(false)
+    const [confirmBtn, setConfirmBtn] = useState<string>('Confirm')
+    const {setProfilePicture} = useProfilePicture()
+
 
     const parent = useRef<HTMLDivElement>(null)
     const progressRef = useRef<HTMLDivElement>(null)
@@ -26,8 +36,45 @@ export default function SetUp(){
         progressRef.current && autoAnimate(progressRef.current)
     }, [parent, progressRef])
 
-    const clickedTest = () => {
-        setPage(prevState => prevState + 1)
+    const submitDetails = async(userDetails:UserDetails) => {
+        setLoadingState(true)
+        const formData = new FormData()
+        formData.append('userDetails',JSON.stringify(userDetails))
+        console.log(userDetails.imageUploads)
+        userDetails.imageUploads.forEach((file,index)=>{
+            formData.append(`imageUploads`,file)
+        })
+
+        formData.append('profilePicture', userDetails.profilePicture)
+
+        const res = await fetch('/api/setUp',{
+            method:"POST",
+            body:formData
+        })
+
+        const json = await res.json()
+
+        if(json.error){
+            console.log(json.error)
+        }else{
+            console.log(json)
+            setLoadingState(false)
+            setConfirmBtn('Success')
+            setTimeout(() => {
+                setProfilePicture(json.profilePic.response)
+                router.push('/')
+            }, 300);
+        }
+        
+
+    }
+
+    const clickHandler = () => {
+        if(accountType==='barber'){
+            page === titles.barbers.length-1 ? submitDetails(userDetails) : setPage(prevState => prevState + 1)
+        }else{
+            page === titles.customers.length-1 ? submitDetails(userDetails) : setPage(prevState => prevState + 1)
+        }
     }
 
     const clickedBack = () => {
@@ -36,8 +83,8 @@ export default function SetUp(){
         }
     }
 
-    const titles = {barbers:['Are you a Customer or a Barber?','What level best describes you?', 'What ethnic hair-type can you cut?', 'List your hair cut services', 'Where will appointments take place?', `Appointment address`, 'Confirm'],
-    customers:['Are you a Custoemr or a Barber?','What hair-type(s) matches you?', 'What is your home-address?', 'Confirm']}
+    const titles = {barbers:['Are you a Customer or a Barber?','What level best describes you?', 'What ethnic hair-type can you cut?', 'List your hair cut services','Show off your skills. Upload images of past cuts', "Upload a profile picture", 'Where will appointments take place?', `Appointment address`, 'Confirm'],
+    customers:['Are you a Customer or a Barber?','What hair-type(s) matches you?', 'What is your home-address?', "Upload a profile picture", 'Confirm']}
 
     const [ validBarberPages, setValidBarberPages ] = useState([...Array(titles.barbers.length)].map((item,i)=>{
         if(i===0 || i === titles.barbers.length-1){
@@ -73,33 +120,7 @@ export default function SetUp(){
 
     const [appointmentLocation, setAppointmentLocation ] = useState<string>('')
 
-    type cutInterface = {
-        cutName: string;
-        cutPrice: number;
-        cutDuration: number;
-        objectId: number;
-        
-    }
-
-    type AddressInterface = {
-        studio: string;
-        addressline1: string;
-        addressline2: string;
-        addressline3: string;
-        city: string;
-        postcode: string;
-    }
-
-    interface UserDetails {
-        accountType: string;
-        barberLevel: string;
-        ethnicType: string[];
-        hairServices: cutInterface[];
-        appointmentLocation: string;
-        userAddress: AddressInterface;
-    }
-
-    const [userDetails, setUserDetails] = useState<UserDetails>({accountType:'customer',barberLevel:'',ethnicType:[],hairServices:[{cutName:'',cutPrice:0,cutDuration:0, objectId:0}],appointmentLocation:'', userAddress:{studio:'', addressline1:'', addressline2:'', addressline3:'',city:'',postcode:''}})
+    const [userDetails, setUserDetails] = useState<UserDetails>({accountType:'customer',barberLevel:'',ethnicType:[],hairServices:[{cutName:'',cutPrice:0,cutDuration:0, objectId:0}],appointmentLocation:'', imageUploads:[], profilePicture:'', userAddress:{studio:'', addressline1:'', addressline2:'', addressline3:'',city:'',postcode:''}})
 
     const updateAccountDetails = (object:string,value:any) => {
         switch (object) {
@@ -118,17 +139,21 @@ export default function SetUp(){
             case 'userAddress':
                 setUserDetails({...userDetails, userAddress:value})
                 break;
+            case 'imageUploads':
+                setUserDetails({...userDetails, imageUploads:value})
+                break;
+            case 'profilePicture':
+                setUserDetails({...userDetails, profilePicture:value})
             default:
                 break;
         }
     }
     useEffect(()=>{
         console.log(userDetails)
-
     },[userDetails])
 
     return(
-        <main className="w-full">
+        <main className="w-full flex flex-col justify-between flex-1">
             <h2 className='mx-auto text-center'>{ accountType === 'user' ? titles.customers[page] : titles.barbers[page]}</h2>
             <div ref={progressRef} className={`flex flex-row flex-nowrap mt-4 ${ accountType == 'barber' && page >= titles.barbers.length-1 || accountType == 'user' && page >= titles.customers.length-1 ? 'gap-0' : 'gap-1'} h-2 transition-gap duration-200`}>
                 {accountType === 'user' ? titles.customers.map((item, i)=>{
@@ -141,7 +166,7 @@ export default function SetUp(){
                     </span>)}
                 })}
             </div>
-            <section className="min-h-[60vh] flex flex-col justify-center relative">
+            <section className=" flex flex-col justify-center relative flex-1">
                 <fieldset style={{left:`${0 - (page*100)}%`}} className='mt-0.5 absolute  w-full z-10'>
                     <div className="boolean-toggle">
                         <input onChange={e=>{setAccountType('user'); setUserDetails((prevState)=>({...prevState, accountType:'customer'}))}}  id="user-label"  type="radio" name="user" value="user" checked={accountType==='user'}/>
@@ -162,13 +187,19 @@ export default function SetUp(){
                         <div style={{left:`${300 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex flex-col justify-center`}>
                             <BarberCuts page={page} updateValidBarberPages={updateValidBarberPages} updateAccountDetails={updateAccountDetails}/>
                         </div>
-                        <div style={{left:`${400 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex content-center`}>
-                            <Location page={page} updateValidBarberPages={updateValidBarberPages} setAppointmentLocation={setAppointmentLocation} updateAccountDetails={updateAccountDetails}/>
+                        <div style={{left:`${400 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex flex-col justify-center`}>
+                            <Images page={page} updateValidBarberPages={updateValidBarberPages} updateAccountDetails={updateAccountDetails}/>
                         </div>
-                        <div style={{left:`${500 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex items-center`}>
-                            <Address page={page} updateValidBarberPages={updateValidBarberPages} appointmentLocation={appointmentLocation} updateAccountDetails={updateAccountDetails}/>
+                        <div style={{left:`${500 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex flex-col justify-center`}>
+                            <ProfilePicture page={page} updateValidBarberPages={updateValidBarberPages} updateAccountDetails={updateAccountDetails}/>
                         </div>
                         <div style={{left:`${600 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex content-center`}>
+                            <Location page={page} updateValidBarberPages={updateValidBarberPages} setAppointmentLocation={setAppointmentLocation} updateAccountDetails={updateAccountDetails}/>
+                        </div>
+                        <div style={{left:`${700 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex items-center`}>
+                            <Address page={page} updateValidBarberPages={updateValidBarberPages} appointmentLocation={appointmentLocation} updateAccountDetails={updateAccountDetails}/>
+                        </div>
+                        <div style={{left:`${800 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex content-center`}>
                             <Confirm userDetails={userDetails}/>
                         </div>
                     </section>
@@ -184,15 +215,18 @@ export default function SetUp(){
                             <Address page={page} updateValidBarberPages={updateValidUserPages} appointmentLocation={appointmentLocation} updateAccountDetails={updateAccountDetails}/>
                         </div>
                         <div style={{left:`${300 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex flex-col justify-center`}>
+                            <ProfilePicture page={page} updateValidBarberPages={updateValidUserPages} updateAccountDetails={updateAccountDetails}/>
+                        </div>
+                        <div style={{left:`${400 - (page*100)}%`, transition:'all 0.2s '}} className={`absolute w-full text-center h-full flex flex-col justify-center`}>
                             <Confirm userDetails={userDetails}/>
                         </div>
                     </section>
                 </section>
                 }
             </section>
-            <div ref={parent} className="flex justify-center gap-2">
+            <div ref={parent} className="flex justify-center gap-2 mb-16">
                 { page>0 && <Button text="Back" clicked={clickedBack} customFit={true}/>}
-                {accountType === 'barber' ? <Button disabled={!validBarberPages[page]?true:false} text={`${page === titles.barbers.length-1 ? 'Confirm' : 'Next'}`} clicked={clickedTest} customFit={true}/> : <Button disabled={!validUserPages[page]?true:false} text={`${page === titles.customers.length-1 ? 'Confirm' : 'Next'}`} clicked={clickedTest} customFit={true}/>}
+                {accountType === 'barber' ? <Button disabled={!validBarberPages[page]?true:false} text={`${page === titles.barbers.length-1 ? confirmBtn : 'Next'}`} clicked={clickHandler} customFit={true} loading={loadingState}/> : <Button disabled={!validUserPages[page]?true:false} text={`${page === titles.customers.length-1 ? 'Confirm' : 'Next'}`} clicked={clickHandler} customFit={true} loading={loadingState}/>}
             </div>
         </main>
         

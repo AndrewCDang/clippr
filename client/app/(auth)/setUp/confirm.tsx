@@ -1,34 +1,7 @@
 "use client"
+import { UserDetails } from "./setUpTypes";
 
 import { useEffect } from "react"
-
-type cutInterface = {
-    cutName: string;
-    cutPrice: number;
-    cutDuration: number;
-    objectId: number;
-    
-}
-
-type AddressInterface = {
-    studio: string;
-    addressline1: string;
-    addressline2: string;
-    addressline3: string;
-    city: string;
-    postcode: string;
-}
-
-
-interface UserDetails {
-    accountType: string;
-    barberLevel: string;
-    ethnicType: string[];
-    hairServices: cutInterface[];
-    appointmentLocation: string;
-    userAddress: AddressInterface;
-  }
-
 
 type ConfirmProps = {
     userDetails:UserDetails
@@ -48,8 +21,8 @@ function Confirm({userDetails}:ConfirmProps) {
     },[userDetails])
     return (
         userDetails.accountType === 'barber' ? 
-            <table className="w-full h-full flex flex-col items-center justify-center">
-                <tbody className="rounded-lg border border-light-2">
+            <table className="w-full h-full flex flex-col items-center justify-center py-8">
+                <tbody className="rounded-lg border border-light-2 overflow-y-scroll vScroll">
                     <tr className="">
                         <th className="border border-t-0 border-l-0 p-4">Account Type</th>
                         <td className="border border-t-0 border-r-0 pl-4 text-left">{firstCharUpperCase(userDetails.accountType)}</td>
@@ -76,6 +49,20 @@ function Confirm({userDetails}:ConfirmProps) {
                                     </div>
                                 )})}
                             </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th className="border border-l-0  p-4">Image Uploads</th>
+                        <td className="border-r-0 p-4 flex  border-0 overflow-auto gap-1 max-w-[200px]">
+                        {userDetails.imageUploads.map((item, index) => (
+                            <div key={item.name} className="mx-auto border-0 flex-shrink-0 ">
+                            <img
+                                src={URL.createObjectURL(item)}
+                                alt={item.name}
+                                className='flex-shrink-0 z-10 rounded-lg overflow-hidden w-14 h-14  object-cover select-none pointer-events-none'
+                            />
+                            </div>
+                        ))}
                         </td>
                     </tr>
                     <tr className="">
@@ -111,7 +98,7 @@ function Confirm({userDetails}:ConfirmProps) {
                         <th className="border border-l-0  p-4">User Ethnic Hair Type</th>
                         <td className="border border-r-0  p-4">
                             <ul className="text-left flex flex-col gap-1">
-                                {userDetails.ethnicType?.map((item,i)=>{return <li key={i} className="border px-1 py-0.5 rounded-lg">{item}</li>})}
+                                {userDetails.ethnicType?.map((item,i)=>{return <li key={i} className="w-min border px-1 py-0.5 rounded-lg">{item}</li>})}
                             </ul>
                         </td>
                     </tr>

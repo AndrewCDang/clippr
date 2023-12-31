@@ -1,7 +1,6 @@
 
 import './globals.css'
 import { Poppins, Montserrat } from 'next/font/google'
-import { AppContextProvider } from './Context/store'
 import { SkeletonTheme } from 'react-loading-skeleton';
 import LoadGoogleMaps from './loadGoogle'
 import  {LogIn} from './(auth)/(login)/logIn'
@@ -11,8 +10,11 @@ import Footer from './footer';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import SessionLogIn from './(auth)/sessionLogIn';
+import BackBtn from './(components)/backBtn';
+import BackBtnContainer from './backBtnContainer';
+import ReviewModal from './(modals)/reviewModal';
 
-
+export const dynamic = 'force-dynamic'
 
 
 const poppins = Poppins({ subsets: ['latin'],
@@ -37,22 +39,24 @@ export default async function RootLayout({ children }: {children: React.ReactNod
   
   
   return (
-    <html lang="en">
-      <AppContextProvider>
-        <body className={`${poppins.className} relative`}>
-          <NavBar montserrat={montserrat}></NavBar>
-          <main  className='main-children min-h-[90vh]'>
-            <SkeletonTheme baseColor="rgb(211, 211, 211)" highlightColor="white">
-                {children}
-            </SkeletonTheme>
+    <html className='relative w-[100vw] overflow-x-clip' lang="en">
+        <body className={`${poppins.className}`}>
+          <main className='relative min-h-screen flex flex-col w-100vw'>
+            <NavBar montserrat={montserrat}></NavBar>
+            <section  className='px-[calc(12.5%-2rem)] w-full relative flex flex-col flex-1'>
+              <BackBtnContainer/>
+              <SkeletonTheme baseColor="rgb(211, 211, 211)" highlightColor="white">
+                  {children}
+              </SkeletonTheme>
+            </section>
           </main>
           <LogIn/>
           <SignUp/>
+          <ReviewModal/>
           <LoadGoogleMaps/>
           <SessionLogIn data ={data.session}/>
           <Footer/>
         </body>
-      </AppContextProvider>
     </html>
   )
 }

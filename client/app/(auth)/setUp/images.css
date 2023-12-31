@@ -1,0 +1,26 @@
+.imageContainer {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    overflow: auto;
+    gap: 1rem;
+    /* Explicitly set dimensions */
+    width: 100%; /* or a fixed width */
+    height: 10rem; /* or a fixed height */
+
+}
+
+.imageContainer > div {
+    scroll-snap-align: start;
+
+}
+
+.imageContainer img {
+    object-fit: cover; /* Maintain aspect ratio */
+
+
+}
+
+/* Additional styling to override default image styles */
+.imageContainer img {
+    max-width: none;
+}

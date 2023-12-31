@@ -2,6 +2,7 @@
 
 import { Session } from '@supabase/supabase-js'
 import { useLogIn } from '../(hooks)/useUserLogin'
+import { useEffect } from 'react'
 
 interface SessionLogInProps{
     data:Session | null
@@ -9,11 +10,15 @@ interface SessionLogInProps{
 
 export default function SessionLogIn(data:SessionLogInProps){
     const {logUserIn, isUserLoggedIn} = useLogIn()
-    if(data.data?.user && !isUserLoggedIn){
-        logUserIn()
-        console.log('logged in')
-        console.log(data.data?.user.user_metadata)
-    }
+
+    useEffect(()=>{
+        if(data.data?.user && !isUserLoggedIn){
+            logUserIn()
+            console.log('logged in')
+            console.log(data.data?.user)
+        }
+    },[])
+
 
     return null;
 }

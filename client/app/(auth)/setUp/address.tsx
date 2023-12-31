@@ -45,7 +45,7 @@ return (
         {appointmentLocation === 'Studio' ? <div className="flex flex-col place-self-center relative w-full max-w-[400px] mt-8">
             <input placeholder=" " className="peer/studio rounded-lg w-full px-2 py-2 border-light border" type="text" id="studio" {...register("studio",{
                 pattern:{
-                    value:/^[a-zA-Z0-9-\s]+$/,
+                    value:/^[a-zA-Z0-9-'\s]+$/,
                     message:"Invalid Address"
                 },
                 required:{
@@ -58,7 +58,7 @@ return (
         <div className="flex flex-col place-self-center relative w-full max-w-[400px] mt-8">
             <input placeholder=" " className="peer/address1 rounded-lg w-full px-2 py-2 border-light border" type="text" id="address1" {...register("addressline1",{
                 pattern:{
-                    value:/^[a-zA-Z0-9-\s]+$/,
+                    value:/^[a-zA-Z0-9-'\s]+$/,
                     message:"Invalid Address"
                 },
                 required:{
@@ -71,7 +71,7 @@ return (
         <div className="flex flex-col place-self-center relative w-full max-w-[400px]">
             <input placeholder=" " className="peer/address1 rounded-lg w-full px-2 py-2 border-light border" type="text" id="address2" {...register("addressline2",{
                 pattern:{
-                    value:/^[a-zA-Z0-9-\s]+$/,
+                    value:/^[a-zA-Z0-9-'\s]+$/,
                     message:"Invalid Address"
                 }
             })}></input>

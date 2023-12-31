@@ -20,15 +20,16 @@ a{
   --main-col-primary: #162b34;
   --main-col-secondary: rgb(70, 70, 70);
   --main-col-light:rgb(173, 173, 173);
-  --main-col-light-2:rgb(211, 211, 211)
+  --main-col-light-2:rgb(211, 211, 211);
+  --main-col-light-3:rgb(240, 240, 240)
 }
 html{
-  overflow: hidden;
-  overflow-y: scroll;
+  /* overflow: hidden; */
+  /* overflow-y: scroll; */
   margin: 0;
 }
 body{
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   @apply text-primary
 }
 
@@ -73,18 +74,8 @@ nav{
   @apply p-4
 }
 
-main{
-  padding: 2rem;
-  padding-bottom: 8rem;
 
-  /* background-color: aqua; */
-}
-.main-children{
-  margin-left: calc(12.5% - 2rem);
-  margin-right: calc(12.5% - 2rem);
-  padding-top: 0;
-  padding-bottom: 0;
-}
+
 .nav-container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -153,14 +144,7 @@ main{
 .nav-menu-toggle{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
 }
-.nav-cal-btn{
-  border-radius: 2rem;
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
-}
-.nav-cal-btn a {
-  user-select: none;
-}
+
 .nav-cal-row{
   gap: 1rem;
 }
@@ -171,21 +155,11 @@ main{
 .nav-cal-row > div > a{
   margin: auto;
 }
-.nav-cal-btn:hover{
-  background-color: var(--main-col-light-2);
-}
-.nav-active{
-  background-color: var(--main-col-light);
-  border-radius: 1rem;
-}
+
 .nav-active-container h3{
   padding: 0 1rem 0 1rem;
 }
 
-.nav-cal-select{
-  color: white;
-  background-color: var(--main-col-primary)!important
-}
 
 .button{
   padding: 4px 16px 4px 16px;
@@ -216,6 +190,30 @@ input[type="checkbox"]:checked + label {
 .nav-menu::-webkit-scrollbar-thumb{
   background-color: var(--main-col-light);
   border-radius: 8px;
+}
+
+/* horizontal Scrollbar */
+.hScroll::-webkit-scrollbar{
+  background-color: var(--main-col-light-3);
+  width: 8px;
+  height: 8px;
+
+}
+
+.hScroll::-webkit-scrollbar-thumb{
+  background-color: var(--main-col-light);
+  border-radius: 8px;
+  height: 8px;
+}
+.vScroll::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+.vScroll::-webkit-scrollbar-thumb{
+  background-color: var(--main-col-light);
+  border-radius: 8px;
+  height: 8px;
 }
 
 .location-list:hover{
@@ -315,4 +313,56 @@ input[type='password']:focus{
 
 .book-btn:hover{
   transform: scale(0.96);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.carousel {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* Global Animations */
+
+.rotateLoop{
+  animation-name: rotateLoop;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotateLoop {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom Radio */
+.radioCustom[type="radio"]{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid rgb(173, 173, 173);
+  border-radius: 1rem;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.12s ease-in-out, width 0.16s ease-in-out, height 0.2s ease-in-out,;
+}
+
+.radioCustom[type="radio"]:checked {
+  background-color: rgb(173, 173, 173);
+  border-color: rgb(173, 173, 173);
+  box-shadow: 0px 0px 10px rgba(150, 150, 150,0.5);
+  width: 1.2rem;
+  height: 1.2rem;
 }

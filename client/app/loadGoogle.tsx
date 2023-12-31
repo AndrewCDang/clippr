@@ -1,11 +1,14 @@
 "use client"
 import { useLoadScript } from '@react-google-maps/api';
-import { useAppContext } from './Context/store'
+import { useGoogleLoaded } from './(hooks)/googleLoaded';
 import { useEffect } from 'react';
+
+
+
 const googleMapsLibraries = ["places"] as any;
 
 function LoadGoogleMaps() {
-    const { state, dispatch } = useAppContext()
+    const {setGoogleLoaded} = useGoogleLoaded()
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_google_Maps_Api_Key || "",
@@ -14,9 +17,10 @@ function LoadGoogleMaps() {
 
     useEffect(()=>{
         if(isLoaded){
-            dispatch({type:'google', payload:true})
+            setGoogleLoaded()
         }
     },[isLoaded])
+
     return null;
 }
 

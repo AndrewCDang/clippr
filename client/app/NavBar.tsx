@@ -3,12 +3,11 @@ import NavSearch from './(search)/navSearch'
 import { NextFont } from 'next/dist/compiled/@next/font';
 import Account from '@/app/Account'
 
-
 export function NavBar({montserrat}:{montserrat:NextFont}){
 
 
     return(
-        <nav className='nav-container min-h-[10vh] align-start'>
+        <nav className='nav-container align-start'>
             <Link className='nav-logo' href="/">
                 <svg className='nav-logo-svg' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
                     <circle className="b fill-light" cx="236.72" cy="399.82" r="33.28"/>

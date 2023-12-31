@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 type Svg = {
-    height:number;
-    width:number;
+    height?:number;
+    width?:number;
     fill?:string;
     strokeCol?:string;
     strokeWidth?:number;
