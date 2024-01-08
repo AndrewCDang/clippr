@@ -30,12 +30,15 @@ type NavPersonaliseProps = {
     setLocation: React.Dispatch<React.SetStateAction<string>>;
     inputRef: React.RefObject<HTMLInputElement>;
     navPage:number;
+    setLat:React.Dispatch<React.SetStateAction<number | undefined>>;
+    setLng:React.Dispatch<React.SetStateAction<number | undefined>>;
+    setCity:React.Dispatch<React.SetStateAction<string | undefined>>;
+    ethnicity:string
 };
 
-const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage, interactRef, setLocation, searchLocation, setSearchLocation, inputRef}) => {
+const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage, interactRef, setLocation, searchLocation, setSearchLocation, inputRef, setCity, setLat, setLng, ethnicity}) => {
     const router = useRouter()
     const {googleLoaded} = useGoogleLoaded()
-    const {setCity, setLat, setLng, city, lat, lng} = useGoogleLocation()
 
     const childHeight = useRef<HTMLDivElement | null>(null)
 
@@ -112,7 +115,7 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
         if(fetchSearch && cityName && lng && lat){
             if(inputRef.current){
                 if(cityName && lat && lng){
-                    router.push(`/discover/location/${cityName}?lat=${lat}&lng=${lng}`)
+                    router.push(`/discover/location/${cityName}?searchLocation=${value}&ethnicity=${ethnicity}&lat=${lat}&lng=${lng}`)
                 }
             }
         }

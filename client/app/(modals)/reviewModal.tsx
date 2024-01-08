@@ -94,6 +94,7 @@ function ReviewModal() {
     const [selectedStar, setSelectedStar] = useState<number|null>(null)
     const [errorState, setErrorState]  = useState<boolean>()
     const textRef = useRef<HTMLTextAreaElement>(null)
+    const contentRef = useRef<HTMLElement>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const [btnText, setBtnText] = useState<string>('Submit')
 
@@ -188,6 +189,24 @@ function ReviewModal() {
 
     },[appointment])
 
+    const clickClose = (e:MouseEvent) => {
+        if(contentRef.current && !contentRef.current.contains(e.target as HTMLElement)){
+            reviewClose()
+        }
+    }
+
+    useEffect(()=>{
+        if(contentRef.current){
+            window.addEventListener('click', clickClose)
+
+            return() => {
+                window.removeEventListener('click', clickClose)
+            }
+        }
+
+    },[contentRef.current])
+
+
 
 
     if(displayNone) return null
@@ -196,7 +215,7 @@ function ReviewModal() {
     if(appointment){
         return (
             <aside onTransitionEnd={transitionHandler} className={`${opacityOn ? 'opacity-1 ':'opacity-0'} transition-opacity duration-300 fixed bg-opacity-50 top-0 left-0 z-50 w-full bg-secondary h-full justify-center`}>
-                <section className={`absolute top-[50%] left-[50%] translate-x-[-50%] ${opacityOn ? 'translate-y-[-50%] ':'translate-y-[0%]'} transition-transform duration-300 ease-in-out`}>
+                <section ref={contentRef} className={`absolute top-[50%] left-[50%] translate-x-[-50%] ${opacityOn ? 'translate-y-[-50%] ':'translate-y-[0%]'} transition-transform duration-300 ease-in-out`}>
                     <div className={`bg-white inset-0 m-auto p-4 rounded-xl relative shadow-xl`}>
                         <div className="flex items-center gap-4 pb-2 mb-2 border-b-[0.5px] border-light">
                             <div className="w-32">
@@ -269,34 +288,3 @@ function ReviewModal() {
 
 
 export default ReviewModal
-
-
-
-// Update Average
-
-// const updateAverage = async(barberId:string) => {
-//     try{
-//         const res = await fetch('/api/averageStars',{
-//             method: "PATCH",
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ barberId })
-//         })
-
-//         if(!res.ok){
-//             throw new Error("Network response was not ok")
-//         }
-
-//         const json = await res.json()
-
-//         if(json.error){
-//             console.log('Error from Server:',json.error)
-//         }else{
-//             // console.log('Average Updated',json)
-//         }
-
-//     }catch(error){
-//         console.log(error)
-//     }
-// }

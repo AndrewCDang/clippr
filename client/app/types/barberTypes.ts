@@ -156,7 +156,7 @@ reviews_stars:number,
 UserTable?:UserItem,
 profile_url:string,
 ReviewsTable?:ReviewsTable[]
-mentalCare?:boolean,
+mental_care?:boolean,
 lat:number,
 lng:number,
 

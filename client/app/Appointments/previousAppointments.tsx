@@ -96,7 +96,6 @@ async function PreviousAppointments({ userId, pagPage }: PreviousAppointmentsPro
                                         <h2 className="text-light font-light">Price</h2>
                                         <h2 className={`text-secondary font-semibold ${appointment.cancelled ?'line-through decoration-[rgba(255,86,120,0.8)]' : null} `}>£{appointment.cut_price}</h2>
                                     </div>
-              
                                 </div>
                                 <div className="w-full flex justify-between pb-2 mb-4 border-b-[0.5px] border-light items-center">
                                     <h3 className={`text-red font-bold ${appointment.cancelled? 'border-[0.5px] border-red p-2':null}`}>{appointment.cancelled ? 'CANCELLED' :null}</h3>

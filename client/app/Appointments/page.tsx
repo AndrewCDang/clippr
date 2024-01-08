@@ -3,10 +3,6 @@ import { cookies, headers } from 'next/headers'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { barberAppointmentTypes } from '../types/barberTypes'
 import { notFound } from 'next/navigation'
-import {starsSVG, starsEmptySVG, reviewStarsSVG } from '@/app/(svg)/starsSVG'
-import Link from 'next/link'
-import { Button } from '../(components)/button'
-import CancelAppointment from './cancelAppointment'
 import AppointmentCarousel from './appointmentCarousel'
 import PreviousAppointments from './previousAppointments'
 import RefreshPage from './refreshPage'
@@ -17,7 +13,6 @@ const checkAppointments = async() => {
 
     const supabase = createRouteHandlerClient({cookies})
     const session = await supabase.auth.getSession()
-    const userId = session.data.session?.user.id as string
     
     try{
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/checkAppointments`,{

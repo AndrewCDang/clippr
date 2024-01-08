@@ -9,7 +9,6 @@ const HomeContent = async() => {
 
     return(
         <>
-        <h1>hello</h1>
             {session ? <HomeSignIn/> : <HomeDefault/>}
         </>
     )

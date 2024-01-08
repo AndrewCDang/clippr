@@ -50,7 +50,7 @@ function ProfilePicture({page, updateValidBarberPages, updateAccountDetails}:Ima
 
 return (
     <section className='h-full max-w-[600px] min-w-[calc(96px+20%)] w-[calc(96px+50%)] my-12 mx-auto'>
-        <section onDrop={(e)=>handleDragEnd(e)} onDragLeave={handleDragLeave} onDragOver={(e)=>e.preventDefault()} onDragEnter={handleDragOver}  className=' h-full p-12 border-dotted border border-light border-4 flex flex-col gap-2 p-4 items-center justify-center'>
+        <section onDrop={(e)=>handleDragEnd(e)} onDragLeave={handleDragLeave} onDragOver={(e)=>e.preventDefault()} onDragEnter={handleDragOver}  className=' h-full p-12 border-dotted  border-light border-4 flex flex-col gap-2 items-center justify-center'>
             <div ref={parent} className="w-32 h-32  border rounded-full overflow-hidden">
             {!profilePicture ?
                 <svg  className={`stroke-none scale-[1.5]`} viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">

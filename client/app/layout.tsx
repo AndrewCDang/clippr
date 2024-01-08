@@ -13,6 +13,7 @@ import SessionLogIn from './(auth)/sessionLogIn';
 import BackBtn from './(components)/backBtn';
 import BackBtnContainer from './backBtnContainer';
 import ReviewModal from './(modals)/reviewModal';
+import InteractModal from './(modals)/interactModal';
 
 export const dynamic = 'force-dynamic'
 
@@ -53,6 +54,7 @@ export default async function RootLayout({ children }: {children: React.ReactNod
           <LogIn/>
           <SignUp/>
           <ReviewModal/>
+          <InteractModal/>
           <LoadGoogleMaps/>
           <SessionLogIn data ={data.session}/>
           <Footer/>

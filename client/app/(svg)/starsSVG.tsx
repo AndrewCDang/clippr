@@ -31,7 +31,7 @@ export const reviewStarsSVG = (rating:number|undefined)=>{
     const wholeStars = rating ?  Number(rating?.toString().split('.')[0]) : 0
     const partialStars = Number(`0.${rating?.toString().split('.')[1]}`)
     const starsArraySVG = Array(5 - wholeStars).fill(0).map((_, i) => {
-      return i === 0 ? starsMaskSVG(partialStars * 100) : starsEmptySVG;
+      return i === 0 ? <span key={i}>{starsMaskSVG(partialStars * 100)}</span> : <span key={i}>{starsEmptySVG}</span>;
     });
 
     return(

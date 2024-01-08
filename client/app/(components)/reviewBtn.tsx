@@ -2,8 +2,7 @@
 
 import { Button } from "./button"
 import { useReviewModal } from "../(hooks)/useReviewModal"
-import { ReviewsTable, barberAppointmentTypes, ReviewObject} from "../types/barberTypes"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { barberAppointmentTypes, ReviewObject} from "../types/barberTypes"
 
 type ReviewBtnTypes = {
     appointment:barberAppointmentTypes

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 *{
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
   box-sizing: border-box;
 }
 a{
@@ -38,7 +38,7 @@ h1{
   @apply text-primary font-semibold text-3xl
 }
 
-h2{@apply text-primary font-semibold
+h2{@apply text-primary font-bold
 }
 
 
@@ -194,7 +194,7 @@ input[type="checkbox"]:checked + label {
 
 /* horizontal Scrollbar */
 .hScroll::-webkit-scrollbar{
-  background-color: var(--main-col-light-3);
+  /* background-color: var(--main-col-light-3); */
   width: 8px;
   height: 8px;
 

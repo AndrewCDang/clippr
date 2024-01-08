@@ -7,11 +7,13 @@ import NavLocation from './navLocation'
 import NavPersonalise from './navPersonalise'
 import {useState, useEffect, useCallback, useRef, useContext } from 'react'
 import { BookingTime } from '../types/barberTypes'
-import LoadGoogleMaps from '../loadGoogle'
 import { useGoogleLoaded } from '../(hooks)/googleLoaded'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation'
 
 
 export default function NavSearch(){
+  const router = useRouter()
   const {googleLoaded} = useGoogleLoaded()
 
     const [ displayMenu, setDisplayMenu ] = useState(false)
@@ -74,13 +76,43 @@ export default function NavSearch(){
       return formatted
     }
 
+
     // Personalise states
     const [ethnicity, setEthnicity] = useState<string[]>([])
     const [experience, setExperience] = useState<string[]>([])
     const [barberLocation, setBarberLocation] = useState<string[]>([])
 
+    // Getting userSession
+    const userSessionSettings = async() => {
+      const supabase = createClientComponentClient()
+
+      const {data} = (await supabase.auth.getSession())
+
+      if(!data){
+        return null
+      }
+
+      const sessionId = data.session?.user.id
+
+      const {data:userEthnic,error:userError} = await supabase.from('CustomerTable')
+        .select("ethnic_type")
+        .eq('user_id',sessionId)
+        .single()
+
+      if(userEthnic){
+        setEthnicity(userEthnic.ethnic_type)
+      }
+    }
+
+    useEffect(()=>{
+      userSessionSettings()
+    },[])
+
     // Location States
     const [searchLocation, setSearchLocation] = useState('')
+    const [city, setCity, ] = useState<string >()
+    const [lat, setLat] = useState<number>()
+    const [lng, setLng] = useState<number>()
 
     // Date States
     const [ bookingDate, setBookingDate ] = useState<string[]>([])
@@ -90,8 +122,12 @@ export default function NavSearch(){
     const [ bookingTime, setBookingTime ] = useState<BookingTime>({allDay:timeAllDay,time:{hr:null,min:null}, range:0.5})
 
     const updatePreferences = () => {
-      const updatedData = {personalise:{ethnicity:ethnicity, experience:experience, barberLocation:barberLocation}, booking: {bookingLocation:searchLocation,bookingDate:bookingDate,bookingTime:bookingTime}}
-      // dispatch({type:'navData', payload:updatedData})
+      const stringEth = ethnicity.join('_')
+
+      if(searchLocation){
+        router.push(`/discover/location/${city}?searchLocation=${searchLocation}&ethnicity=${stringEth}&lat=${lat}&lng=${lng}`)
+      }
+
     }
 
     const interactRef = useRef<HTMLElement | null>(null)
@@ -142,14 +178,14 @@ export default function NavSearch(){
             <h3 onClick={()=>{setNavPage(2);navHeightToggle('day');interactRef.current ? interactRef.current.scrollTop = 0 : null}} className={`${navPage === 2 ? 'nav-active' : null} cursor-pointer`}>Day</h3>
             <h3 onClick={()=>{setNavPage(3);navHeightToggle('time');interactRef.current ? interactRef.current.scrollTop = 0 : null}} className={`${navPage === 3 ? 'nav-active' : null} cursor-pointer`}>Time</h3>
             <div onClick={()=>updatePreferences()}>
-              <Link href={`/discover/location/${location ? location : 'London'}`}>
+              {/* <Link href={`/discover/location/${location ? location : 'London'}`}> */}
                 <svg ref={searchRef} version="1.1" className='nav-svg-profile' width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 408.1 408" xmlSpace="preserve">
                   <path d="M402,372L298,268c51-65,46-160-14-219C253,18,211,0,166,0S80,17,49,49C17,80,0,122,0,166s17,86,49,118c31,31,73,49,118,49
                     c37,0,73-12,102-35l104,104c4,4,9,6,15,6c6,0,11-2,15-6C410,394,410,380,402,372z M78,254c-23-23-36-55-36-88s13-64,36-88
                     c24-23,55-36,88-36s64,13,88,36c48,49,48,127,0,176c-23,23-55,36-88,36C133,291,102,278,78,254z"/>
                 </svg>
-              </Link>
+              {/* </Link> */}
             </div>
           </span>
           <section ref={interactRef} style={{overflowY: navPage === 0 ? 'scroll': 'hidden' , height:`${navHeight}px`, maxHeight:'680px', transition:'0.2s ease-in-out'}} className='nav-menu flex flex-row relative overflow-hidden '>
@@ -157,7 +193,7 @@ export default function NavSearch(){
               <NavPersonalise ethnicity={ethnicity} setEthnicity={setEthnicity} experience={experience} setExperience={setExperience} barberLocation={barberLocation} setBarberLocation={setBarberLocation}/>
             </div>
             <div ref={locationRef} style={{left:`${100 - (navPage)*100}%`, width:'100%', transition: 'all 0.2s ease-in-out', margin: '0 auto', opacity: navPage === 1 ? 1 :0 }} className="absolute m">
-              < NavLocation locationOptionsRef={locationOptionsRef} interactRef={interactRef} navPage={navPage} setSearchLocation={setSearchLocation} searchLocation={searchLocation} setLocation={setLocation} inputRef={inputRef}/>
+              < NavLocation locationOptionsRef={locationOptionsRef} interactRef={interactRef} navPage={navPage} setSearchLocation={setSearchLocation} searchLocation={searchLocation} setLocation={setLocation} inputRef={inputRef} setCity={setCity} setLat={setLat} setLng={setLng} ethnicity={ethnicity.join('_')} />
             </div>
             <div ref={monthRef} style={{left:`${200 - (navPage)*100}%`, transition: 'all 0.2s ease-in-out', opacity: navPage === 2 ? 1 :0 }} className='absolute w-[100%]'> 
               < NavMonth bookingDate={bookingDate} setBookingDate={setBookingDate} navHeightToggle={navHeightToggle} />

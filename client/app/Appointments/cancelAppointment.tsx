@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 
 const confirmCancel = async(id:string) => {
     const supabase =  createClientComponentClient()
+    console.log(id)
 
     const {error} = await supabase.from('AppointmentsTable')
         .update({
@@ -29,15 +30,17 @@ const confirmCancel = async(id:string) => {
 
 type CancelType = {
     id:any
+    text?:string
 }
 
-function CancelAppointment({id}:CancelType) {
+function CancelAppointment({id,text}:CancelType) {
 
     const [cancelState, setCancelState] = useState<boolean>(false)
     const router = useRouter()
 
     const cancelHandler = async(id:string)=> {
         const request = await confirmCancel(id)
+        console.log(request)
         if(request.status == 200){
             router.refresh()
         }
@@ -70,7 +73,7 @@ function CancelAppointment({id}:CancelType) {
                     </div>
                     :
                     <div className='' key={2}>
-                        <Button clicked={cancelToggle} text='Cancel Appointment' borderColor='border-red' textColor='text-red' variant={2}/>
+                        <Button clicked={cancelToggle} text={text || 'Cancel Appointment'} borderColor='border-red' textColor='text-red' variant={2}/>
                     </div>
                 }
             </div>

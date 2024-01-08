@@ -68,28 +68,28 @@ function BarberCutItem({disabled, id, delItemFromArray, page, updateValidBarberP
 
 
     return (
-    <section className="shadow-lg border gap-2 border-light-2 flex flex-row content-center items-center p-2 rounded-lg min-w-[360px] w-[80%] w-[66%] mx-auto">
+    <section className="shadow-lg border gap-2 border-light-2 flex flex-row content-center items-center p-2 rounded-lg min-w-[360px] w-[80%] mx-auto">
         <div className="flex-grow ">
-            <input onChange={(e)=>updateObject('name',e.target.value)} className="h-12 border-light-2 w-full border border-[1px] p-1 rounded-lg" type="text" placeholder={`${cutObject.objectId === 0 ? 'Standard Trim*' : `Standard Trim` }`}></input>
+            <input onChange={(e)=>updateObject('name',e.target.value)} className="h-12 border-light-2 w-full border-[1px] p-1 rounded-lg" type="text" placeholder={`${cutObject.objectId === 0 ? 'Standard Trim*' : `Standard Trim` }`}></input>
         </div>
         <div className="flex-grow-0 border-light-2 relative overflow-hidden w-28">
-            <input onChange={(e)=>updateObject('price',e.target.value)} placeholder=" " className="h-12 peer/price border border-[1px] w-[100%] py-1 pl-4 rounded-lg overflow-hidden" type="number" required></input>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%] top-[50%]">Price</span>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] opacity-0  peer-placeholder-shown/price:opacity-[1] peer-focus/price:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%] top-[50%]"><span className="opacity-0">Price</span>
+            <input onChange={(e)=>updateObject('price',e.target.value)} placeholder=" " className="h-12 peer/price border-[1px] w-[100%] py-1 pl-4 rounded-lg overflow-hidden" type="number" required></input>
+            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%]">Price</span>
+            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] opacity-0  peer-placeholder-shown/price:opacity-[1] peer-focus/price:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Price</span>
                 <span className="relative">
                     <span className="absolute"><span>(<span className="opacity-0">£</span>)</span></span>
                 </span>
             </span>
-            <span className="text-base text-primary absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-focus/price:text-base peer-placeholder-shown/price:translate-x-[0%] peer-placeholder-shown/price:text-xs peer-placeholder-shown/price:text-light transition-all duration-500 top-0 translate translate-y-[-50%] top-[50%] "><span className="opacity-0">Price</span>
+            <span className="text-base text-primary absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-focus/price:text-base peer-placeholder-shown/price:translate-x-[0%] peer-placeholder-shown/price:text-xs peer-placeholder-shown/price:text-light transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Price</span>
                 <span className="relative">
                     <span className="absolute"><span className="opacity-0">(</span><span>£</span><span className="opacity-0">)</span></span>
                 </span>
             </span>
         </div>
         <div className="flex-grow-0 border-light-2 relative overflow-hidden w-28">
-            <input onChange={(e)=>updateObject('duration',e.target.value)} onKeyUp={(e)=>updateLeftGap(e)} ref={refDuration} placeholder=" " className="h-12 peer/duration border border-[1px] w-[100%] py-1 pl-2 rounded-lg overflow-hidden" type="number" required></input>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%] top-[50%]">Cut duration</span>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] opacity-0  peer-placeholder-shown/duration:opacity-[1] peer-focus/duration:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%] top-[50%]"><span className="opacity-0">Cut duration</span>
+            <input onChange={(e)=>updateObject('duration',e.target.value)} onKeyUp={(e)=>updateLeftGap(e)} ref={refDuration} placeholder=" " className="h-12 peer/duration border-[1px] w-[100%] py-1 pl-2 rounded-lg overflow-hidden" type="number" required></input>
+            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%]">Cut duration</span>
+            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] opacity-0  peer-placeholder-shown/duration:opacity-[1] peer-focus/duration:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Cut duration</span>
                 <span className="relative">
                     <span className="absolute"><span>(<span className="opacity-0">mins</span>)</span></span>
                 </span>
