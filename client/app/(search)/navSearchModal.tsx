@@ -55,7 +55,7 @@ const fetchEthnicity = async() => {
     // Personalise states
     const [ethnicity, setEthnicity] = useState<string[]>([])
     const [experience, setExperience] = useState<string[]>([])
-    const [barberLocation, setBarberLocation] = useState<string[]>([])
+    const [barberLocation, setBarberLocation] = useState<string[]>(["Barber Shop", "Barber Home"])
 
     
     // Location States
