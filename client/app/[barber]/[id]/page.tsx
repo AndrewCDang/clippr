@@ -169,7 +169,7 @@ async function barberPage({params}:any) {
           <section className=' md:col-span-4 md:col-start-9 relative md:ml-[calc(100%/6)]'>
             <div className='h-full w-full'>
                 <div className='w-full sticky pb-4 top-4 rounded-xl shadow-lg border-light-2 border-[0.5px] bg-white/5'>
-                  <BarberForm barber={barber}/>
+                  <BarberForm barber={barber as BarberItem}/>
                 </div>
             </div>
           </section>

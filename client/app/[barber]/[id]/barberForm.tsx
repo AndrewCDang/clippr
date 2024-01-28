@@ -11,7 +11,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useLogInModal } from "@/app/(hooks)/useLogInModal"
 
 
-function BarberForm({barber}:{barber:BarberItem | undefined}) {
+function BarberForm({barber}:{barber:BarberItem}) {
     const supabase = createClientComponentClient()
     const {logInOpen} = useLogInModal()
     const router = useRouter()
