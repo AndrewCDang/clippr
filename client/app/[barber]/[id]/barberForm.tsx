@@ -22,16 +22,13 @@ function BarberForm({barber}:{barber:BarberItem | undefined}) {
     const [disabled, setDisabled] = useState<boolean>(false)
     const [ownPage, setOwnPage] = useState<boolean>(false)
 
-    const currentPath = usePathname()
-
     const clickHandler = async() => {
         const bookingPage = {barberDetails:barber, bookingDetails:bookingDetails}
 
         const isAuthenticated = await getSession()
         if(isAuthenticated){
             setBookingPageDetails(bookingPage)
-            const url = `${currentPath}/book`
-            router.push(url)
+            router.push(`/barber/${barber?.profile_url}/book`)
         }else{
             logInOpen()
         }
