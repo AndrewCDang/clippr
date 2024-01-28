@@ -28,11 +28,6 @@ const fetchEthnicity = async() => {
 
     const {data:dataId, error:errorId} = (await supabase.auth.getSession())
 
-    if(!dataId){
-        console.log({status:500, message:'Could not get session id'})
-        return
-    }
-
     const id = dataId.session?.user.id
 
     const {data, error} = await supabase.from('CustomerTable')
@@ -57,9 +52,9 @@ const fetchEthnicity = async() => {
     const router = useRouter()
 
     // Personalise states
-    const [ethnicity, setEthnicity] = useState<string[]>(['caucasian','asian','afro'])
+    const [ethnicity, setEthnicity] = useState<string[]>([])
     const [experience, setExperience] = useState<string[]>([])
-    const [barberLocation, setBarberLocation] = useState<string[]>(['Barber Shop', 'Barber Home', 'Customer Home'])
+    const [barberLocation, setBarberLocation] = useState<string[]>([])
 
     
     // Location States
@@ -81,31 +76,42 @@ const fetchEthnicity = async() => {
         const stringEth = ethnicity.join('_')
         const stringLoc = barberLocation.join('_')
 
-        if(searchLocation.length>0){
+        if(searchLocation.length>0 && city){
             const sort = searchParams.get('sort')
             router.push(`/discover/location/${city}?searchLocation=${searchLocation}&ethnicity=${stringEth}&barberLocation=${stringLoc}&lat=${lat}&lng=${lng}&sort=${sort ||'location'}`)
+            setSearchLocation('')
         }else{
             setPlaceholderSearch(true)
         }
-        searchClose()
-        setNavPage(0)
+        if(!searchLocation){
+            setNavPage(1)
+            navHeightToggle('location')
+        }else{
+            searchClose()
+        }
 
 
     }
 
     // Searching for when user clicks search button without bluring selection beforehand
     useEffect(()=>{
-        const stringEth = ethnicity.join('_')
-        const stringLoc = barberLocation.join('_')
+        if(placeholderSearch){
+            const stringEth = ethnicity.join('_')
+            const stringLoc = barberLocation.join('_')
+    
+            if(placeholderSearch && placeholderLocation.length>0 && city && city.length>0 && lat && lng){
+                const sort = searchParams.get('sort')
+                router.push(`/discover/location/${city}?searchLocation=${placeholderLocation}&ethnicity=${stringEth}&barberLocation=${stringLoc}&lat=${lat}&lng=${lng}&sort=${sort ||'location'}`)
+                setPlaceholderLocation('')
+                setPlaceholderSearch(false)
+                setSearchLocation('')
+                setCity('')
+                setLat(0)
+                setLng(0)
+                setNavPage(0)
+                searchClose()
 
-        if(placeholderSearch && placeholderLocation.length>0 && city && city.length>0 && lat && lng){
-            const sort = searchParams.get('sort')
-            router.push(`/discover/location/${city}?searchLocation=${placeholderLocation}&ethnicity=${stringEth}&barberLocation=${stringLoc}&lat=${lat}&lng=${lng}&sort=${sort ||'location'}`)
-            setPlaceholderSearch(false)
-            setPlaceholderLocation('')
-            setCity('')
-            setLat(0)
-            setLng(0)
+            }
         }
 
     },[placeholderSearch,placeholderLocation,city,lat,lng,searchLocation])
@@ -189,21 +195,21 @@ const fetchEthnicity = async() => {
     return (
     <section onTransitionEnd={transitionHandler} className={`${displayNone ? 'hidden' : ''}  ${opacityOn ? 'opacity-1' : 'opacity-0'} transition-all transition-600 fixed w-[100vw] h-[100dvh] bg-opacity-50 top-0 left-0 z-50  bg-secondary-f`}>
         <div className="w-full h-full relative">
-            <section ref={menuRef} className={`${opacityOn ? 'translate-y-[0%]' : 'translate-y-[-4rem]'} transition-all transition-600 ease-in-out nav-menu-toggle border-primary rounded-2xl p-4 bg-white flex flex-col z-10 w-fit absolute top-[1rem] md:top-[4rem] [max-height:calc(100dvh_-_2rem)] left-[50%] translate-x-[-50%] `}>
+            <section ref={menuRef} className={`${opacityOn ? 'translate-y-[0%]' : 'translate-y-[-4rem]'} transition-all transition-600 ease-in-out nav-menu-toggle border-primary-f rounded-2xl p-4 bg-white flex flex-col z-10 w-fit absolute top-[1rem] md:top-[4rem] [max-height:calc(100dvh_-_2rem)] left-[50%] translate-x-[-50%] `}>
                 <span className='flex gap-2 md:gap-4 justify-evenly mb-4 items-center '>
                     <div className="relative flex gap-4 group">
-                        <h3 ref={personaliseHeading} onClick={()=>{setNavPage(0);navHeightToggle('personalise');interactRef.current ? interactRef.current.scrollTop = 0 : null;console.log(personaliseWidth)}} className={`${navPage === 0 ? 'nav-active' : null} cursor-pointer h-fit px-2 text-secondary-f`}>Personalise</h3>
-                        <h3 ref={locationHeading} onClick={()=>{setNavPage(1);navHeightToggle('location');interactRef.current ? interactRef.current.scrollTop = 0 : null;setTimeout(()=>{inputRef.current?.focus()},300)}} className={`${navPage === 1 ? 'nav-active' : null} cursor-pointer h-fit px-2 text-secondary-f`}>Location</h3>
+                        <h3 ref={personaliseHeading} onClick={()=>{setNavPage(0);navHeightToggle('personalise');interactRef.current ? interactRef.current.scrollTop = 0 : null}} className={`${navPage === 0 ? 'nav-active' : null} border-primary-f/30 border-[1px] rounded-lg py-1 cursor-pointer h-fit px-2 text-secondary-f`}>Personalise</h3>
+                        <h3 ref={locationHeading} onClick={()=>{setNavPage(1);navHeightToggle('location');interactRef.current ? interactRef.current.scrollTop = 0 : null;setTimeout(()=>{inputRef.current?.focus()},300)}} className={`${navPage === 1 ? 'nav-active' : null} border-primary-f/30 border-[1px] rounded-lg py-1 cursor-pointer h-fit px-2 text-secondary-f`}>Location</h3>
                         <div style={{
                             ...clipPathBorder,
-                            transitionProperty:'clip-path', transitionDuration:'500ms', transitionTimingFunction:'ease-in-out'}} className={`absolute [z-index:-10] w-full translate-y-[-50%] top-[50%]`}>
+                            transitionProperty:'clip-path', transitionDuration:'500ms', transitionTimingFunction:'ease-in-out'}} className={`absolute [z-index:-10] w-full translate-y-[-50%] top-[50%] border-primary-f border-[1px]`}>
                             <h3 className={`text-primary-f bg-primary-f h-8`}></h3>
                         </div>
                         <div style={{
                             ...clipPathStyle,
                             transitionProperty:'clip-path', transitionDuration:'500ms', transitionTimingFunction:'ease-in-out'}} className={`absolute flex gap-4 [z-index:20] pointer-events-none`}>
-                            <h3 className="text-white px-2">Personalise</h3>
-                            <h3 className="text-white px-2">Location</h3>
+                            <h3 className="text-white px-2 border-[1px] border-primary/0 rounded-lg py-1">Personalise</h3>
+                            <h3 className="text-white px-2 border-[1px] border-primary/0 rounded-lg py-1">Location</h3>
                         </div>
                     </div>
                     <button ref={searchRef} onClick={()=>updatePreferences()} className="hover:scale-[96%] transition-scale duration-200">

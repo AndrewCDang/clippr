@@ -77,7 +77,7 @@ export function AuthFormSignUp(){
                 <label className="text-sm text-light" htmlFor="firstName">First name*</label>
                 <input className="rounded-lg px-2 py-1 border-light border " type="text" id="firstName" {...register("firstName", {
                     pattern:{
-                        value:/^[a-zA-Z]+$/,
+                        value:/^[a-zA-Z-]+$/,
                         message:"invalid first-name"
                     },
                     required:{
@@ -91,7 +91,7 @@ export function AuthFormSignUp(){
                 <label className="text-sm text-light" htmlFor="lastName">Last name*</label>
                 <input className="rounded-lg px-2 py-1 border-light border " type="text" id="lastName" {...register("lastName", {
                     pattern:{
-                        value:/^[a-zA-Z]+$/,
+                        value:/^[a-zA-Z-]+$/,
                         message:"invalid first-name"
                     },
                     required:{
