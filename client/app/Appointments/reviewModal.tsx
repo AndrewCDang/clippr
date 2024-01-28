@@ -190,7 +190,7 @@ function ReviewModal() {
                 <div className={`bg-white inset-0 m-auto p-4 rounded-xl relative shadow-xl`}>
                     <div className="flex items-center gap-4 pb-2 mb-2 border-b-[0.5px] border-light-f">
                         <div className="w-32">
-                            <img className=' w-full  aspect-square object-cover rounded-lg' src={appointment.BarberTable?.UserTable?.profilePicture}></img>
+                            <img alt="" className=' w-full  aspect-square object-cover rounded-lg' src={appointment.BarberTable?.UserTable?.profilePicture}></img>
                         </div>
                         <div className="flex h-fit justify-between w-fit gap-8">
                             <div className="flex flex-col gap-4">

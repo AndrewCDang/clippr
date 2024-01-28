@@ -170,7 +170,7 @@ function Book({params}:any) {
                       barberPage.appointment_location == 'Home' ?
                       <>
                         <h2 className='font-medium text-lg'>Barber Home</h2>
-                        <h5 className='text-lg text-light'>Appointment will take place at barber's house</h5>
+                        <h5 className='text-lg text-light'>Appointment will take place at barber&apos;s house</h5>
                       </>
                       :null
                     }

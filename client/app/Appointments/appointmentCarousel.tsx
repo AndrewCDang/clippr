@@ -1,47 +1,16 @@
 "use client"
 import {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import { barberAppointmentTypes } from '../types/barberTypes'
-// import { headers } from 'next/headers'
 import Link from 'next/link'
 import { reviewStarsSVG } from '../(svg)/starsSVG'
 import { Button } from '../(components)/button'
 import CancelAppointment from './cancelAppointment'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import EmptyCalender from '../(svg)/emptyCalender'
+import { starsEmptySVG } from '../(svg)/starsSVG'
 
 interface appoinmentCarouselProps {
     appointments: barberAppointmentTypes[] | undefined;
 }
-
-// const checkAppointments = async() => {
-
-//     const supabase = createClientComponentClient()
-
-//     const session = await supabase.auth.getSession()
-//     const userId = session.data.session?.user.id as string
-    
-//     try{
-//         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/checkAppointments`,{
-//             method:'PATCH',
-//             headers: headers()
-//         }
-
-//         )
-//         if (!res.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         const json = await res.json()
-//         if(!json.error){
-//             console.log(json)
-//             return json
-//         }else{
-//             console.log(json.error)
-//         }
-
-//     }catch(error){
-//         console.log(error)
-//     }
-// }
 
 function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
     const [appoinmentsArray, setappoinmentsArray]= useState(appointments)
@@ -189,7 +158,7 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                                 </div >
                                                 <section className='grid grid-cols-2  md:grid-cols-3 gap-2 md:gap-4 '>
                                                     <div className=" w-full ">
-                                                        <img className='aspect-square object-cover rounded-lg' src={appointment.BarberTable?.UserTable?.profilePicture}></img>
+                                                        <img alt='' className='aspect-square object-cover rounded-lg' src={appointment.BarberTable?.UserTable?.profilePicture}></img>
                                                     </div>
                                                     <div className="flex flex-col md:flex-row justify-between w-fit gap-8 text-[0.8rem] leading-[0.8rem] md:leading-[1rem] md:text-[1rem]">
                                                         <div className="flex flex-col gap-2 md:gap-4">
@@ -197,8 +166,16 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                                                 <h1 className='text-wrap [font-size:_clamp(1rem,calc(0.5rem_+_2vw),2rem)] [line-height:_clamp(1rem,calc(0.5rem_+_2vw),2rem)]'>{appointment.BarberTable?.UserTable?.first_name} {appointment.BarberTable?.UserTable?.last_name}</h1>
                                                                 <h2 className='font-medium'>{appointment.BarberTable?.barber_level.slice(0,1).toUpperCase()}{appointment.BarberTable?.barber_level.slice(1)}</h2>
                                                                 <div className='flex items-center flex-wrap text-xs'>
-                                                                    {reviewStarsSVG(appointment.BarberTable?.reviews_stars)}
-                                                                    <h3 className='ml-1  font-medium text-xs'>{appointment.BarberTable?.reviews_stars && appointment.BarberTable?.reviews_stars.toFixed(2)}<span className='text-xs text-light ml-1'>{`(${appointment.BarberTable && appointment?.BarberTable?.ReviewsTable?.length} reviews)`}</span></h3>
+                                                                    {
+                                                                        appointment.BarberTable?.reviews_stars ?
+                                                                            reviewStarsSVG(appointment.BarberTable?.reviews_stars)
+                                                                        : Array(5).fill(0).map((_,i)=>{
+                                                                            return(
+                                                                                starsEmptySVG
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                <h3 className='font-medium text-xs mr-1'>{appointment.BarberTable?.reviews_stars && appointment.BarberTable?.reviews_stars.toFixed(2)}<span className='text-xs text-light font-light'>{`(${appointment.BarberTable && appointment?.BarberTable?.ReviewsTable?.length} reviews)`}</span></h3>
                                                                 </div>
                                                             </div>
                                                             <div className="flex flex-col h-full w-fit justify-end">

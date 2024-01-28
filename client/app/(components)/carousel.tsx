@@ -172,7 +172,7 @@ function Carousel({barber}:any) {
                     gallery.map((image:any, i:number)=>{
                         return(
                         <div key={i} style={{scrollSnapAlign:'start'}}  ref={el => corouselItemRef.current[i] = el} className='h-full rounded-lg overflow-hidden '>
-                            <img className='object-cover h-full w-full aspect-square' draggable={false} src={image}></img>
+                            <img alt='' className='object-cover h-full w-full aspect-square' draggable={false} src={image}></img>
                         </div>
                         )
                     })

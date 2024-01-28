@@ -21,13 +21,15 @@ const LocationRadio = ({barberLocation, setBarberLocation, location, notes}:{bar
         return(
             <div className="flex flex-col-reverse">
                 <div className="w-16 aspect-square rounded-lg object-cover overflow-hidden">
-                    <img className="min-h-full object-cover" src={`/clippr_${location.replace(' ','_')}.jpg`}></img>
+                    <img alt="" className="min-h-full object-cover" src={`/clippr_${location.replace(' ','_')}.jpg`}></img>
                 </div>
             </div>
         )
     }
     return(
-        <BtnSelection bg="bg-white/5" children={<Children/>} defaultChecked={barberLocation.includes(location)} type={'checkbox'} tag={location} click={handler} notes={notes} name="locationSearch"/>
+        <BtnSelection bg="bg-white/5" defaultChecked={barberLocation.includes(location)} type={'checkbox'} tag={location} click={handler} notes={notes} name="locationSearch">
+            <Children/>
+        </BtnSelection>
     )
 }
 
@@ -42,13 +44,15 @@ const EthnictyRadio = ({ethnicity, setEthnicity, ethnic}:{ethnicity:string[], se
         return(
             <div className="flex flex-col-reverse">
                 <div className="w-16 aspect-square rounded-lg object-cover overflow-hidden">
-                    <img className="min-h-full object-cover" src={`/clippr_${ethnic}.jpg`}></img>
+                    <img alt=""  className="min-h-full object-cover" src={`/clippr_${ethnic}.jpg`}></img>
                 </div>
             </div>
         )
     }
     return(
-        <BtnSelection bg="bg-white/5"  children={<Children/>} defaultChecked={ethnicity.includes(ethnic)} type={'checkbox'} tag={ethnic} click={handler} notes={'textured'} name="ethnictySearch"/>
+        <BtnSelection bg="bg-white/5" defaultChecked={ethnicity.includes(ethnic)} type={'checkbox'} tag={ethnic} click={handler} notes={'textured'} name="ethnictySearch">
+            {<Children/>}
+        </BtnSelection>
     )
 }
 

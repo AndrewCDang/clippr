@@ -28,7 +28,6 @@ type discoverTypes = {
     const minLng = lng*1 - 15/111
 
     const supabase = createRouteHandlerClient({cookies})
-    console.log(locationArray)
 
     if(ethnicityArray[0] === ''){
         const {data, error} = await supabase.from("BarberTable")
@@ -79,7 +78,6 @@ type discoverTypes = {
   
   const Discover = async ({ params, searchParams }: DiscoverProps) => {
     const city = params.id
-    console.log(city)
 
     const lat = searchParams.lat
     const lng = searchParams.lng
@@ -93,7 +91,7 @@ type discoverTypes = {
 
 
     const barberList = await getBarbers({city, lat, lng, ethnicityArray, locationArray}) as BarberItem[]
-
+    
 
     function sortBarbers(sortBy:string, barberList:BarberItem[], lat:number, lng:number) {
       if (!sortBy) {
@@ -259,7 +257,7 @@ type discoverTypes = {
                       }
 
                       return (
-                        <IntersectionView children={<BarberItem/>} classNameInView='animate-appearIn' classNameNotInView='opacity-0' threshold={0.5}/>
+                        <IntersectionView key={item.profile_url} children={<BarberItem/>} classNameInView='animate-appearIn' classNameNotInView='opacity-0' threshold={0.5}/>
                       )
                     }):null}
                     {barber.length === 0 && <h2 className='text-lg'>No nearby barbers within ~ 10 miles...</h2>}

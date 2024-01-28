@@ -51,7 +51,7 @@ const BarberBanner = ({cutTime,cutDate,appointment,appointmentUpcoming}:{cutTime
                 }
                 <Link  href={!appointmentUpcoming ? `/barber/${appointment.BarberTable?.profile_url}`: '/Appointments'}>
                     <section className="group cursor-pointer z-0 [width:_clamp(300px,25vw+200px,520px)] aspect-square rounded-xl mt-4 relative overflow-hidden hover:scale-[0.99] transition-scale duration-[800ms] [box-shadow:0px_0px_24px_rgba(var(--main-col-primary),0.3)] ">
-                        <img className="w-full aspect-square object-cover z-10" src={appointment.BarberTable?.UserTable?.profilePicture}></img>
+                        <img alt="" className="w-full aspect-square object-cover z-10" src={appointment.BarberTable?.UserTable?.profilePicture}></img>
                         <div className="w-full absolute z-20 group-hover:translate-y-[-100%] top-100 translate-y-0 transition-all duration-300 p-4">
                             <div className="text-xl font-semibold">
                                 <h3 className="text-white drop-shadow-xl">{appointment.BarberTable?.user_address.addressline1}</h3>
@@ -186,9 +186,8 @@ async function CustomerSignIn({user}: CustomerSignInTypes) {
                     {
                         pastAppointments.map((item,i)=>{
 
-                            const AppointmentContainer = () => {
-                                return(
-                                    <Link href={'/Appointments'}>
+                            return(
+                                <Link href={'/Appointments'}>
                                     <div key={i}  className="w-full max-w-[600px] mx-auto group hover:bg-light-3 cursor-pointer bg-white/5  border-[1px] border-light rounded-lg overflow-hidden  transition-colors duration-100">
                                         <div className="flex w-full justify-between items-center px-4 py-2 gap-4">
                                             <div className="flex flex-wrap">
@@ -211,11 +210,7 @@ async function CustomerSignIn({user}: CustomerSignInTypes) {
                                             </div>
                                         </div>
                                     </div>
-                                    </Link>
-                                )
-                            }
-                            return(
-                                <AppointmentContainer/>
+                                </Link>
                             )
                         })
                 }

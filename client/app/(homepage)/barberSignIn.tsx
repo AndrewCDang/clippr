@@ -133,7 +133,7 @@ async function BarberSignIn({user}:BarberSignTypes) {
                 <div className='flex gap-2 absolute top-[5%] left-[5%]'>
                     {Array(3).fill(0).map((_,i)=>{
                         return(
-                            <div style={{animationDelay:`${100*(i+1)}ms`}} className={`bg-light-2 w-4 aspect-square rounded-full barberSeat`}></div>
+                            <div key={i} style={{animationDelay:`${100*(i+1)}ms`}} className={`bg-light-2 w-4 aspect-square rounded-full barberSeat`}></div>
                         )
                     })}
                 </div>
@@ -155,11 +155,11 @@ async function BarberSignIn({user}:BarberSignTypes) {
             </section>
             {
                 appointments && appointments.length>0 ? 
-                appointments.map(item=>{
+                appointments.map((item,i)=>{
                     const daysWeek = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
                     const appointmentDate = new Date(item.cut_date)
                     return(
-                        <section className='grid grid-cols-6 min-w-[600px] py-2 bg-white/5'>
+                        <section key={i} className='grid grid-cols-6 min-w-[600px] py-2 bg-white/5'>
                             <h3 className='p-2'>{(item.UserTable as UserItem).first_name} {(item.UserTable as UserItem).last_name}</h3>
                             <h3 className='p-2'>{daysWeek[appointmentDate.getDay()]} - {appointmentDate.getDate()}/{appointmentDate.getMonth()+1}/{appointmentDate.getFullYear()}</h3>
                             {item.cut_time.length === 2 ?

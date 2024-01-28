@@ -234,8 +234,8 @@ const Account = () => {
             <section className={`${accountIsOpen ? 'flex' : 'hidden'} mt-2 absolute top-[100%] flex-col border-[1px] border-light rounded-xl overflow-hidden [&>*:first-child]:border-0 hover:drop-shadow-xl transition-all duration-200 ease-in-out bg-white`}>
                 < AccountDropdown toggleFunctions={toggleRegisterModal}  dropList="Sign-up" dropSvg={< DropSignUp fill={"light"}/>}  />
                 < AccountDropdown toggleFunctions={toggleLogInModal}  dropList="Log-in" dropSvg={< DropLogIn fill={"light"}/>}  />
-                < AccountDropdown toggleFunctions={logInBarber}  dropList="Test Account" notes="Barber" notesStart={true} dropSvg={<div className="w-6 aspect-square rounded-full overflow-hidden"><img className=" object-cover scale-[2] translate-y-[20%]" src="/spencer.jpg"></img></div>}  />
-                < AccountDropdown toggleFunctions={logInCustomer}  dropList="Test Account" notes="Customer" notesStart={true} dropSvg={<div className="w-6 aspect-square rounded-full overflow-hidden"><img className=" object-cover scale-[1.2]" src="/brian.jpg"></img></div>}  />
+                < AccountDropdown toggleFunctions={logInBarber}  dropList="Test Account" notes="Barber" notesStart={true} dropSvg={<div className="w-6 aspect-square rounded-full overflow-hidden"><img alt="" className=" object-cover scale-[2] translate-y-[20%]" src="/spencer.jpg"></img></div>}  />
+                < AccountDropdown toggleFunctions={logInCustomer}  dropList="Test Account" notes="Customer" notesStart={true} dropSvg={<div className="w-6 aspect-square rounded-full overflow-hidden"><img alt="" className=" object-cover scale-[1.2]" src="/brian.jpg"></img></div>}  />
 
             </section>
             :

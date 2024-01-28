@@ -104,7 +104,7 @@ export function AuthForm(){
                 })}></input>
                 {errors.userPassword?.message?.split(',').map((errorItem,index)=>{
                     return(
-                        <h5 className="text-sm text-red">{errorItem}</h5>
+                        <h5 key={index} className="text-sm text-red">{errorItem}</h5>
                     )
                 })}
             </div>

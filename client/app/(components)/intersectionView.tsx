@@ -7,11 +7,13 @@ export default function IntersectionView({
         classNameInView,
         classNameNotInView,
         threshold,
+        key,
     }: {
         children: React.ReactNode
         classNameInView?: string
         classNameNotInView?: string
         threshold?:number
+        key:string
     }) {
         
     return (
@@ -19,6 +21,7 @@ export default function IntersectionView({
             {({ inView, ref, entry }) => (
 
             <div
+                key={key}
                 ref={ref}
                 className={inView ? classNameInView : classNameNotInView}
             >

@@ -27,7 +27,7 @@ function PreviousReview({review,pp}:PreviousReviewTypes) {
                     <span className="text-light-f text-xs">({date.getDate()}/{date.getMonth()+1}/{date.getFullYear()})</span>
                 </div>
             </div>
-            <h3 className="text-secondary-f">"{review.review}"</h3>
+            <h3 className="text-secondary-f">&quot;{review.review}&quot;</h3>
 
     </aside>
  )

@@ -27,7 +27,7 @@ export function LogIn(){
             </div>
             <h2>Log in</h2>
             <AuthForm/>
-            <h5>Don't have an account? <strong onClick={()=>registerInstead()} className='cursor-pointer'>Sign up</strong> here</h5>
+            <h5>Don&apos;t have an account? <strong onClick={()=>registerInstead()} className='cursor-pointer'>Sign up</strong> here</h5>
             <a onClick={()=>logInClose()} className='absolute top-0 right-0 m-2'>
                 <XSvg height={8} width={8} fill={'primary'} strokeWidth={12}/>
             </a>

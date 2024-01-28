@@ -62,7 +62,7 @@ async function barberPage({params}:any) {
 
   return (
       <main className=' my-8 rounded-xl shadow-lg flex-1 flex flex-col justify-between p-4 relative'> 
-        <img src={barber?.bg_banner} className={`absolute h-40 w-full rounded-t-xl z-0  top-0 left-0 bg-light object-cover opacity-[80%]`}></img>
+        <img alt='' src={barber?.bg_banner} className={`absolute h-40 w-full rounded-t-xl z-0  top-0 left-0 bg-light object-cover opacity-[80%]`}></img>
         <section className='z-0'>
           <div className='w-40 h-40 rounded-full overflow-hidden custom-shadow z-10'>
               <img className='w-full aspect-square object-cover' src={`${barber?.UserTable?.profilePicture}`} alt='barber profile picture'></img>
