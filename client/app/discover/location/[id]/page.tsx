@@ -257,7 +257,9 @@ type discoverTypes = {
                       }
 
                       return (
-                        <IntersectionView key={item.profile_url} children={<BarberItem/>} classNameInView='animate-appearIn' classNameNotInView='opacity-0' threshold={0.5}/>
+                        <IntersectionView key={item.profile_url} classNameInView='animate-appearIn' classNameNotInView='opacity-0' threshold={0.5}>
+                          {<BarberItem/>}
+                        </IntersectionView>
                       )
                     }):null}
                     {barber.length === 0 && <h2 className='text-lg'>No nearby barbers within ~ 10 miles...</h2>}

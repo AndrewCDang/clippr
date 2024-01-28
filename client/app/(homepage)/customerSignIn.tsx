@@ -187,8 +187,8 @@ async function CustomerSignIn({user}: CustomerSignInTypes) {
                         pastAppointments.map((item,i)=>{
 
                             return(
-                                <Link href={'/Appointments'}>
-                                    <div key={i}  className="w-full max-w-[600px] mx-auto group hover:bg-light-3 cursor-pointer bg-white/5  border-[1px] border-light rounded-lg overflow-hidden  transition-colors duration-100">
+                                <Link key={i} href={'/Appointments'}>
+                                    <div className="w-full max-w-[600px] mx-auto group hover:bg-light-3 cursor-pointer bg-white/5  border-[1px] border-light rounded-lg overflow-hidden  transition-colors duration-100">
                                         <div className="flex w-full justify-between items-center px-4 py-2 gap-4">
                                             <div className="flex flex-wrap">
                                                 <h3 className="mr-2 font-bold">{item.cut_name}</h3>
