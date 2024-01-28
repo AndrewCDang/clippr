@@ -69,7 +69,7 @@ async function Appointments({searchParams}:{searchParams:{page:number}}) {
 
     // Checks and updates if appointment has passed
     const check = await checkAppointments() as any
-    const appointmentPassed = check.pastAppointments>0 as boolean
+    const appointmentPassed = check ? check.pastAppointments>0 : false as boolean
     
     // Next Appointment
     const appointments = await getNextAppointment(userId)
