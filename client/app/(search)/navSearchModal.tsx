@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import { useSearchModal } from "../(hooks)/useSearchModal";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useLogIn } from "../(hooks)/useUserLogin";
+import XSvg from "../(svg)/XSvg";
 
 
 type NavSearchModalTypes = {
@@ -90,7 +91,11 @@ const fetchEthnicity = async() => {
             searchClose()
         }
 
+    }
 
+    const xCloseModal = () => {
+        setNavPage(0)
+        searchClose()
     }
 
     // Searching for when user clicks search button without bluring selection beforehand
@@ -212,14 +217,19 @@ const fetchEthnicity = async() => {
                             <h3 className="text-white px-2 border-[1px] border-primary/0 rounded-lg py-1">Location</h3>
                         </div>
                     </div>
-                    <button ref={searchRef} onClick={()=>updatePreferences()} className="hover:scale-[96%] transition-scale duration-200">
-                        <div className="flex gap-2 bg-light-3-f border-primary px-2 py-1 rounded-lg cursor-pointer">
-                            <h4 className="w-fit text-primary-f">Search</h4>
-                            <div className="fill-primary-f">
-                                <SearchSVG/>
+                    <div className="flex items-center">
+                        <button ref={searchRef} onClick={()=>updatePreferences()} className="hover:scale-[96%] transition-scale duration-200">
+                            <div className="flex gap-2 bg-light-3-f border-primary px-2 py-1 rounded-lg cursor-pointer">
+                                <h4 className="w-fit text-primary-f">Search</h4>
+                                <div className="fill-primary-f">
+                                    <SearchSVG/>
+                                </div>
                             </div>
-                        </div>
-                    </button>
+                        </button>
+                        <button onClick={()=>xCloseModal()} className='ml-1'>
+                            <XSvg height={8} width={8} fill={'primary'} strokeWidth={12}/>
+                        </button>
+                    </div>
                 </span>
                 <section ref={interactRef} style={{overflowY: navPage === 0 ? 'scroll': 'hidden' , height:`${navHeight}px`, maxHeight:'680px', transition:'0.2s ease-in-out'}} className='nav-menu flex flex-row relative overflow-hidden '>
                     <div  ref={personaliseRef} style={{left:`${0 - (navPage)*100}%`, width:'100%', transition: 'all 0.2s ease-in-out ', margin: '0 auto', opacity: navPage === 0 ? 1 :0 }} className="absolute m" >
