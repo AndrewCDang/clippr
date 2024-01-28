@@ -144,21 +144,21 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                 <div className='w-24 aspect-square fill-light mx-auto mt-4'> 
                                     <EmptyCalender/>
                                 </div>
-                                <h2 className='text-light w-fit mx-auto '>You have no upcoming appointments...</h2>
+                                <h2 className='text-light w-fit mx-auto'>You have no upcoming appointments...</h2>
                             </>
                         }
-                        <div className='absolute bg-gradient-to-r from-white w-[calc(2rem+5vw)] h-full'></div>
-                            <div className='absolute bg-gradient-to-r from-transparent to-white w-[calc(2rem+5vw)] h-full right-0'></div>
+                        <div className='absolute bg-gradient-to-r from-bg w-[calc(2rem+5vw)] h-full'></div>
+                            <div className='absolute bg-gradient-to-r from-transparent to-bg w-[calc(2rem+5vw)] h-full right-0'></div>
                             <section ref={carouselRef} style={{scrollBehavior: scrollToggle, scrollSnapType:snapToggle}} className='overflow-x-scroll carousel' >
                                 <div className='grid grid-flow-col auto-cols-[calc(100%)]  gap-4 '>
                                     {
                                     appointments.map((appointment:barberAppointmentTypes, i:number)=>{
                                         return(
                                         <div key={appointment.id} style={{scrollSnapAlign:'center'}}  ref={el => corouselItemRef.current[i] = el} className='overflow-hidden pb-6 mx-4 mb-4 w-full'>
-                                            <section key={appointment.id} className='m-4 p-4 w-fit shadow-xl border-[0.5px] border-light rounded-lg mx-auto'>
-                                                <div className="flex gap-4  pb-2 text-xl">
+                                            <section key={appointment.id} className='m-4 p-4 w-fit max-w-[80%] shadow-xl border-[0.5px] border-light rounded-lg mx-auto bg-white/10'>
+                                                <div className="grid gap-2 md:gap-4 grid-cols-2 md:flex md:flex-row  pb-2 text-[0.8rem] md:text-xl">
                                                     <div className="flex-1">
-                                                        <h2 className="text-light font-light">Upcoming Appointment</h2>
+                                                        <h2 className="text-light font-light">Cut Date</h2>
                                                         {
                                                             appointment.cut_time.length === 2 ?
                                                             <h2 className="text-secondary font-semibold">{appointment.cut_date.toString().split('-').reverse().join('/')}</h2>
@@ -184,27 +184,31 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                                         <h2 className="text-secondary font-semibold">£{appointment.cut_price}</h2>
                                                     </div>
                                                 </div>
-                                                <div className="w-full flex justify-end pb-2 mb-4 border-b-[0.5px] border-light">
-                                                        <h4  className="ml-0 w-fit text-light">Ref: #{appointment.id.split('-')[0]}-{appointment.id.split('-')[1]}-{appointment.id.split('-')[2]}</h4>
+                                                <div className="w-fit flex self-start md:self-end pb-2 mb-4 border-b-[0.5px] border-light">
+                                                        <h4  className="ml-0 w-fit text-light text-[0.8rem] leading-[0.8rem] md:leading-[1rem] md:text-[1rem]">Ref: #{appointment.id.split('-')[0]}-{appointment.id.split('-')[1]}-{appointment.id.split('-')[2]}</h4>
                                                 </div >
-                                                <section className='flex gap-4 '>
-                                                    <div className="w-[300px]">
+                                                <section className='grid grid-cols-2  md:grid-cols-3 gap-2 md:gap-4 '>
+                                                    <div className=" w-full ">
                                                         <img className='aspect-square object-cover rounded-lg' src={appointment.BarberTable?.UserTable?.profilePicture}></img>
                                                     </div>
-                                                    <div className="flex justify-between w-fit gap-8">
-                                                        <div className="flex flex-col gap-4">
-                                                            <div className="flex flex-col">
-                                                                <h1 className=''>{appointment.BarberTable?.UserTable?.first_name} {appointment.BarberTable?.UserTable?.last_name}</h1>
-                                                                <h2>{appointment.BarberTable?.barber_level.slice(0,1).toUpperCase()}{appointment.BarberTable?.barber_level.slice(1)}</h2>
-                                                                <div className='flex items-center'>
+                                                    <div className="flex flex-col md:flex-row justify-between w-fit gap-8 text-[0.8rem] leading-[0.8rem] md:leading-[1rem] md:text-[1rem]">
+                                                        <div className="flex flex-col gap-2 md:gap-4">
+                                                            <div className="flex flex-col whitespace-nowrap">
+                                                                <h1 className='text-wrap [font-size:_clamp(1rem,calc(0.5rem_+_2vw),2rem)] [line-height:_clamp(1rem,calc(0.5rem_+_2vw),2rem)]'>{appointment.BarberTable?.UserTable?.first_name} {appointment.BarberTable?.UserTable?.last_name}</h1>
+                                                                <h2 className='font-medium'>{appointment.BarberTable?.barber_level.slice(0,1).toUpperCase()}{appointment.BarberTable?.barber_level.slice(1)}</h2>
+                                                                <div className='flex items-center flex-wrap text-xs'>
                                                                     {reviewStarsSVG(appointment.BarberTable?.reviews_stars)}
-                                                                    <h3 className='ml-1  font-medium'>{appointment.BarberTable?.reviews_stars && appointment.BarberTable?.reviews_stars.toFixed(2)}<span className='text-xs text-light ml-1'>{`(${appointment.BarberTable && appointment?.BarberTable?.ReviewsTable?.length} reviews)`}</span></h3>
+                                                                    <h3 className='ml-1  font-medium text-xs'>{appointment.BarberTable?.reviews_stars && appointment.BarberTable?.reviews_stars.toFixed(2)}<span className='text-xs text-light ml-1'>{`(${appointment.BarberTable && appointment?.BarberTable?.ReviewsTable?.length} reviews)`}</span></h3>
                                                                 </div>
                                                             </div>
-                                                            <div className="flex flex-col h-full justify-end">
-                                                                <div className='w-fit'>
+                                                            <div className="flex flex-col h-full w-fit justify-end">
+                                                                <div className='w-fit text-[0.7rem] md:text-[1rem]'>
                                                                     <Link target="_blank" href={`https://www.google.com/maps/place/${appointment.BarberTable?.user_address.addressline1.replaceAll(' ','+')},+${appointment.BarberTable?.user_address.city.replaceAll(' ', '+')}+${appointment.BarberTable?.user_address.postcode.replaceAll(' ','+')}/`}>
-                                                                        <h3 className='text-light font-semibold'>{`${appointment.BarberTable?.user_address.studio}`}</h3>    
+                                                                        {
+                                                                            appointment.BarberTable?.user_address.studio ?
+                                                                            <h3 className='text-light font-semibold'>{`${appointment.BarberTable?.user_address.studio}`}</h3>    
+                                                                            :null
+                                                                        }
                                                                         <h3 className='text-light underline'>{`${appointment.BarberTable?.user_address.addressline1}`}</h3>    
                                                                         <h3 className='text-light underline'>{`${appointment.BarberTable?.user_address.city}`}</h3>    
                                                                         <h3 className='text-light underline'>{`${appointment.BarberTable?.user_address.postcode.toUpperCase()}`}</h3>    
@@ -212,7 +216,9 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className='flex flex-col gap-2 justify-end align-end'>
+                                                        
+                                                    </div>
+                                                    <div className='flex flex-col gap-2 justify-end align-end col-span-2 md:col-span-1 mt-4'>
                                                             <div className='whitespace-nowrap '>
                                                                 <Link href={`/barber/${appointment.BarberTable?.profile_url}`}>
                                                                     <Button text='Barber Page' full={true}/>
@@ -225,7 +231,6 @@ function AppoinmentCarousel({appointments}:appoinmentCarouselProps) {
                                                                 <CancelAppointment id={appointment.id}/>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                 </section>
                                             </section>
                                         </div>

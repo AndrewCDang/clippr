@@ -1,16 +1,50 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { User, createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse  } from "next/server";
 import { UserDetails } from "@/app/(auth)/setUp/setUpTypes";
-
-
+import { AddressInterface } from "@/app/(auth)/setUp/setUpTypes";
 
 export const dynamic = 'force-dynamic'
+
+function findLatLng(obj:any, results = { lat: null, lng: null }) {
+    for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+        findLatLng(obj[key],results);
+        } else if (key === 'lat' || key === 'lng') {
+        results[key] = obj[key];
+        }
+    }
+    return results;
+}
+
+const getLatLng = async(userAddress:AddressInterface) => {
+    const {addressline1,city,postcode} = userAddress
+
+    try {
+        const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressline1}%${city}&${postcode}&key=${process.env.NEXT_PUBLIC_google_Maps_Api_Key}`)
+
+        if(!res){
+            console.log({status:500,message:'No response'})
+        }
+
+        const response = await res.json()
+        const latLng = findLatLng(response)
+
+        console.log(latLng)
+
+        return(latLng)
+
+    } catch (error) {
+        console.log(error)
+        return({lat:null,lng:null})
+    }
+
+}
 
 export async function POST(request:{json:()=>Promise<UserDetails>} | any){
     try {
         const formData = await request.formData()
-        const userDetails =  JSON.parse(formData.get('userDetails'))
+        const userDetails : UserDetails =  JSON.parse(formData.get('userDetails'))  as UserDetails
         const images = formData.getAll('imageUploads') as File[];
         const profilePicture = formData.getAll('profilePicture')
 
@@ -35,10 +69,14 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
         .select()
         .single()
 
+        // get geolocation of provided address
+        const geoLocation = await getLatLng(userDetails.userAddress) 
+
     
         const insertSupabase = async (userId: number) => {
             console.log(userDetails)
             console.log(userDetails.accountType)
+            console.log(session)
             if (userDetails.accountType === 'barber') {
             const { data, error } = await supabase.from('BarberTable').insert([
                 {
@@ -51,6 +89,8 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
                 service: userDetails.hairServices,
                 appointment_location: userDetails.appointmentLocation,
                 profile_url:`${userData.first_name}-${userData.last_name}-${userData.id.slice(0,8)}`,
+                lat:geoLocation.lat,
+                lng:geoLocation.lng
                 },
             ])
             .select()
@@ -104,7 +144,7 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
             const {data,error} = await supabase
                 .storage    
                 .from('photos')
-                .upload(`public/${session.session?.access_token.slice(1,8)}-${file.name}`, file)
+                .upload(`public/${session.session?.user.id.slice(1,8)}-${file.name}`, file)
 
             if (error) {
                 console.error("Error uploading file:", error);

@@ -14,8 +14,6 @@ export default function SessionLogIn(data:SessionLogInProps){
     useEffect(()=>{
         if(data.data?.user && !isUserLoggedIn){
             logUserIn()
-            console.log('logged in')
-            console.log(data.data?.user)
         }
     },[])
 

@@ -15,11 +15,6 @@ type BarberCutProps = {
 
 function BarberCutItem({disabled, id, delItemFromArray, page, updateValidBarberPages, addToCollection, delFromCollection}:BarberCutProps) {
 
-    const refDuration = useRef<HTMLInputElement>(null)
-    const [leftConstant,setLeftConstant] = useState<Number>(0)
-    const updateLeftGap = (e: React.KeyboardEvent<HTMLInputElement>) =>{
-        setLeftConstant(e.currentTarget.value.length)
-    }
     const [touched, setTouched] = useState(false)
 
     type cutInterface = {
@@ -65,6 +60,19 @@ function BarberCutItem({disabled, id, delItemFromArray, page, updateValidBarberP
     },[cutObject])
 
 
+    const barberRef = useRef<HTMLInputElement>(null)
+    const [barberWidth, setBarberWidth] = useState<string>('8px')
+
+    const costRef = useRef<HTMLInputElement>(null)
+    const [costWidth, setCostWidth] = useState<string>('8px')
+
+    function adjustWidth() {
+        barberRef.current && setBarberWidth((barberRef.current.value.length +1)*8 + 'px')
+    }
+        function adjustCostWidth() {
+        costRef.current && setCostWidth((costRef.current.value.length +1)*8 + 'px')
+    }
+
 
 
     return (
@@ -73,32 +81,17 @@ function BarberCutItem({disabled, id, delItemFromArray, page, updateValidBarberP
             <input onChange={(e)=>updateObject('name',e.target.value)} className="h-12 border-light-2 w-full border-[1px] p-1 rounded-lg" type="text" placeholder={`${cutObject.objectId === 0 ? 'Standard Trim*' : `Standard Trim` }`}></input>
         </div>
         <div className="flex-grow-0 border-light-2 relative overflow-hidden w-28">
-            <input onChange={(e)=>updateObject('price',e.target.value)} placeholder=" " className="h-12 peer/price border-[1px] w-[100%] py-1 pl-4 rounded-lg overflow-hidden" type="number" required></input>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%]">Price</span>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-placeholder-shown/price:translate-x-[0%] opacity-0  peer-placeholder-shown/price:opacity-[1] peer-focus/price:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Price</span>
-                <span className="relative">
-                    <span className="absolute"><span>(<span className="opacity-0">£</span>)</span></span>
-                </span>
-            </span>
-            <span className="text-base text-primary absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/price:translate-x-[-100%] peer-focus/price:text-base peer-placeholder-shown/price:translate-x-[0%] peer-placeholder-shown/price:text-xs peer-placeholder-shown/price:text-light transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Price</span>
-                <span className="relative">
-                    <span className="absolute"><span className="opacity-0">(</span><span>£</span><span className="opacity-0">)</span></span>
-                </span>
-            </span>
+            <label onClick={()=>costRef.current?.focus()} htmlFor={`costInput-${id}`} className='h-12 border-[1px] py-1 pl-2 rounded-lg overflow-hidden w-full flex gap-1 items-center cursor-text'>
+                <span className='text-light text-sm'>{costRef.current && costRef.current.value.length>0 ? '£' : ''}</span>
+                <input style={{width:costWidth}} ref={costRef} className='setCutInput text-primary' onChange={(e)=>{updateObject('price',e.target.value),adjustCostWidth()}} placeholder=" " id={`costInput-${id}`}  type="number" required></input>
+                <span className='translate-x-[-8px] text-light text-sm'>{costRef.current && costRef.current.value.length>0 ? '' : 'cost(£)'}</span>
+            </label>
         </div>
         <div className="flex-grow-0 border-light-2 relative overflow-hidden w-28">
-            <input onChange={(e)=>updateObject('duration',e.target.value)} onKeyUp={(e)=>updateLeftGap(e)} ref={refDuration} placeholder=" " className="h-12 peer/duration border-[1px] w-[100%] py-1 pl-2 rounded-lg overflow-hidden" type="number" required></input>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] transition-all duration-500 top-0 translate translate-y-[-50%]">Cut duration</span>
-            <span className="text-xs text-light absolute pointer-events-none select-none pl-2 left-0 translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:translate-x-[0%] opacity-0  peer-placeholder-shown/duration:opacity-[1] peer-focus/duration:opacity-0 transition-all duration-500 top-0 translate translate-y-[-50%]"><span className="opacity-0">Cut duration</span>
-                <span className="relative">
-                    <span className="absolute"><span>(<span className="opacity-0">mins</span>)</span></span>
-                </span>
-            </span>
-            <span className={`h-4 text-xs text-primary absolute pointer-events-none select-none  pl-2 ${leftConstant == 0 && 'left-2 peer-focus/duration:left-2'}  ${leftConstant == 1 && 'left-4 peer-focus/duration:left-4'} ${leftConstant == 2 && 'left-6 peer-focus/duration:left-6'} ${leftConstant == 3 && 'left-8 peer-focus/duration:left-8'} translate-x-[-100%] peer-focus/duration:translate-x-[-100%] peer-placeholder-shown/duration:left-0 peer-placeholder-shown/duration:translate-x-[0%] peer-placeholder-shown/duration:text-light transition-all duration-500 translate translate-y-[-50%] top-[50%]`}><span className="opacity-0">Cut duration</span>
-                <span className="relative">
-                    <span className="absolute"><span className="opacity-0">(</span><span>mins</span><span className="opacity-0">)</span></span>
-                </span>
-            </span>
+            <label onClick={()=>barberRef.current?.focus()} htmlFor={`durationInput-${id}`} className='h-12 border-[1px] py-1 pl-2 rounded-lg overflow-hidden w-full flex gap-1 items-center cursor-text'>
+                <input style={{width:barberWidth}} ref={barberRef} className='setCutInput text-primary' onChange={(e)=>{updateObject('duration',e.target.value),adjustWidth()}} placeholder=" " id={`durationInput-${id}`}  type="number" required></input>
+                <span className='translate-x-[-8px] text-light text-sm'>mins</span>
+            </label>
         </div>
         <svg onClick={()=>delItemFromArray && (delItemFromArray(id), delFromCollection(cutObject))} className={`${disabled ? 'cursor-not-allowed pointer-events-none fill-light-2' : 'cursor-pointer fill-primary hover:scale-[0.95] transition-scale duration-200'}`}  width="32px" height="32px" viewBox="-8.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <title>close</title>

@@ -6,35 +6,9 @@ import { notFound } from 'next/navigation'
 import AppointmentCarousel from './appointmentCarousel'
 import PreviousAppointments from './previousAppointments'
 import RefreshPage from './refreshPage'
+import { checkAppointments } from '../(components)/checkAppointments'
 
 export const dynamic = 'force-dynamic'
-
-const checkAppointments = async() => {
-
-    const supabase = createRouteHandlerClient({cookies})
-    const session = await supabase.auth.getSession()
-    
-    try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/checkAppointments`,{
-            method:'PATCH',
-            headers: headers()
-        }
-
-        )
-        if (!res.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const json = await res.json()
-        if(!json.error){
-            return json
-        }else{
-            console.log(json.error)
-        }
-
-    }catch(error){
-        console.log(error)
-    }
-}
 
 const getNextAppointment = async(id:string): Promise<barberAppointmentTypes[] | undefined> => {
     const supabase = createRouteHandlerClient({cookies})
@@ -108,9 +82,9 @@ async function Appointments({searchParams}:{searchParams:{page:number}}) {
 
 return (
     <main className='w-full'>
-        <h1 className='mx-auto w-fit'>Upcoming Appointments</h1>
+        <h1 className='mx-auto w-fit text-center'>Upcoming Appointments</h1>
         <AppointmentCarousel appointments={upcomingAppointments}/>
-        <h1 id='previousAppointments-title' className='mx-auto w-fit mt-16'>Previous Appointments</h1>
+        <h1 id='previousAppointments-title' className='mx-auto w-fit text-center mt-16'>Previous Appointments</h1>
         <PreviousAppointments userId={userId} pagPage={pagPage}/>
         <RefreshPage condition={appointmentPassed}/>
     </main>

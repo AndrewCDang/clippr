@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 type CountdownTypes = {
     cutTime:string[] | undefined;
-    cutDate:Date | undefined;
+    cutDate:string | undefined;
 }
 
 function Countdown({cutTime,cutDate}:CountdownTypes) {
@@ -94,7 +94,7 @@ function Countdown({cutTime,cutDate}:CountdownTypes) {
 
 
     return (
-    <article className="flex justify-evenly text-center [width:_clamp(360px,25vw+200px,1000px)] my-6 gap-4">
+    <article className="flex justify-evenly text-center [width:_clamp(300px,25vw+200px,1000px)] my-6 gap-4">
     <div className="flex flex-col">
         <div className="font-semibold [font-size:_clamp(2em,3vw+1.8em,200px)] [line-height:1em] ">{days}</div>
         <div className="[font-size:_clamp(1.2em,1.5vw+0.5em,100px)] [line-height:1em] ">Days</div>

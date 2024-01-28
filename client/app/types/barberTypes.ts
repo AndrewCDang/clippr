@@ -28,6 +28,7 @@ export interface ReviewsTable {
 
 export interface Subscription{
 cost: number,
+numCuts:number,
 }
 
 export interface WebPage{
@@ -58,8 +59,7 @@ export type selectedDateType = {
     date: number | null;
     year: number | null;
     day: number | null;
-  };
-  
+};
 
 export  type barberFormTypes = {
     cutDetails: cutClickType;
@@ -79,13 +79,14 @@ export type barberAppointmentTypes = {
     cut_price:number,
     cut_name:number,
     cut_duration:number,
-    cut_date:Date,
+    cut_date:string,
     review_id:string,
     upcoming:boolean,
     cut_time:string[],
     cancelled:boolean,
     BarberTable?:BarberItem,
     UserTable?: ReviewObject | UserItem,
+    ReviewsTable?: ReviewsTable[]
 
 }
 
@@ -132,6 +133,7 @@ type Deals = {
 
 export interface  BarberItem {
 id: string,
+user_id:string,
 first_name: string,
 surname: string,
 bio: string,
@@ -159,6 +161,7 @@ ReviewsTable?:ReviewsTable[]
 mental_care?:boolean,
 lat:number,
 lng:number,
+bg_banner:string,
 
 }
 

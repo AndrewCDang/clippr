@@ -34,9 +34,9 @@ export default function Ethnicity({updateValidBarberPages, page, updateAccountDe
 
     return(
         <section className="flex flex-row gap-8 flex-wrap justify-center w-full max-w-[600px] mx-auto">
-            <BtnSelection type={'checkbox'} tag={'Caucasian'} click={btnClick}/>
-            <BtnSelection type={'checkbox'} tag={'Afro'} click={btnClick}/>
-            <BtnSelection type={'checkbox'} tag={'Asian'} click={btnClick}/>
+            <BtnSelection type={'checkbox'} id="radio_caucasian" tag={'caucasian'} click={btnClick}/>
+            <BtnSelection type={'checkbox'} id="radio_afro" tag={'afro'} click={btnClick}/>
+            <BtnSelection type={'checkbox'} id="radio_asian" tag={'asian'} click={btnClick}/>
         </section>
 
     )

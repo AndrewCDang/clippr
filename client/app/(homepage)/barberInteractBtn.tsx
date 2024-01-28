@@ -20,7 +20,7 @@ function BarberInteractBtn({item}:BarberInteractTypes) {
     }
 
     return (
-        <Button clicked={()=>interactHandler(item)} text='Contact / Cancel' variant={1} full={true}/>
+        <Button clicked={()=>interactHandler(item)} text='Contact' variant={1} full={true} bg="bg-primary-f" textColor="text-white"/>
     )
 }
 

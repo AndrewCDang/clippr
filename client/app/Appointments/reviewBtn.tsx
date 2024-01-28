@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "./button"
+import { Button } from "../(components)/button"
 import { useReviewModal } from "../(hooks)/useReviewModal"
 import { barberAppointmentTypes, ReviewObject} from "../types/barberTypes"
 

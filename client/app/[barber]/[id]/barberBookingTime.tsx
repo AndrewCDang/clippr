@@ -57,7 +57,7 @@ const BarberBookingTime: React.FC<NavMonthProps> = ({ dateHandler, selectedDate,
             let date = [new Date(d.getFullYear(),+d.getMonth()+1,0),new Date(d.getFullYear(),+d.getMonth()+2,0),new Date(d.getFullYear(),+d.getMonth()+3,0)]
             
             let dateDays = [new Date(d.getFullYear(),+d.getMonth(),1),new Date(d.getFullYear(),+d.getMonth()+1,1),new Date(d.getFullYear(),+d.getMonth()+2,1)]
-            console.log(dateDays[1].getDay())
+            // console.log(dateDays[1].getDay())
             const calcGap = (i:number) => {
                 if(+dateDays[0+i].getDay() === 0){
                     return 6
@@ -165,8 +165,8 @@ const BarberBookingTime: React.FC<NavMonthProps> = ({ dateHandler, selectedDate,
                                                         onClick={() => (isDateClickable && dateHandler({month: monthItem.monthNum, date: +day,year: monthItem.year,day: dayIndex}))}
                                                         key={dayIndex}
                                                         className={`
-                                                            flex z-10 w-8 h-8 border-primary rounded-full
-                                                            ${isSelectedDate ? 'bg-primary text-white' : ''}
+                                                            flex z-10 w-8 h-8 border-primary rounded-full transition-all duration-100
+                                                            ${isSelectedDate ? 'bg-primary text-bg' : ''}
                                                             ${isHoverable ? 'hover:bg-light' : ''}
                                                             ${isCursorPointer ? 'cursor-pointer' : 'pointer-events-none'}
                                                             ${isDisabled && isWithinMonth ? '' : 'line-through text-light select-none pointer-events-none cursor-none'}

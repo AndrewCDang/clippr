@@ -70,7 +70,7 @@ return (
                     <div key={item.name} className="flex items-center mx-auto ">
                         <div className="relative">
                         <div className="z-20 absolute h-min left-[100%] top-[0] translate-y-[-50%] translate-x-[-50%]">
-                            <button onClick={()=>removeUpload(item.name)} className="bg-white  shadow-xl w-min rounded-full">
+                            <button onClick={()=>removeUpload(item.name)} className="bg-bg  shadow-xl w-min rounded-full">
                                 <h3></h3>
                                 <svg className={`cursor-pointer fill-primary hover:scale-[0.9] transition-scale duration-200`}  width="24px" height="24px" viewBox="-8.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
                                     <title>close</title>

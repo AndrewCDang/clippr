@@ -1,13 +1,11 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
-import { HomeUserTypes, barberAppointmentTypes   } from "../types/barberTypes"
-import Countdown from "./countdown"
-import FrontArrowSVG from "../(svg)/frontArrowSVG"
-import ScissorsLottie from "../(svg)/(lotties)/scissorsLottie"
-import Link from "next/link"
-import HomeDefault from "./homeDefault"
+import { HomeUserTypes} from "../types/barberTypes"
 import CustomerSignIn from "./customerSignIn"
 import BarberSignIn from "./barberSignIn"
+import BarberCustomerSignIn from "./barberCustomerSignIn"
+
+export const dynamic = 'force-dynamic'
 
 
 async function getSession(){
@@ -49,7 +47,7 @@ const HomeSignIn = async() => {
                 user && user.account_type === 'customer' && <CustomerSignIn user={user}/>
             }
             {
-                user && user.account_type === 'barber' && <BarberSignIn  user={user}/>
+                user && user.account_type === 'barber' && <BarberCustomerSignIn BarberPage={<BarberSignIn user={user}/>}  CustomerPage={<CustomerSignIn user={user}/>}/>
             }
         </section>
     )

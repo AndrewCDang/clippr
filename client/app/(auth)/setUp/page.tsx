@@ -1,8 +1,6 @@
 "use client"
 
-import {Controller, useForm} from "react-hook-form"
 import { useRouter } from "next/navigation";
-import "@/app/(components)/boolean.css"
 import { useEffect, useState, useRef } from "react";
 import {Button} from "@/app/(components)/button"
 import Ethnicity from "./ethnicity";
@@ -12,11 +10,11 @@ import BarberCuts from "./barberCuts";
 import Address from "./address";
 import autoAnimate from '@formkit/auto-animate'
 import Confirm from "./confirm";
-import { error } from "console";
 import { UserDetails } from "./setUpTypes";
 import Images from "./images";
 import ProfilePicture from "./profilePicture"
 import { useProfilePicture } from "@/app/(hooks)/useProfilePicture";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function SetUp(){
     const router = useRouter()
@@ -31,6 +29,27 @@ export default function SetUp(){
     const parent = useRef<HTMLDivElement>(null)
     const progressRef = useRef<HTMLDivElement>(null)
 
+    // Checks if user is logged in and not yet set up, otherwise redirects back to home page
+    const checkSignedIn = async() => {
+        const supabase = createClientComponentClient()
+        const userId = (await supabase.auth.getSession()).data.session?.user.id
+        if(!userId){
+            router.push('/')
+        }
+        const {data, error} = await supabase.from('UserTable')
+        .select('set_up')
+        .eq('id',userId)
+        .single()
+        
+        if(data?.set_up){
+            router.push('/')
+        }
+    }
+
+    useEffect(()=>{
+        checkSignedIn()
+    },[])
+
     useEffect(() => {
         parent.current && autoAnimate(parent.current)
         progressRef.current && autoAnimate(progressRef.current)
@@ -40,7 +59,6 @@ export default function SetUp(){
         setLoadingState(true)
         const formData = new FormData()
         formData.append('userDetails',JSON.stringify(userDetails))
-        console.log(userDetails.imageUploads)
         userDetails.imageUploads.forEach((file,index)=>{
             formData.append(`imageUploads`,file)
         })
@@ -57,7 +75,6 @@ export default function SetUp(){
         if(json.error){
             console.log(json.error)
         }else{
-            console.log(json)
             setLoadingState(false)
             setConfirmBtn('Success')
             setTimeout(() => {
@@ -148,9 +165,6 @@ export default function SetUp(){
                 break;
         }
     }
-    useEffect(()=>{
-        console.log(userDetails)
-    },[userDetails])
 
     return(
         <main className="w-full flex flex-col justify-between flex-1">
@@ -167,12 +181,14 @@ export default function SetUp(){
                 })}
             </div>
             <section className=" flex flex-col justify-center relative flex-1">
-                <fieldset style={{left:`${0 - (page*100)}%`}} className='mt-0.5 absolute  w-full z-10'>
-                    <div className="boolean-toggle">
-                        <input onChange={e=>{setAccountType('user'); setUserDetails((prevState)=>({...prevState, accountType:'customer'}))}}  id="user-label"  type="radio" name="user" value="user" checked={accountType==='user'}/>
-                        <label htmlFor="user-label"><strong>Customer</strong> <br></br><span className='text-sm'>I want my hair cut</span></label>
-                        <input onChange={e=>{setAccountType('barber'); setUserDetails((prevState)=>({...prevState, accountType:'barber'}));}} id="barber-label" type="radio" name="barber" value="barber" checked={accountType==='barber'}/>
-                        <label htmlFor="barber-label"><strong>Barber</strong><br></br><span className='text-sm'>I cut hair</span></label>
+                <fieldset style={{left:`${0 - (page*100)}%`}} className='mt-0.5 absolute  w-full z-10 
+                [&_input:checked+label]:bg-light-2 [&_input:checked+label]:[box-shadow:0_0_10px_var(--main-col-light-2)] [&_input:checked+label]:text-primary [&_input:checked+label]:border-light-2' 
+                >
+                    <div className="flex flex-nowrap px-4 py-2 mx-auto text-center [&_input]:w-0 [&_input]:h-0">
+                        <input className="peer/customer" onChange={e=>{setAccountType('user'); setUserDetails((prevState)=>({...prevState, accountType:'customer'}))}}  id="user-label"  type="radio" name="accountType" value="user" checked={accountType==='user'}/>
+                        <label className="cursor-pointer bg-white/5 shadow-none transition-all duration-300 ease-in-out text-light px-2 py-1 border-[1px] border-light-2 custor-pointer flex-1 [border-radius:1rem_0rem_0rem_1rem]" htmlFor="user-label"><strong>Customer</strong> <br></br><span className='text-sm'>I want my hair cut</span></label>
+                        <input className="peer/barber" onChange={e=>{setAccountType('barber'); setUserDetails((prevState)=>({...prevState, accountType:'barber'}));}} id="barber-label" type="radio" name="accountType" value="barber" checked={accountType==='barber'}/>
+                        <label className="cursor-pointer bg-white/5 shadow-none transition-all duration-300 ease-in-out text-light px-2 py-1 border-[1px] border-light-2 custor-pointer flex-1 [border-radius:0rem_1rem_1rem_0rem]" htmlFor="barber-label"><strong>Barber</strong><br></br><span className='text-sm'>I cut hair</span></label>
                     </div>
                 </fieldset>
                 {accountType=='barber' && 

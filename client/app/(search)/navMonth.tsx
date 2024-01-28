@@ -13,11 +13,6 @@ const NavMonth: React.FC<NavMonthProps> = ({navHeightToggle, setBookingDate, boo
     const [d, setD] = useState(new Date())
 
     useEffect(()=>{
-        console.log(d.getDay())
-        console.log(d.getMonth())
-        console.log(d.getDate())
-        console.log(d)
-
         let date = [new Date(d.getFullYear(),+d.getMonth()+1,0),new Date(d.getFullYear(),+d.getMonth()+2,0),new Date(d.getFullYear(),+d.getMonth()+3,0)]
         const dates = Array.from({length:3}, (_,i)=>i+1).map((month,i)=>{
             return ({days: date[0+i].getDate(), firstGap:date[0+i].getDay()-1, month: +date[0+i].getMonth()+1})

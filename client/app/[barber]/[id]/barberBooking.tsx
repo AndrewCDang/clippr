@@ -10,13 +10,15 @@ import BarberBookingTime from './barberBookingTime'
 import autoAnimate from '@formkit/auto-animate'
 import { cutClickType, selectedDateType, barberFormTypes } from '@/app/types/barberTypes'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { barberAppointmentTypes } from '@/app/types/barberTypes'
+import LoadingSpin from '@/app/(components)/loadingSpin'
 
 interface BarberBookingsProps {
   barber: BarberItem;
   setBookingDetails:React.Dispatch<React.SetStateAction<barberFormTypes>>
 }
 
-const getExistingAppointments = async(barber:BarberItem) => {
+const getExistingAppointments = async(barber:BarberItem):Promise<barberAppointmentTypes[]|undefined> => {
   const supabase = createClientComponentClient()
 
   const {data,error} = await supabase.from('AppointmentsTable')
@@ -26,8 +28,6 @@ const getExistingAppointments = async(barber:BarberItem) => {
 
   if(data){
     return(data)
-  }else{
-    console.log({error:error})
   }
 
 }
@@ -96,8 +96,7 @@ function BarberBooking({barber, setBookingDetails}:BarberBookingsProps) {
 
     // Filters out already booked appointments
     const existingAppointments = await getExistingAppointments(barber)
-    const appointmentsToday = existingAppointments?.filter(item => {return(item.cut_date == `${year}-${month}-${date}`)}).map(item=>{return(item.cut_time)}).flat().map(item=>{return(item.split('-')[0])})
-
+    const appointmentsToday = existingAppointments?.filter(item => {return(item.cut_date == `${year}-${(month as number).toString().length === 1 ? `0${month}` : month}-${date}`)}).map(item=>{return(item.cut_time)}).flat().map(item=>{return(item.split('-')[0])})
     let availableBarberTimes = selectedBarberDates.filter(item=>{
       if(!appointmentsToday?.includes(item)){
         return item
@@ -128,9 +127,9 @@ function BarberBooking({barber, setBookingDetails}:BarberBookingsProps) {
       const filteredTimeToday = availableBarberTimes.filter(item=>{return(availableTimesToday.includes(item))})
 
       availableBarberTimes = filteredTimeToday
-      console.log(availableBarberTimes)
     }
 
+    // Creating Array of per hourly times
     if(cutDuration>35){
       const hourlyDates = availableBarberTimes.filter((item,i)=>{
         const indexDiff = barberArray.indexOf(selectedBarberDates[i+1]) - barberArray.indexOf(selectedBarberDates[i])
@@ -149,11 +148,6 @@ function BarberBooking({barber, setBookingDetails}:BarberBookingsProps) {
   }
 
   const dateHandler = ({ month, date, year, day }: selectedDateType) => {
-    console.log('hi')
-    console.log(month)
-    console.log(date)
-    console.log(year)
-    console.log(day)
     const condition = month && date  && year && day!==null
     if(condition || day === 0 && condition){
       setAvailableTimes(day,cutDetails.cutDuration,date,month,year)
@@ -174,7 +168,7 @@ useEffect(()=>{
     <aside className='w-full flex flex-col justify-center gap-4 p-4'>
       <section className='w-full h-fit relative border-light border-[0.5px] rounded-xl font-semibold overflow-hidden'>
         <button ref={cutBtn} onClick={()=>setCutSelect(!cutSelect)}  className='flex items-center gap-2 justify-center p-4 w-full hover:bg-light-3 transition-all duration-200 flex-nowrap whitespace-nowrap rounded-xl'>
-          <div className='w-8 aspect-square'>
+          <div className='w-8 aspect-square stroke-[4] stroke-secondary fill-none'>
             <ScissorsSVG/>
           </div>
           <div className='flex flex-col'>
@@ -200,9 +194,9 @@ useEffect(()=>{
         <section>
         </section>
       </section>
-      <section className={`flex flex-col rounded-xl ${timeSelect ? 'border-[0.5px] border-light overflow-hidden' : 'border-white '} transition-all duration-200`}>
+      <section className={`flex flex-col rounded-xl ${timeSelect ? 'border-[0.5px] border-light overflow-hidden' : 'border-bg '} transition-all duration-200`}>
         <section ref={timeBtn} className='grid grid-cols-2 gap-1'>
-          <section className={`flex-shrink-0 h-full relative border-light border-[0.5px] rounded-lg font-semibold hover:bg-light-3 transition-all duration-200 p-4 ${timeSelect ? 'border-t-0 border-l-0' : ' '}`}>
+          <section className={`flex-shrink-0 relative border-light border-[0.5px] rounded-lg font-semibold hover:bg-light-3 transition-all duration-200 p-4 ${timeSelect ? 'border-t-0 border-l-0' : ' '}`}>
             <button onClick={()=>setTimeSelect(!timeSelect)} className={`flex h-full items-center gap-2 justify-center w-full flex-nowrap whitespace-nowrap`}>
               <div className='w-[2rem] flex-shrink-0 aspect-square'>
                 <CalendarSVG/>
@@ -210,7 +204,7 @@ useEffect(()=>{
               <h2 className='text-sm'>{selectedDate !== null ? `${selectedDate.date}/${selectedDate.month}/${selectedDate.year}`:'Date'}</h2>
             </button>
           </section>
-          <section className={`flex-1 flex-shrink-0 h-full relative border-light border-[0.5px] rounded-lg font-semibold hover:bg-light-3 transition-all duration-200 p-4 ${timeSelect ? 'border-t-0 border-r-0' : ' '}`}>
+          <section className={`flex-1 flex-shrink-0 relative border-light border-[0.5px] rounded-lg font-semibold hover:bg-light-3 transition-all duration-200 p-4 ${timeSelect ? 'border-t-0 border-r-0' : ' '}`}>
             <button onClick={()=>setTimeSelect(!timeSelect)} className={`flex items-center gap-2 justify-center w-full flex-nowrap whitespace-nowrap`}>
               <div className=' w-[2rem] flex-shrink-0 aspect-square'>
                 <TimeSVG/>
@@ -225,7 +219,7 @@ useEffect(()=>{
             <div  className='mt-4 border-t-[0.5px] border-light-2'  style={{gridTemplateRows:selectedDate ? '1fr' : '0fr',display:'grid', opacity: selectedDate ? 1 : 0, transition:'all 300ms ease-in', overflow:'hidden', transitionDelay:selectedDate?'0ms':'300ms'}}>
               <div  className='overflow-hidden'>
                 <h2 className='text-center mt-4'>Available Times</h2>
-                <div ref={timeScrollRef} className='z-30 my-4 gap-2 grid-flow-col grid overflow-x-scroll hScroll px-1 snap-x scroll scroll-smooth'>
+                <div ref={timeScrollRef} className='z-30 my-4 gap-2 flex overflow-x-scroll hScroll px-1 snap-x scroll scroll-smooth'>
                   {
                     selectedBarberArray && selectedDate !== null ?
                     selectedBarberArray.map((item,i)=>{
@@ -233,16 +227,24 @@ useEffect(()=>{
                       if(i<selectedBarberArray.length-2){
                         if(cutDetails.cutDuration!==null && cutDetails.cutDuration > 35){
                           return(
-                            <button key={i} onClick={(e)=>timeHandler(e)} value={JSON.stringify([`${item}-${barberArray[barberIndex+1]}`,`${barberArray[barberIndex+1]}-${barberArray[barberIndex+2]}`])} className={`${selectedTime?.[1] == `${barberArray[barberIndex+1]}-${barberArray[barberIndex+2]}` && selectedTime?.[0] == `${item}-${barberArray[barberIndex+1]}` ? 'bg-primary text-white' : 'hover:bg-light-3'} border-light border snap-start rounded-xl h-12 mb-2 py-2 px-4 whitespace-nowrap transition-all duration-200`}>{`${item}-${barberArray[barberIndex+2]}`}</button>
+                            <button key={i} onClick={(e)=>timeHandler(e)} value={JSON.stringify([`${item}-${barberArray[barberIndex+1]}`,`${barberArray[barberIndex+1]}-${barberArray[barberIndex+2]}`])} 
+                            className={`${selectedTime?.[1] == `${barberArray[barberIndex+1]}-${barberArray[barberIndex+2]}` && selectedTime?.[0] == `${item}-${barberArray[barberIndex+1]}` ? 'bg-primary text-bg' : 'hover:bg-light-3'} border-light border snap-start rounded-xl h-12 mb-2 py-2 px-4 whitespace-nowrap transition-all duration-200`}>{`${item}-${barberArray[barberIndex+2]}`}</button>
                           )
                         }else if(cutDetails.cutDuration !== null && cutDetails.cutDuration <=35){
                           return(
-                            <button key={i} onClick={(e)=>timeHandler(e)} value={JSON.stringify([`${item}-${barberArray[barberIndex+1]}`])} className={`${selectedTime?.[0] == `${item}-${barberArray[barberIndex+1]}` ? 'bg-primary text-white' : 'hover:bg-light-3'} border-light border snap-start rounded-xl h-12 mb-2 py-2 px-4 whitespace-nowrap transition-all duration-200`}>{`${item}-${barberArray[barberIndex+1]}`}</button>
+                            <button key={i} onClick={(e)=>timeHandler(e)} value={JSON.stringify([`${item}-${barberArray[barberIndex+1]}`])} 
+                            className={`${selectedTime?.[0] == `${item}-${barberArray[barberIndex+1]}` ? 'bg-primary text-bg' : 'hover:bg-light-3'} border-light border snap-start rounded-xl h-12 mb-2 py-2 px-4 whitespace-nowrap transition-all duration-200`}>{`${item}-${barberArray[barberIndex+1]}`}</button>
                           )
                         }
                       }
                     })
-                    :null
+                    :
+                    <div className='w-fit mx-auto flex gap-2'>
+                      <span>Loading</span>
+                      <div className="w-4 aspect-square stroke-primary">
+                          <LoadingSpin colour="primary"/>
+                      </div>
+                    </div>
                   }
                 </div>
               </div>

@@ -26,10 +26,8 @@ function Carousel({barber}:any) {
         const cardNum = Math.round(carouselRef.current.offsetWidth/corouselItemRef.current[0].offsetWidth)
         const twiceArray = [...barber.images.slice(-cardNum),...barber.images,...barber.images.slice(0,cardNum)]
 
-        if(window.innerWidth>640){
-            setGallery(twiceArray)
-            carouselRef.current.scrollLeft = carouselRef.current.offsetWidth
-        }
+        setGallery(twiceArray)
+        carouselRef.current.scrollLeft = carouselRef.current.offsetWidth
         }
     }, [corouselItemRef.current, carouselRef])
 
@@ -92,30 +90,38 @@ function Carousel({barber}:any) {
     },[])
 
     const scrollLimit = () => {
-        if(carouselRef.current && window.innerWidth>640){
+        if(carouselRef.current){
             const scrollDifference = Math.round(carouselRef.current.scrollWidth-(carouselRef.current.offsetWidth))
-            if(carouselRef.current.scrollLeft === scrollDifference){
-                if(window.innerWidth<640){}
-                setScrollToggle(prevState => {
-                    setTimeout(() => {
-                        if(carouselRef.current){
-                            carouselRef.current.scrollLeft = carouselRef.current?.offsetWidth;
-                        }
-                        setScrollToggle('smooth')
-                    }, 0);
-                    return 'auto';
-                });
+            if(Math.round(carouselRef.current.scrollLeft) === scrollDifference ){
+                // setScrollToggle(prevState => {
+                //     setTimeout(() => {
+                //         setScrollToggle('auto')
+                //         if(carouselRef.current){
+                //             carouselRef.current.scrollLeft = carouselRef.current?.offsetWidth;
+                //         }
+                //     }, 0);
+                //     return 'smooth';
+                // });
+
+            setScrollToggle('auto');
+            setTimeout(() => {
+                if (carouselRef.current) {
+                    carouselRef.current.scrollLeft = carouselRef.current.offsetWidth;
+                }
+                
+                setScrollToggle('smooth')
+            }, 10);
+                
             }
             else if(carouselRef.current.scrollLeft === 0){
-                setScrollToggle(prevState => {
-                    setTimeout(() => {
-                        if(carouselRef.current){
+                setScrollToggle('auto')
+                setTimeout(()=>{
+                    if(carouselRef.current){
                             carouselRef.current.scrollLeft = carouselRef.current.scrollWidth - 2*carouselRef.current?.offsetWidth
-                        }
-                        setScrollToggle('smooth')
-                    }, 0);
-                    return 'auto';
-                });
+                    }
+                    setScrollToggle('smooth')
+                },10)
+
             }
         }
 
@@ -160,8 +166,8 @@ function Carousel({barber}:any) {
 
     return (
         <div className='relative' ref={wrapperRef}>
-            <section ref={carouselRef} style={{scrollBehavior: scrollToggle, scrollSnapType:snapToggle}} className='h-80 overflow-scroll carousel' >
-                <div className='grid grid-flow-col md:auto-cols-[calc(100%/3-(2rem/3))] md:grid-rows-none auto-cols-[calc(100%/2-1rem/2)] grid-rows-2 gap-4 h-full '>
+            <section ref={carouselRef} style={{scrollBehavior: scrollToggle, scrollSnapType:snapToggle}} className={`w-full aspect-[2] md:aspect-[3] overflow-scroll carousel`} >
+                <div className='grid grid-flow-col md:auto-cols-[calc(100%/3-(2rem/3))] md:grid-rows-none auto-cols-[calc(100%/2-1rem/2)] grid-rows-1 gap-4 h-full '>
                     {
                     gallery.map((image:any, i:number)=>{
                         return(
@@ -173,9 +179,9 @@ function Carousel({barber}:any) {
                     }
                 </div>
             </section>
-            <div className={`${isMobile && corouselItemRef.current.length < 4  ? 'hidden': null} ${!isMobile && corouselItemRef.current.length < 3  ? 'hidden': null}`}>
-                <button className='w-12 aspect-square border-light border-[0.5px] absolute top-[50%] right-0 bg-white rounded-full overflow-hidden shadow-lg translate-x-[50%] translate-y-[-50%]' onClick={slideRight}>{arrowSVG('right')}</button>
-                <button className='w-12 aspect-square border-light border-[0.5px] absolute top-[50%] left-0 bg-white rounded-full overflow-hidden shadow-lg translate-x-[-50%] translate-y-[-50%]' onClick={slideLeft}>{arrowSVG('left')}</button>
+            <div className={``}>
+                <button className='w-12 aspect-square border-light border-[0.5px] absolute top-[50%] right-0 bg-white/50 hover:bg-white/70 rounded-full overflow-hidden shadow-lg translate-x-[50%] translate-y-[-50%]' onClick={slideRight}>{arrowSVG('right')}</button>
+                <button className='w-12 aspect-square border-light border-[0.5px] absolute top-[50%] left-0 bg-white/50 hover:bg-white/70 rounded-full overflow-hidden shadow-lg translate-x-[-50%] translate-y-[-50%]' onClick={slideLeft}>{arrowSVG('left')}</button>
             </div>  
         </div>
     )

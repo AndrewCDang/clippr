@@ -16,7 +16,7 @@ export function AuthForm(){
     const supabase = createClientComponentClient()
 
     
-    const {logUserIn, isUserLoggedIn} = useLogIn()
+    const {logUserIn, isUserLoggedIn, loggingIn, setLoggingIn} = useLogIn()
     const {logInClose} = useLogInModal()
 
     const [ submitLoading, setSubmitLoading ] = useState<boolean>(false)
@@ -36,7 +36,10 @@ export function AuthForm(){
 
     const checkAppointments = async() => {
         try{
-            const res = await fetch('/api/checkAppointments')
+            const res = await fetch('/api/checkAppointments',{
+                method:'PATCH'
+                
+            })
             if (!res.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -54,7 +57,7 @@ export function AuthForm(){
     
 
     const onSubmit = async(data: FormValues) =>{
-
+        setLoggingIn(true)
         setSubmitLoading(true)
         const { error } = await supabase.auth.signInWithPassword({
             email:data.userEmail,
@@ -62,6 +65,7 @@ export function AuthForm(){
         })    
         setSubmitLoading(false)
         if(!error){
+            setLoggingIn(false)
             logUserIn()
             logInClose()
             checkAppointments()

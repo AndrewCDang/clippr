@@ -1,4 +1,3 @@
-
 import './globals.css'
 import { Poppins, Montserrat } from 'next/font/google'
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -10,10 +9,11 @@ import Footer from './footer';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import SessionLogIn from './(auth)/sessionLogIn';
-import BackBtn from './(components)/backBtn';
 import BackBtnContainer from './backBtnContainer';
-import ReviewModal from './(modals)/reviewModal';
+import ReviewModal from './Appointments/reviewModal';
 import InteractModal from './(modals)/interactModal';
+import "react-loading-skeleton/dist/skeleton.css";
+
 
 export const dynamic = 'force-dynamic'
 
@@ -34,14 +34,11 @@ export const metadata = {
 export default async function RootLayout({ children }: {children: React.ReactNode}) {
   // Remove this from
   const supabase = createServerComponentClient({ cookies })
-  const { data } = await supabase.auth.getSession()
-  // sessionLogIn({data:data.session})
-
-  
+  const { data } = await supabase.auth.getSession()  
   
   return (
-    <html className='relative w-[100vw] overflow-x-clip' lang="en">
-        <body className={`${poppins.className}`}>
+    <html data-theme="" className='relative w-[100vw] overflow-x-clip bg-bg' lang="en">
+        <body className={`${poppins.className} bg-bg`}>
           <main className='relative min-h-screen flex flex-col w-100vw'>
             <NavBar montserrat={montserrat}></NavBar>
             <section  className='px-[calc(12.5%-2rem)] w-full relative flex flex-col flex-1'>

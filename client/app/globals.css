@@ -2,27 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root{
+    --main-text-card-title: 28px;
+    --main-text-card-text: 16px;
+    --main-text-card-subText: 10px;
+    --main-text-card-heading: 20px;
+    --main-text-card-heading: 20px;
+  
+    --main-col-primary: 22, 43, 52;
+    --main-col-secondary: 70, 70, 70;
+    --main-col-light:173, 173, 173;
+    --main-col-light-2:211, 211, 211;
+    --main-col-light-3:240, 240, 240;
+
+    --main-col-primary-f: 22, 43, 52;
+    --main-col-secondary-f: 70, 70, 70;
+    --main-col-light-f:173, 173, 173;
+    --main-col-light-2-f:211, 211, 211;
+    --main-col-light-3-f:240, 240, 240;
+
+    --main-col-red: 255, 86, 120;
+    --main-col-blue: 5, 203, 214;
+    --main-col-yellow: 255, 208, 86;
+    --main-col-white: 256, 256, 256;
+
+
+    --main-bg:256, 256, 256;  
+    --main-bg-2:22, 43, 52;
+
+    
+  }
+  :root:has(div[data-theme="dark"]){
+    --main-col-primary: 250, 250, 250;
+    --main-col-secondary: 220, 220, 220;
+    --main-col-light:150, 150, 150;
+    --main-col-light-2:120, 120, 120;
+    --main-col-light-3:100, 100, 100;
+
+    --main-bg:22, 43, 52;
+    --main-bg-2:8, 15, 18;
+
+  }
+
+  
+}
 *{
   /* font-family: 'Poppins', sans-serif; */
   box-sizing: border-box;
+  @apply [transition:colors_1s,background-color_1s]
 }
 a{
   white-space: nowrap;
 }
 
-:root{
-  --main-text-card-title: 28px;
-  --main-text-card-text: 16px;
-  --main-text-card-subText: 10px;
-  --main-text-card-heading: 20px;
-  --main-text-card-heading: 20px;
 
-  --main-col-primary: #162b34;
-  --main-col-secondary: rgb(70, 70, 70);
-  --main-col-light:rgb(173, 173, 173);
-  --main-col-light-2:rgb(211, 211, 211);
-  --main-col-light-3:rgb(240, 240, 240)
-}
+
 html{
   /* overflow: hidden; */
   /* overflow-y: scroll; */
@@ -54,96 +89,9 @@ p > a {
   @apply text-light underline
 }
 
-/* main{
-  margin-top: 4rem;
-} */
-
-
-/* Globals */
-.global-title{
-  font-size: var(--main-text-card-heading);
-  font-weight: 600;
-}
-.global-margin-top{
-  margin-top: 16px;
-}
 
 /* Nav */
 
-nav{
-  @apply p-4
-}
-
-
-
-.nav-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  background-color: white;
-  z-index: 20;
-  position: relative;
-
-}
-/* nav{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
-
-.nav-search{
-  z-index: 10;
-  display: flex;
-  gap: 8px;
-  padding: 4px 16px 4px 16px;
-  font-size: var(--main-text-card-text);
-  background-color: white;
-  border: 1px solid darkgray;
-  border-radius: 16px;
-  height: fit-content;
-}
-
-.nav-search > div{
-  border-right: 1px solid lightgray;
-  padding-right: 8px;
-  cursor: pointer;
-}
-.nav-search > div:last-child{
-  border-right:unset
-}
-.nav-links{
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-.nav-links a{
-  padding: 4px 8px 4px 8px;
-  border-radius: 8px;
-  margin: 0;
-  place-self: center;
-}
-
-.nav-logo{
-  display: flex;
-  gap: 16px;
-  font-size: var(--main-text-card-title);
-  font-weight: 600;
-  align-items: center;
-}
-.nav-logo-svg{
-  width: 48px;
-}
-.nav-svg-profile{
-  stroke-width: 3;
-  overflow: visible;
-}
-.nav-svg-profile:hover > path:first-child{
-    filter: drop-shadow(0px 8px 4px rgba(0,0,0,0.2));
-}
-
-.nav-menu-toggle{
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-}
 
 .nav-cal-row{
   gap: 1rem;
@@ -156,11 +104,6 @@ nav{
   margin: auto;
 }
 
-.nav-active-container h3{
-  padding: 0 1rem 0 1rem;
-}
-
-
 .button{
   padding: 4px 16px 4px 16px;
   border-radius: 16px;
@@ -168,12 +111,7 @@ nav{
   width: fit-content;
 }
 
-.nav-personalise-btn{
-  box-shadow: 0px 0px 0px 0px rgb(256,256,256);
-  transition: all 0.12s ease-in-out;
-}
 input[type="checkbox"]:checked + label {
-  /* Your styles for the selected label here */
   box-shadow: 0px 0px 8px 1px grey;
 }
 
@@ -194,17 +132,21 @@ input[type="checkbox"]:checked + label {
 
 /* horizontal Scrollbar */
 .hScroll::-webkit-scrollbar{
-  /* background-color: var(--main-col-light-3); */
+  /* @apply bg-light-2; */
+  /* background-color: var(--main-col-red); */
+  background-color: rgba(256,256,256,0.05);
   width: 8px;
   height: 8px;
 
 }
 
 .hScroll::-webkit-scrollbar-thumb{
-  background-color: var(--main-col-light);
+  @apply bg-light;
   border-radius: 8px;
+  width: 8px;
   height: 8px;
 }
+
 .vScroll::-webkit-scrollbar{
   width: 8px;
   height: 8px;
@@ -222,30 +164,6 @@ input[type="checkbox"]:checked + label {
   cursor: pointer;
 }
 
-.label-img{
-  /* filter: blur(2px); */
-  filter: brightness(0.7) opacity(0.7);
-  transition: all 0.12s ease-in-out;
-}
-
-.personalise-input input:checked + label .label-img {
-  filter: brightness(1) opacity(1);
-}
-.label-text{
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
-}
-@media(hover:hover){
-  .label-img:hover{
-    filter: brightness(1) opacity(0.7);
-  
-  }
-
-  .label-container:hover .label-text{
-    opacity: 0;
-    
-  }
-}
 /* Inputs */
 
 .disable-num{
@@ -300,19 +218,7 @@ input[type='password']:focus{
   width: fit-content;
 }
 .custom-text-shadow{
-  text-shadow: 0px 2px 16px rgba(0,0,0), 0px 2px 8px rgba(0,0,0,0.8)
-}
-
-.book-btn{
-  color: white;
-  padding:0.5rem 1rem;
-  border-radius: 0.8rem;
-  transition: all 0.12s ease-in-out;
-@apply bg-primary 
-}
-
-.book-btn:hover{
-  transform: scale(0.96);
+  text-shadow: 0px 2px 16px rgba(0,0,0), 0px 2px 8px rgba(0,0,0,0.8);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -365,4 +271,20 @@ input[type='password']:focus{
   box-shadow: 0px 0px 10px rgba(150, 150, 150,0.5);
   width: 1.2rem;
   height: 1.2rem;
+}
+
+.lottie-stroke path {
+  stroke: rgba(var(--main-col-light-2));
+}
+
+.test123{
+  background-color: red;
+}
+
+/* Custom Inputs */
+
+.setCutInput:focus{
+  background-color: unset!important;
+  border-radius: unset!important;
+  outline: none;
 }

@@ -2,10 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useGoogleLoaded } from '../(hooks)/googleLoaded'
-import { useGoogleLocation } from "../(hooks)/useGoogleLocation"
 import { useRouter } from "next/navigation"
-
-
+import { useSearchParams } from "next/navigation"
 
 import  usePlacesAutocomplete, {
     getDetails,
@@ -15,36 +13,32 @@ import  usePlacesAutocomplete, {
 
 import {
     Combobox,
-    ComboboxInput,
-    ComboboxPopover,
     ComboboxList,
     ComboboxOption,
 } from "@reach/combobox"
-
 
 type NavPersonaliseProps = {
     locationOptionsRef: React.RefObject<HTMLDivElement>
     interactRef:React.RefObject<HTMLElement>
     setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
+    setPlaceholderLocation:React.Dispatch<React.SetStateAction<string>>;
+    setModalToggle:React.Dispatch<React.SetStateAction<boolean>>;
     searchLocation: string;
-    setLocation: React.Dispatch<React.SetStateAction<string>>;
     inputRef: React.RefObject<HTMLInputElement>;
     navPage:number;
     setLat:React.Dispatch<React.SetStateAction<number | undefined>>;
     setLng:React.Dispatch<React.SetStateAction<number | undefined>>;
-    setCity:React.Dispatch<React.SetStateAction<string | undefined>>;
-    ethnicity:string
+    setCity:React.Dispatch<React.SetStateAction<string>>;
+    ethnicity:string,
+    barberLocation:string,
 };
 
-const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage, interactRef, setLocation, searchLocation, setSearchLocation, inputRef, setCity, setLat, setLng, ethnicity}) => {
+const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, setPlaceholderLocation, setModalToggle, navPage, interactRef, searchLocation, setSearchLocation, inputRef, setCity, setLat, setLng, ethnicity, barberLocation}) => {
+    const searchParams = useSearchParams()
     const router = useRouter()
     const {googleLoaded} = useGoogleLoaded()
 
     const childHeight = useRef<HTMLDivElement | null>(null)
-
-    interface PlacesAutocompleteProps {
-        setLocation: React.Dispatch<React.SetStateAction<string>>;
-    }
 
     var boundsUK = {
         north: 60.8,
@@ -53,20 +47,18 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
         east: 1.7
     };
 
-    const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({ setLocation }) => {
+    const PlacesAutocomplete = () => {
 
     const {
-        ready,
         value,
         setValue,
         suggestions: { status, data },
+        ready,
         clearSuggestions, 
     } = usePlacesAutocomplete(
         {
             requestOptions:{
                 locationRestriction:boundsUK,
-                // locationBias:"IP_BIAS"
-            
             }
         }
         
@@ -79,7 +71,6 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
                 interactRef.current.style.height = `${childHeight.current?.offsetHeight}px`
             }
             else if(data.length && interactRef.current){
-                // console.log(data)
                 interactRef.current.style.height = `${childHeight.current?.offsetHeight}px`
                 locationInteract === false ? setLocationInteract(true) : null
             }
@@ -102,6 +93,13 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
                 return item.long_name
             }
         }
+        for(const item of locationDetails.address_components.slice(1)){
+            for(let key in item){
+                if(key === 'long_name'){
+                    return item[key]
+                }
+            }
+        }
     }
 
     const getCity = async(id:string) => {
@@ -111,16 +109,23 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
         setLat(lat)
         setLng(lng)
         const cityName = await getCityName(id)
-
-        if(fetchSearch && cityName && lng && lat){
+        setCity(cityName)
+        setPlaceholderLocation(value)
+                if(fetchSearch && cityName && lng && lat){
             if(inputRef.current){
                 if(cityName && lat && lng){
-                    router.push(`/discover/location/${cityName}?searchLocation=${value}&ethnicity=${ethnicity}&lat=${lat}&lng=${lng}`)
+                    const sort = searchParams.get('sort')
+                    router.push(`/discover/location/${cityName}?searchLocation=${value}&ethnicity=${ethnicity}&barberLocation=${barberLocation}&lat=${lat}&lng=${lng}&sort=${sort ||'location'}`)
                 }
+                setModalToggle(true)
             }
         }
 
+        // reset enter 'fetch' listener
+        setFetchSearch(false)
+
     }
+
 
     const [entered, setEntered] = useState<boolean>(false)
     const [fetchSearch, setFetchSearch] = useState<boolean>(false)
@@ -166,6 +171,7 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
         }
     },[inputRef.current])
 
+
     return (
         <Combobox>
             <input 
@@ -175,14 +181,15 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
                 onChange={(e) => { setValue(e.target.value)}}  
                 onBlur={(e)=>{setEntered(true);blurHandler(e)
                 }}
-                className="w-[100%] border border-light-2 p-1 rounded-xl" 
+                className="w-[100%] border border-light-2 p-1 rounded-xl text-black" 
                 id="minute" 
                 placeholder={searchLocation || 'Enter Location'} 
                 type="text" 
+                onFocus={()=>{setSearchLocation(''),setTimeout(()=>{inputRef.current?.focus()},0)}}
             />
             <Combobox ref={locationOptionsRef} className="mt-2">
                 <ComboboxList>
-                    {status === 'OK' && data.map(({ place_id, description }) => <ComboboxOption className="border px-1 rounded border-light-2 mb-1 location-list" key={place_id} value={description} onMouseDown={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}} onTouchStart={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0)}}/>)}
+                    {status === 'OK' && data.map(({ place_id, description }) => <ComboboxOption className="border px-1 rounded border-light-2-f mb-1 location-list text-secondary-f" key={place_id} value={description} onMouseDown={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}} onTouchStart={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}}/>)}
                 </ComboboxList>
             </Combobox>
         </Combobox>
@@ -191,7 +198,7 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, navPage,
 
     return (
     <div ref={childHeight} className="p-2 w-[90%] mx-auto">
-            {googleLoaded ? <PlacesAutocomplete setLocation={setLocation} /> : null}
+            {googleLoaded ? <PlacesAutocomplete /> : null}
     </div>
     )
 }

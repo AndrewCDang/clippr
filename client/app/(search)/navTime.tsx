@@ -1,7 +1,7 @@
 "use client"
 import {useEffect, useState} from 'react'
 import './nav.css'
-import { BookingTime } from './types/barberTypes'
+import { BookingTime } from '../types/barberTypes'
 
 
 type NavSearchProps = {

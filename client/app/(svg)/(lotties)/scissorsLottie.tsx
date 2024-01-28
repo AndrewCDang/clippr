@@ -5,7 +5,7 @@ import scissors from "./scissors.json"
 
 function ScissorsLottie() {
   return (
-    <Lottie animationData={scissors} loop={true}/>
+    <Lottie animationData={scissors} loop={true} color="light"/>
     )
 }
 

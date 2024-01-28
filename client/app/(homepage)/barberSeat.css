@@ -1,0 +1,16 @@
+.barberSeat{
+    animation-name: barberSeat;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+
+}
+
+@keyframes barberSeat{
+    0%,100%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform:translateY(16px)
+    }
+}

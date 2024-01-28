@@ -7,7 +7,7 @@ type cutInterface = {
     
 }
 
-type AddressInterface = {
+export type AddressInterface = {
     studio: string;
     addressline1: string;
     addressline2: string;

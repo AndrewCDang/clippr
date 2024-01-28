@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button } from '@/app/(components)/button'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef, KeyboardEvent } from "react";
 import {useRegisterModal } from '@/app/(hooks)/useRegisterModal'
 
 
@@ -42,8 +42,8 @@ export function AuthFormSignUp(){
             options:{
                 emailRedirectTo:`${location.origin}/api/auth/callback`,
                 data: {
-                    firstName: data.firstName,
-                    lastName: data.lastName,
+                    firstName: data.firstName[0].toUpperCase()+data.firstName.slice(1),
+                    lastName: data.lastName[0].toUpperCase()+data.lastName.slice(1),
                     countryCode: data.countryCode,
                     mobileNumber: data.mobileNumber,
                     dob:`${data.dobDay}/${data.dobMonth}/${data.dobYear}`,
@@ -62,36 +62,17 @@ export function AuthFormSignUp(){
         }
     }
 
-    // const addAccountDb = async(data: FormValues) => {
-    //     const { error } = await supabase.auth.signInWithPassword({
-    //         email:data.email,
-    //         password:data.password
-    //     })    
-    //     if(!error){
-    //         checkAccount(data)
-     
-    //     }else{
-    //         console.log(error)
-    //     }
-    // }
+    const monthRef = useRef(null)
 
-    // const checkAccount = async(userData:FormValues)=>{
-    //     const {data,error} = await supabase.from('UserTable')
-    //         .select('*')
-    //         .eq('email',userData.email)
-    //         .single()
+    const monthCheck = (e: KeyboardEvent<HTMLInputElement>) => {
+        console.log((e.target as HTMLInputElement).value); // Access input value, for example
+    };
 
-    //     // If item not found, item is created in database
-    //     if(error){
-    //         console.log(error)
-    //     }else{
-    //         console.log(data)
-    //     }
+    const date = new Date()
 
-    // }
 
     return(
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-4 overflow-y-scroll" onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="flex flex-col">
                 <label className="text-sm text-light" htmlFor="firstName">First name*</label>
                 <input className="rounded-lg px-2 py-1 border-light border " type="text" id="firstName" {...register("firstName", {
@@ -134,47 +115,54 @@ export function AuthFormSignUp(){
                 })}></input>
                 <h5 className="text-red">{errors.email?.message}</h5>
             </fieldset>
-            <fieldset className="flex gap-2 relative content-center items-center mt-6">
+            <fieldset className=" gap-2 relative content-center items-center mt-6">
                 <label className="absolute text-sm text-light top-[0%] translate-y-[-100%] whitespace-nowrap">Date of Birth*</label>
-                <div className="flex w-12 flex-col relative">
-                    <input placeholder="DD" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobDay" {...register("dobDay", {
-                        pattern:{
-                            value:/^[0-9]{2}$/,
-                            message:"invalid date format - format to DD/MM/YYYY"
-                        },
-                        required:{
-                            value:true,
-                            message:"date is required"
-                        }
-                    })}></input>
+                <section className="flex">
+                    <div className="flex w-12 flex-col relative">
+                        <input placeholder="DD" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobDay" {...register("dobDay", {
+                            pattern:{
+                                value:/^[0-9]{2}$/,
+                                message:"invalid date format - format to DD"
+                            },
+                            required:{
+                                value:true,
+                                message:"date (DD) is required"
+                            }
+                        })}></input>
+                    </div>
+                    <div className="text-xl text-light">/</div>
+                    <div className="flex  w-12 flex-col relative">
+                        <input onKeyUp={(e)=>monthCheck(e)} placeholder="MM" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobMonth" {...register("dobMonth", {
+                            pattern:{
+                                value:/^[0-9]{2}$/,
+                                message:"invalid month format - MM"
+                            },
+                            required:{
+                                value:true,
+                                message:"month (MM) is required"
+                            }
+                        })}></input>
+                    </div>
+                    <div className="text-xl text-light">/</div>
+                    <div className="flex w-16 flex-col relative">
+                        <input placeholder="YYYY" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobYear" {...register("dobYear", {
+                            pattern:{
+                                value:/^[0-9]{4}$/,
+                                message:"invalid year format - YYYY"
+                            },
+                            required:{
+                                value:true,
+                                message:"year (YYYY) is required"
+                            },
+
+                        })}></input>
+                    </div>
+                </section>
+                <div>
+                    <h5 className="text-red user-select-none pointer-events-none whitespace-nowrap">{errors.dobDay?.message}</h5>
+                    <h5 className="text-red user-select-none pointer-events-none whitespace-nowrap">{errors.dobMonth?.message}</h5>
+                    <h5 className="text-red user-select-none pointer-events-none whitespace-nowrap">{errors.dobYear?.message}</h5>
                 </div>
-                <div className="text-xl text-light">/</div>
-                <div className="flex  w-12 flex-col relative">
-                    <input placeholder="MM" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobMonth" {...register("dobMonth", {
-                        pattern:{
-                            value:/^[0-9]{2}$/,
-                            message:"invalid date format - format to DD/MM/YYYY"
-                        },
-                        required:{
-                            value:true,
-                            message:"date is required"
-                        }
-                    })}></input>
-                </div>
-                <div className="text-xl text-light">/</div>
-                <div className="flex w-16 flex-col relative">
-                    <input placeholder="YYYY" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobYear" {...register("dobYear", {
-                        pattern:{
-                            value:/^[0-9]{4}$/,
-                            message:"invalid date format - format to DD/MM/YYYY"
-                        },
-                        required:{
-                            value:true,
-                            message:"date is required"
-                        }
-                    })}></input>
-                </div>
-                
             </fieldset>
             <fieldset className="flex gap-2 mt-6 ">
                 <div className="flex flex-col relative justify-end">
