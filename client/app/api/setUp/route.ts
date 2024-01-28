@@ -116,25 +116,14 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
         };
 
         const uploadImages = async() => {
-            // try {
-            //     const results = [];
-                
-            //     console.log(images)
-            //     for (const item of images) {
-            //         console.log(item);
-            //         const result = await uploadSupabase(item);
-            //         results.push(result);
-            //     }
-            
-            //     return { success: true, results };
-            //         } catch (error) {
-            //     return { success: false, error };
-            // }
             try {
                 const uploadPromises = images.map(item => uploadSupabase(item));
-                const results = await Promise.all(uploadPromises);
-        
-                return { success: true, results };
+                const uploadResults = await Promise.all(uploadPromises);
+                const urls = uploadResults.map(result => result?.response);
+
+                const dbUpdateResult = await updateImagesInDatabase(urls as string[]);
+                    
+                return { success: true, urls, dbUpdateResult };
             } catch (error) {
                 return { success: false, error };
             }
@@ -148,14 +137,13 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
 
             if (error) {
                 console.error("Error uploading file:", error);
-                return NextResponse.json({status: 500,Error:"Error uploading file:",statusText: error});
 
             } else {
-                console.log("File uploaded successfully:", data);
-                retrievePublicUrl(data.path)
-            }
+                console.log("File uploaded successfully:", data.path);
+                const publicUrl = await retrievePublicUrl(data.path)
+                return { status:200, response: publicUrl };
 
-            return { data, error };
+            }
         }
 
         const uploadProfilePicture = async() => {
@@ -169,7 +157,10 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
                     return({Error:"Error uploading file:", error})
                 } else {
                     console.log("File uploaded successfully:", data);
-                    const img = retrievePublicUrl(data.path)
+                    const img = await retrievePublicUrl(data.path)
+                    if(img){
+                        await updateProfilePictureInDatabase(img as string)
+                    }
                     return(img)
             }
 
@@ -181,60 +172,60 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
                 .storage
                 .from('photos')
                 .getPublicUrl(path)
-                console.log(data.publicUrl)
-                const setProfilePic  = await appendImageToDb(data.publicUrl)
-                console.log(setProfilePic)
 
-                return({response:data.publicUrl})
+                return data.publicUrl
             }catch(error){
                 return NextResponse.json({status: 500,statusText: error,response:'Error retrieving public url'});
 
             }
         }
 
-        const appendImageToDb = async(url:string) => {
-            console.log('appending start')
-
-            if(!url.includes('/profile/')){
-                const {data: selectData, error: selectError} = await supabase.from('BarberTable')
+        const updateImagesInDatabase = async (urls:string[]) => {
+            try {
+                const { data: selectData, error: selectError } = await supabase.from('BarberTable')
                     .select('images')
                     .eq('email', session.session?.user.email)
-                    .single()
+                    .single();
 
-                try{
-                    if(selectData && Array.isArray(selectData.images)){
-                        const { data: updateData, error: updateError } = await supabase.from('BarberTable')
-                        .update({ images: [...selectData.images, url] })
-                        .eq('email', session.session?.user.email);
-                        console.log(updateData)
-                        return({Success:'Image appended to array',data:updateData})
-                    }else{
-                        const { data: updateData, error: updateError } = await supabase.from('BarberTable')
-                        .update({ images: [url] })
-                        .eq('email', session.session?.user.email);
-                        console.log(updateData)
-                        return({Success:'Image appended to array',data:updateData})
-                    }
-
-                }catch(error){
-                    console.log(error)
-                    return NextResponse.json({status: 500,statusText: error});
+                if (selectError) {
+                    return NextResponse.json({status: 500,statusText: selectError,response:'Error retrieving images from db'});
                 }
-            }else{
+                if(urls.length === 0) {
+                    return NextResponse.json({status: 500,response:'No images in "urls as string[]'});
+                }
+
+                const updatedImages = selectData.images ? [...selectData.images, ...urls] : urls;
+                const { data: updateData, error: updateError } = await supabase.from('BarberTable')
+                    .update({ images: updatedImages })
+                    .eq('email', session.session?.user.email);
+
+                if (updateError) {
+                    throw updateError;
+                }
+                return updateData;
+            } catch (error) {
+                console.error("Error in updateImagesInDatabase:", error);
+                return NextResponse.json({status: 500,statusText: error,response:'Error updating image urls to db'});
+            }
+        }
+
+        const updateProfilePictureInDatabase = async (url:string) => {
                 try{
                     const { data: updateData, error: updateError } = await supabase.from('UserTable')
                     .update({ profilePicture: url })
-                    .eq('email', session.session?.user.email)
-                    .select()
-                
-                    return({status:200, success:'Profile picture updated',data:updateData})
-                }catch(error){
-                    console.log({error:error,message:'profile picture not updated'})
-                    return NextResponse.json({status: 500,statusText: error});
+                    .eq('email', session.session?.user.email);
+
+                    if (updateError) {
+                        return NextResponse.json({status: 500,statusText: updateError,response:'Error updating profile image'});
+                    }
+                    console.log('Profile picture updated', updateData);
+                    return { status: 200, success: 'Profile picture updated', data: updateData };
+                } catch (error) {
+                    console.error("Error updating profile picture:", error);
+                    return NextResponse.json({ status: 500, message: error });
                 }
-            }
         }
-    
+
         let insertAccount
         let insertImage;
         let profilePic;
