@@ -120,10 +120,11 @@ export async function POST(request:{json:()=>Promise<UserDetails>} | any){
                 const uploadPromises = images.map(item => uploadSupabase(item));
                 const uploadResults = await Promise.all(uploadPromises);
                 const urls = uploadResults.map(result => result?.response);
+                const validUrls = urls.filter(item => item);
 
-                const dbUpdateResult = await updateImagesInDatabase(urls as string[]);
+                const dbUpdateResult = await updateImagesInDatabase(validUrls as string[]);
                     
-                return { success: true, urls, dbUpdateResult };
+                return { success: true, validUrls, dbUpdateResult };
             } catch (error) {
                 return { success: false, error };
             }
