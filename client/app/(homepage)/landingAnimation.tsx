@@ -107,10 +107,10 @@ function LandingAnimation({pageRef,setShowBarbers,setShowDeals,setShowPlaces, se
                         <InView threshold={0.4} as='div' onChange={(inView)=>placeHandler(inView)}>
                             <div className={`${showPlaces && !showBarbers && !showDeals ? 'opacity-100' : 'opacity-40'} transition-opacity duration-300 -skew-y-[16deg]`}>
                                 <div className="[width:_clamp(6rem,_calc(4rem_+_5vw),_10rem)] aspect-[3/2] mt-2 overflow-hidden">
-                                    <img className="skew-y-[16deg] object-cover translate-y-[-10%] scale-[1.1]  w-full" src="./clippr_barber_shop.jpg" alt="barber cutting hair"></img>
+                                    <img className="skew-y-[16deg] object-cover translate-y-[-10%] scale-[1.1]  w-full" src="./clippr_Barber_Shop.jpg" alt="barber cutting hair"></img>
                                 </div>
                                 <div className="[width:_clamp(6rem,_calc(4rem_+_5vw),_10rem)] aspect-[3/2] mt-2 overflow-hidden">
-                                    <img className="skew-y-[16deg] object-cover translate-y-[-10%] scale-[1.1]  w-full" src="./clippr_barber_home.jpg" alt="barber cutting hair"></img>
+                                    <img className="skew-y-[16deg] object-cover translate-y-[-10%] scale-[1.1]  w-full" src="./clippr_Barber_Home.jpg" alt="barber cutting hair"></img>
                                 </div>
                                 <div className="[width:_clamp(6rem,_calc(4rem_+_5vw),_10rem)] aspect-[3/2] mt-2 overflow-hidden">
                                     <img className="skew-y-[16deg] object-cover translate-y-[-10%] scale-[1.1]  w-full" src="./clippr_cyclist.jpg" alt="barber cutting hair"></img>
