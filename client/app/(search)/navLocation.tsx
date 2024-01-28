@@ -11,12 +11,6 @@ import  usePlacesAutocomplete, {
     getLatLng,
 } from "use-places-autocomplete"
 
-import {
-    Combobox,
-    ComboboxList,
-    ComboboxOption,
-} from "@reach/combobox"
-
 type NavPersonaliseProps = {
     locationOptionsRef: React.RefObject<HTMLDivElement>
     interactRef:React.RefObject<HTMLElement>
@@ -173,7 +167,7 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, setPlace
 
 
     return (
-        <Combobox>
+        <section>
             <input 
                 key='inputLocation' 
                 ref={inputRef} 
@@ -187,12 +181,12 @@ const NavLocation:React.FC<NavPersonaliseProps> = ({locationOptionsRef, setPlace
                 type="text" 
                 onFocus={()=>{setSearchLocation(''),setTimeout(()=>{inputRef.current?.focus()},0)}}
             />
-            <Combobox ref={locationOptionsRef} className="mt-2">
-                <ComboboxList>
-                    {status === 'OK' && data.map(({ place_id, description }) => <ComboboxOption className="border px-1 rounded border-light-2-f mb-1 location-list text-secondary-f" key={place_id} value={description} onMouseDown={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}} onTouchStart={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}}/>)}
-                </ComboboxList>
-            </Combobox>
-        </Combobox>
+            <section ref={locationOptionsRef} className="mt-2">
+                <div>
+                    {status === 'OK' && data.map(({ place_id, description }) => <div className="border px-1 rounded border-light-2-f mb-1 location-list text-secondary-f" key={place_id} onMouseDown={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}} onTouchStart={e=>{setSearchLocation(description);setTimeout(()=>{navHeightUpdate()},0);getCity(place_id)}}>{description}</div>)}
+                </div>
+            </section>
+        </section>
     );
 }
 
