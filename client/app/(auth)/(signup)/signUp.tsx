@@ -16,7 +16,7 @@ export function SignUp(){
 
     const SignUp = () => {
         return(
-        <section className='z-10 relative place-self-center bg-bg p-4 flex flex-col h-fit gap-2 rounded-xl max-w-[400px] w-[80%] min-w-[320px] max-h-[80dvh]'>
+        <section className='z-10 relative place-self-center bg-bg p-4 flex flex-col h-fit gap-2 rounded-xl max-w-[400px] w-[80%] min-w-[320px] max-h-[80lvh]'>
             <div className='mx-auto py-4'>
                 <svg className='nav-logo-svg' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
                     <circle className="b fill-light" cx="236.72" cy="399.82" r="33.28"/>

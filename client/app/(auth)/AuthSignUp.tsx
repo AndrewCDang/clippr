@@ -72,10 +72,10 @@ export function AuthFormSignUp(){
 
 
     return(
-        <form className="flex flex-col gap-4 overflow-y-scroll" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-4 overflow-y-scroll w-full" onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="flex flex-col">
                 <label className="text-sm text-light" htmlFor="firstName">First name*</label>
-                <input className="rounded-lg px-2 py-1 border-light border " type="text" id="firstName" {...register("firstName", {
+                <input className="rounded-lg px-2 py-1 border-light border w-full " type="text" id="firstName" {...register("firstName", {
                     pattern:{
                         value:/^[a-zA-Z-]+$/,
                         message:"invalid first-name"
@@ -89,7 +89,7 @@ export function AuthFormSignUp(){
             </fieldset>
             <fieldset className="flex flex-col">
                 <label className="text-sm text-light" htmlFor="lastName">Last name*</label>
-                <input className="rounded-lg px-2 py-1 border-light border " type="text" id="lastName" {...register("lastName", {
+                <input className="rounded-lg px-2 py-1 border-light border w-full " type="text" id="lastName" {...register("lastName", {
                     pattern:{
                         value:/^[a-zA-Z-]+$/,
                         message:"invalid first-name"
@@ -103,7 +103,7 @@ export function AuthFormSignUp(){
             </fieldset>
             <fieldset className="flex flex-col">
                 <label className="text-sm text-light" htmlFor="email">Email*</label>
-                <input className="rounded-lg px-2 py-1 border-light border " type="text" id="email" {...register("email", {
+                <input className="rounded-lg px-2 py-1 border-light border w-full " type="text" id="email" {...register("email", {
                     pattern:{
                         value:/^[a-zA-Z0-9.!#$%&'*+/=?^_'{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                         message:"invalid email"
@@ -119,7 +119,7 @@ export function AuthFormSignUp(){
                 <label className="absolute text-sm text-light top-[0%] translate-y-[-100%] whitespace-nowrap">Date of Birth*</label>
                 <section className="flex">
                     <div className="flex w-12 flex-col relative">
-                        <input placeholder="DD" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobDay" {...register("dobDay", {
+                        <input placeholder="DD" className="rounded-lg px-2 py-1 border-light border w-full" type="text" id="dobDay" {...register("dobDay", {
                             pattern:{
                                 value:/^[0-9]{2}$/,
                                 message:"invalid date format - format to DD"
@@ -132,7 +132,7 @@ export function AuthFormSignUp(){
                     </div>
                     <div className="text-xl text-light">/</div>
                     <div className="flex  w-12 flex-col relative">
-                        <input onKeyUp={(e)=>monthCheck(e)} placeholder="MM" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobMonth" {...register("dobMonth", {
+                        <input onKeyUp={(e)=>monthCheck(e)} placeholder="MM" className="rounded-lg px-2 py-1 border-light border w-full " type="text" id="dobMonth" {...register("dobMonth", {
                             pattern:{
                                 value:/^[0-9]{2}$/,
                                 message:"invalid month format - MM"
@@ -145,7 +145,7 @@ export function AuthFormSignUp(){
                     </div>
                     <div className="text-xl text-light">/</div>
                     <div className="flex w-16 flex-col relative">
-                        <input placeholder="YYYY" className="rounded-lg px-2 py-1 border-light border " type="text" id="dobYear" {...register("dobYear", {
+                        <input placeholder="YYYY" className="rounded-lg px-2 py-1 border-light border w-full " type="text" id="dobYear" {...register("dobYear", {
                             pattern:{
                                 value:/^[0-9]{4}$/,
                                 message:"invalid year format - YYYY"
@@ -165,7 +165,7 @@ export function AuthFormSignUp(){
                 </div>
             </fieldset>
             <fieldset className="flex gap-2 mt-6 ">
-                <div className="flex flex-col relative justify-end">
+                <div className="flex flex-col relative justify-end w-fit">
                     <label className="absolute text-sm text-light" htmlFor="countryCode">&nbsp;</label>
                     <label className="absolute text-lg text-light left-2 top-[50%] translate-y-[calc(-50%)]">+</label>
                     <label className="absolute text-sm text-light top-[0%] translate-y-[-100%] whitespace-nowrap">Mobile Number</label>
@@ -178,7 +178,7 @@ export function AuthFormSignUp(){
                     <h5 className="text-red absolute user-select-none pointer-events-none whitespace-nowrap top-[100%] ">{errors.countryCode?.message}</h5>
                 </div>
                 <div className="relative flex flex-1 flex-col">
-                    <input className="rounded-lg px-2 py-1 border-light border " type="number" id="mobileNumber" {...register("mobileNumber", {
+                    <input className="rounded-lg px-2 py-1 border-light border w-full" type="number" id="mobileNumber" {...register("mobileNumber", {
                         pattern:{
                             value:/^[0-9]{10,15}$/,
                             message:"enter valid mobile number"
@@ -190,7 +190,7 @@ export function AuthFormSignUp(){
             
             <fieldset className="flex flex-col" >
                 <label className="text-sm text-light" htmlFor="password">Password*</label>
-                <input className="rounded-lg px-2 py-1 border-light border" type="password" id="password" {...register("password",{
+                <input className="rounded-lg px-2 py-1 border-light border w-full" type="password" id="password" {...register("password",{
                     validate: (fieldValue) => {
                         const errors = [];
                         if (fieldValue.length < 10) {
@@ -226,7 +226,7 @@ export function AuthFormSignUp(){
             
             <fieldset className="flex flex-col" >
                 <label className="text-sm text-light" htmlFor="confirmPassword">Confirm Password*</label>
-                <input className="rounded-lg px-2 py-1 border-light border" type="password" id="confirmPassword" {...register("confirmPassword",{
+                <input className="rounded-lg px-2 py-1 border-light border w-full" type="password" id="confirmPassword" {...register("confirmPassword",{
                     validate: (fieldValue) => {
                         const errors = [];
                         const prevPassword = getValues("password")
